@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage     = 'git@github.com:garynewby/GLNPianoView.git'
   s.authors      = { 'Gary Newby' => 'gary@mellowmuse.com' }
   s.source       = { :git => 'git@github.com:garynewby/GLNPianoView.git', :tag => '1.0.0' }
-  s.source_files = 'Source/*.{*.h,*.m}'
+  s.source_files = 'Source/*.{h,m}'
   s.requires_arc = true
   s.platform     = :ios
   s.ios.deployment_target = '7.0'
