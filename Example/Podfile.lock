@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  GLNPianoView: 9cb8e9319138dad66f56ce3cca33026faae685e5
+  GLNPianoView: 93b0c809b1287cd97dff0576d5d1e6d5f60e5e1f
 
 COCOAPODS: 0.39.0
