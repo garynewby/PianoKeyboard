@@ -1,0 +1,14 @@
+PODS:
+  - GLNPianoView (1.0.0)
+
+DEPENDENCIES:
+  - GLNPianoView (from `../`)
+
+EXTERNAL SOURCES:
+  GLNPianoView:
+    :path: ../
+
+SPEC CHECKSUMS:
+  GLNPianoView: 9cb8e9319138dad66f56ce3cca33026faae685e5
+
+COCOAPODS: 0.39.0
