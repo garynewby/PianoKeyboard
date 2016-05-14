@@ -3,9 +3,9 @@ Pod::Spec.new do |s|
   s.version      = '1.0.0'
   s.license      = { :type => 'custom', :file => 'LICENCE.md' }
   s.summary      = 'GLNPianoView...'
-  s.homepage     = 'git@github.com:garynewby/GLNPianoView.git'
+  s.homepage     = 'https://github.com/garynewby/GLNPianoView.git'
   s.authors      = { 'Gary Newby' => 'gary@mellowmuse.com' }
-  s.source       = { :git => 'git@github.com:garynewby/GLNPianoView.git', :tag => '1.0.0' }
+  s.source       = { :git => 'https://github.com/garynewby/GLNPianoView.git', :tag => '1.0.0' }
   s.source_files = 'Source/*.{h,m}'
   s.requires_arc = true
   s.platform     = :ios
