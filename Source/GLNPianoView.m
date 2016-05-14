@@ -1,9 +1,9 @@
 //
-//  GLNPianoView.h
+//  GLNPianoView.m
 //  Piano Keyboard View
 //
-//  Created by Gary Newby on 11/03/2013.
-//  Copyright (c) 2013 Gary Newby. All rights reserved.
+//  Created by Gary Newby on 14/05/2016.
+//  Copyright (c) 2015 Gary Newby. All rights reserved.
 //
 
 #import "GLNPianoView.h"
