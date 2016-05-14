@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
   s.name         = 'GLNPianoView'
   s.version      = '1.0.0'
-  s.license      = { :type => 'custom', :file => 'LICENCE.md' }
-  s.summary      = 'GLNPianoView...'
+  s.license      = { :type => 'MIT', :file => 'LICENCE.md' }
+  s.summary      = 'Piano keyboard instrument view, with variable key count.'
   s.homepage     = 'https://github.com/garynewby/GLNPianoView.git'
   s.authors      = { 'Gary Newby' => 'gary@mellowmuse.com' }
   s.source       = { :git => 'https://github.com/garynewby/GLNPianoView.git', :tag => '1.0.0' }
