@@ -1,5 +1,6 @@
 # GLNPianoView
-![alt tag](https://raw.githubusercontent.com/garynewby/GLNPianoView/master/GameOfLife/screen.png)
+![alt tag](https://github.com/garynewby/GLNPianoView/raw/master/screen.png)
+
 Piano keyboard instrument view, with variable key count.
 
 Author
