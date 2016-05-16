@@ -1,7 +1,7 @@
 GLNPianoView
 ============
 
-Piano keyboard instrument view, with variable key count.
+Piano keyboard instrument view, with variable key count.<br />
 No images used, all Core Grapics calls, so works at any resolution.
 
 ![alt tag](https://github.com/garynewby/GLNPianoView/raw/master/screen.png)
