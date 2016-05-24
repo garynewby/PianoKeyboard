@@ -16,17 +16,17 @@ pod 'GLNPianoView'
 
 ## Demo
 
-The <i>Example</i> project demonstrates how to use and integrate the GLNPianoView into your project.
+The <i>Example</i> demo project demonstrates how to use and integrate the GLNPianoView into your project, using AVAudioEngine and an AVAudioUnitSampler as the sound source.
 
 ##Delegate Methods
 
 ```swift
 func pianoKeyDown(keyNumber:Int) {
-  // Called a key corresponding to midi number keyNumber is pressed
+  // Called when the key corresponding to midi number keyNumber is pressed
 }
 
 func pianoKeyUp(keyNumber:Int) {
-  // Called a key corresponding to midi number keyNumber is released
+  // Called when the key corresponding to midi number keyNumber is released
 }
 ```
 
