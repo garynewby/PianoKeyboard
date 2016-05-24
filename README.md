@@ -1,7 +1,7 @@
 GLNPianoView
 ============
 
-A piano keyboard view, written in Swift. Has a IBInspectable key count property and IB_DESIGNABLE preview. All image elements drawn via Core Graphics.
+A piano keyboard view, written in Swift. Has an IBInspectable key count property and IB_DESIGNABLE preview. All image elements drawn via Core Graphics. 
 
 ![alt tag](https://github.com/garynewby/GLNPianoView/raw/master/screen.png)
 
@@ -17,6 +17,18 @@ pod 'GLNPianoView'
 ## Demo
 
 The <i>Example</i> project demonstrates how to use and integrate the GLNPianoView into your project.
+
+##Delegate Methods
+
+```swift
+func pianoKeyDown(keyNumber:Int) {
+  // Called a key corresponding to midi number keyNumber is pressed
+}
+
+func pianoKeyUp(keyNumber:Int) {
+  // Called a key corresponding to midi number keyNumber is released
+}
+```
 
 ##<a name="overview"></a>Requirements
 
