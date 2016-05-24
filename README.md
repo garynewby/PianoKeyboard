@@ -12,7 +12,9 @@ all Core Grapics calls, so works at any resolution.
 GLNPianoView is available through CocoaPods. To install it, simply add the<br />
 following line to your Podfile:
 
+```swift
 pod 'GLNPianoView'
+```
 
 ## Author
 
