@@ -32,7 +32,7 @@ func pianoKeyUp(keyNumber:Int) {
 
 ##<a name="overview"></a>Requirements
 
-- Requires iOS 8.0 or later
+- Requires iOS 7.0 or later
 - Requires Automatic Reference Counting (ARC)
 
 ## Author
