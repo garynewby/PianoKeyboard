@@ -1,7 +1,7 @@
 GLNPianoView
 ============
 
-Piano keyboard instrument view, with variable key count. No images used, all Core Graphics calls, so works at any resolution.
+A piano keyboard view, written in Swift. Has a IBInspectable key count property and IB_DESIGNABLE preview. All image elements drawn via Core Graphics.
 
 ![alt tag](https://github.com/garynewby/GLNPianoView/raw/master/screen.png)
 
@@ -13,6 +13,15 @@ GLNPianoView is available through CocoaPods. To install it, simply add the follo
 ```swift
 pod 'GLNPianoView'
 ```
+
+## Demo
+
+The <i>Example</i> project demonstrates how to use and integrate the GLNPianoView into your project.
+
+##<a name="overview"></a>Requirements
+
+- Requires iOS 7.0 or later
+- Requires Automatic Reference Counting (ARC)
 
 ## Author
 
