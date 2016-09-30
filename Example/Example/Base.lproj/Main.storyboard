@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,56 +16,48 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="B94-ha-u7Q">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ufA-QA-Ylh" userLabel="Keyboard1" customClass="GLNPianoView" customModule="Example" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="207"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1S7-pm-SIJ">
+                                        <subviews>
+                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="12" minimumValue="12" maximumValue="61" translatesAutoresizingMaskIntoConstraints="NO" id="rho-Cu-33h">
+                                                <frame key="frameInset" minX="34" minY="36" width="94" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <action selector="stepperTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="vbQ-rg-7Y0"/>
+                                                </connections>
+                                            </stepper>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="totalNumKeys">
-                                                <integer key="value" value="14"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="STe-BN-Rlq" userLabel="Keyboard2" customClass="GLNPianoView" customModule="Example" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="207" width="375" height="233"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ufA-QA-Ylh" userLabel="Keyboard" customClass="GLNPianoView" customModule="Example" customModuleProvider="target">
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="totalNumKeys">
-                                                <integer key="value" value="18"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jf0-td-Eoa" userLabel="Keyboard3" customClass="GLNPianoView" customModule="Example" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="440" width="375" height="207"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="totalNumKeys">
-                                                <integer key="value" value="25"/>
+                                                <integer key="value" value="24"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="B94-ha-u7Q" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="4ud-m9-KGM"/>
-                            <constraint firstAttribute="trailing" secondItem="B94-ha-u7Q" secondAttribute="trailing" id="ord-ae-LEh"/>
-                            <constraint firstAttribute="bottom" secondItem="B94-ha-u7Q" secondAttribute="bottom" id="raz-FF-4te"/>
-                            <constraint firstItem="B94-ha-u7Q" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="y50-oz-YYl"/>
+                            <constraint firstItem="B94-ha-u7Q" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="BnA-HR-iRG"/>
+                            <constraint firstItem="B94-ha-u7Q" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="GSf-I1-mIJ"/>
+                            <constraint firstAttribute="trailing" secondItem="B94-ha-u7Q" secondAttribute="trailing" id="Nzy-dE-1j6"/>
+                            <constraint firstItem="1S7-pm-SIJ" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="lie-kI-NjO"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="B94-ha-u7Q" secondAttribute="bottom" id="mFw-5O-sep"/>
                         </constraints>
                     </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="keyboardView1" destination="ufA-QA-Ylh" id="vja-yV-czy"/>
-                        <outlet property="keyboardView2" destination="STe-BN-Rlq" id="yGR-GN-281"/>
-                        <outlet property="keyboardView3" destination="Jf0-td-Eoa" id="EUj-8D-YnF"/>
+                        <outlet property="keyboardView" destination="ufA-QA-Ylh" id="sdA-77-LSb"/>
+                        <outlet property="stepper" destination="rho-Cu-33h" id="l2X-q0-VQq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

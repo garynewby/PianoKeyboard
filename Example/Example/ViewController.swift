@@ -12,19 +12,16 @@ import AVFoundation
 
 class ViewController: UIViewController, GLNPianoViewDelegate {
 
+    @IBOutlet weak var keyboardView: GLNPianoView!
+    @IBOutlet weak var stepper: UIStepper!
     var engine: AVAudioEngine!
     var sampler: AVAudioUnitSampler!
-    
-    @IBOutlet weak var keyboardView1: GLNPianoView!
-    @IBOutlet weak var keyboardView2: GLNPianoView!
-    @IBOutlet weak var keyboardView3: GLNPianoView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        keyboardView1.delegate = self;
-        keyboardView2.delegate = self;
-        keyboardView3.delegate = self;
+        keyboardView.delegate = self;
+        stepper.value = Double(keyboardView.totalNumKeys)
         startAudioEngine()
     }
 
@@ -32,21 +29,21 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    func pianoKeyDown(keyNumber:Int) {
+    func pianoKeyDown(_ keyNumber:Int) {
         sampler.startNote(UInt8(60 + keyNumber), withVelocity: 64, onChannel: 0)
     }
     
-    func pianoKeyUp(keyNumber:Int) {
+    func pianoKeyUp(_ keyNumber:Int) {
         sampler.stopNote(UInt8(60 + keyNumber), onChannel: 0)
     }
     
     func startAudioEngine() {
         engine = AVAudioEngine()
         sampler = AVAudioUnitSampler()
-        engine.attachNode(sampler)
+        engine.attach(sampler)
         engine.connect(sampler, to: engine.mainMixerNode, format: nil)
         
-        if engine.running {
+        if engine.isRunning {
             print("audio engine already running")
             return
         }
@@ -61,7 +58,7 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try
-                audioSession.setCategory(AVAudioSessionCategoryPlayback, withOptions:AVAudioSessionCategoryOptions.MixWithOthers)
+                audioSession.setCategory(AVAudioSessionCategoryPlayback, with:AVAudioSessionCategoryOptions.mixWithOthers)
         } catch {
             print("audioSession: couldn't set category \(error)")
             return
@@ -74,5 +71,15 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         }
     }
 
+    @IBAction func stepperTapped(_ sender: AnyObject) {
+        if let stepper = sender as? UIStepper {
+            keyboardView.setNumberOfKeys(count: Int(stepper.value))
+        }
+    }
 }
+
+
+
+
+
 
