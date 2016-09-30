@@ -98,42 +98,34 @@ protocol GLNPianoViewDelegate {
         let blackKeyWidth  = whiteKeyWidth * self.blackWidth
         let blackKeyOffset = blackKeyWidth / 2.0
         
-        if (blackUpImg == nil) {
-            blackUpImg = keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown:false)
-        }
-        if (blackDoImg == nil) {
-            blackDoImg = keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown:true)
-        }
-        if (whiteUpImg == nil) {
-            whiteUpImg = keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown:false)
-        }
-        if (whiteDoImg == nil) {
-            whiteDoImg = keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown:true)
-        }
+        blackUpImg = keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown:false)
+        blackDoImg = keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown:true)
+        whiteUpImg = keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown:false)
+        whiteDoImg = keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown:true)
         
-        var runningX:CGFloat = 0
+        var x:CGFloat = 0
         
         // White Keys
         for i in 0 ..< totalNumKeys {
             if (isWhiteKey(i)) {
-                let newX = (runningX + 0.5)
-                let newW = ((runningX + whiteKeyWidth + 0.5) - newX)
+                let newX = (x + 0.5)
+                let newW = ((x + whiteKeyWidth + 0.5) - newX)
                 let keyRect = CGRect(x: newX, y: 0, width: newW, height: whiteKeyHeight - 1)
                 let keyLayer = createCALayer(UIColor.white, aRect:keyRect, white:true)
                 keyLayers[i] = keyLayer;
                 layer.addSublayer(keyLayer)
-                runningX += whiteKeyWidth
+                x += whiteKeyWidth
             }
         }
         
-        runningX = 0.0
+        x = 0.0
         
         // Black Keys
         for i in 0 ..< self.totalNumKeys {
             if (isWhiteKey(i)) {
-                runningX += whiteKeyWidth
+                x += whiteKeyWidth
             } else {
-                let keyRect = CGRect(x: (runningX - blackKeyOffset), y: 0, width: blackKeyWidth, height: blackKeyHeight)
+                let keyRect = CGRect(x: (x - blackKeyOffset), y: 0, width: blackKeyWidth, height: blackKeyHeight)
                 let keyLayer = createCALayer(UIColor.black, aRect:keyRect, white:false)
                 keyLayers[i] = keyLayer;
                 layer.addSublayer(keyLayer)
