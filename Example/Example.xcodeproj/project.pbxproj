@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E8236931CEBA2400050315B /* GLNPianoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8236921CEBA2400050315B /* GLNPianoView.swift */; };
+		4EC552F91E5A0AA200526EF5 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC552F81E5A0AA200526EF5 /* AudioEngine.swift */; };
 		4EEE35491CEBA0B500EAD308 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE35481CEBA0B500EAD308 /* AppDelegate.swift */; };
 		4EEE354B1CEBA0B500EAD308 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE354A1CEBA0B500EAD308 /* ViewController.swift */; };
 		4EEE354E1CEBA0B500EAD308 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE354C1CEBA0B500EAD308 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		4E8236921CEBA2400050315B /* GLNPianoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GLNPianoView.swift; path = ../../Source/GLNPianoView.swift; sourceTree = "<group>"; };
+		4EC552F81E5A0AA200526EF5 /* AudioEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 		4EEE35451CEBA0B500EAD308 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EEE35481CEBA0B500EAD308 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EEE354A1CEBA0B500EAD308 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 			children = (
 				4EEE35481CEBA0B500EAD308 /* AppDelegate.swift */,
 				4EEE354A1CEBA0B500EAD308 /* ViewController.swift */,
+				4EC552F81E5A0AA200526EF5 /* AudioEngine.swift */,
 				4E8236921CEBA2400050315B /* GLNPianoView.swift */,
 			);
 			path = Example;
@@ -103,7 +106,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Gary Newby";
 				TargetAttributes = {
 					4EEE35441CEBA0B500EAD308 = {
@@ -149,6 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EC552F91E5A0AA200526EF5 /* AudioEngine.swift in Sources */,
 				4E8236931CEBA2400050315B /* GLNPianoView.swift in Sources */,
 				4EEE354B1CEBA0B500EAD308 /* ViewController.swift in Sources */,
 				4EEE35491CEBA0B500EAD308 /* AppDelegate.swift in Sources */,
@@ -191,8 +195,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -237,8 +243,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -257,6 +265,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};

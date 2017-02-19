@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import QuartzCore
 
-protocol GLNPianoViewDelegate {
+protocol GLNPianoViewDelegate: class  {
     func pianoKeyUp(_ keyNumber:Int)
     func pianoKeyDown(_ keyNumber:Int)
 }
@@ -22,7 +22,7 @@ protocol GLNPianoViewDelegate {
     static let minNumberOfKeys = 12
     static let maxNumberOfKeys = 61
     
-    var delegate:GLNPianoViewDelegate?
+    weak var delegate:GLNPianoViewDelegate?
     var keyDown = NSMutableArray(capacity:maxNumberOfKeys)
     var keyRects = NSMutableArray(capacity:maxNumberOfKeys)
     var keyLayers = NSMutableArray(capacity:maxNumberOfKeys)
@@ -62,6 +62,7 @@ protocol GLNPianoViewDelegate {
         blackWidth = 0.63
         keyCornerRadius = blackWidth * 8.0
         whiteKeyCount = 0
+        lastWidth = 0
         
         currentTouches = NSMutableSet()
         keyDown = NSMutableArray()

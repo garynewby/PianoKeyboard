@@ -13,16 +13,23 @@ import AVFoundation
 class ViewController: UIViewController, GLNPianoViewDelegate {
 
     @IBOutlet weak var keyboardView: GLNPianoView!
-    @IBOutlet weak var stepper: UIStepper!
-    var engine: AVAudioEngine!
-    var sampler: AVAudioUnitSampler!
+    @IBOutlet weak var keyStepper: UIStepper!
+    @IBOutlet weak var keyNumberLabel: UILabel!
+    @IBOutlet weak var octaveStepper: UIStepper!
+    @IBOutlet weak var octaveLabel: UILabel!
+    var octave = 60
+    let audioEngine = AudioEngine()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         keyboardView.delegate = self;
-        stepper.value = Double(keyboardView.totalNumKeys)
-        startAudioEngine()
+        keyStepper.value = Double(keyboardView.totalNumKeys)
+        keyNumberLabel.text = String(keyStepper.value)
+        octaveLabel.text = String(octaveStepper.value)
+        
+        audioEngine.start()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,52 +37,23 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
     }
     
     func pianoKeyDown(_ keyNumber:Int) {
-        sampler.startNote(UInt8(60 + keyNumber), withVelocity: 64, onChannel: 0)
+        audioEngine.sampler.startNote(UInt8(octave + keyNumber), withVelocity: 64, onChannel: 0)
     }
     
     func pianoKeyUp(_ keyNumber:Int) {
-        sampler.stopNote(UInt8(60 + keyNumber), onChannel: 0)
+        audioEngine.sampler.stopNote(UInt8(octave + keyNumber), onChannel: 0)
     }
     
-    func startAudioEngine() {
-        engine = AVAudioEngine()
-        sampler = AVAudioUnitSampler()
-        engine.attach(sampler)
-        engine.connect(sampler, to: engine.mainMixerNode, format: nil)
-        
-        if engine.isRunning {
-            print("audio engine already running")
-            return
-        }
-        do {
-            try engine.start()
-            print("audio engine started")
-        } catch {
-            print("could not start audio engine")
-            return
-        }
-        
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try
-                audioSession.setCategory(AVAudioSessionCategoryPlayback, with:AVAudioSessionCategoryOptions.mixWithOthers)
-        } catch {
-            print("audioSession: couldn't set category \(error)")
-            return
-        }
-        do {
-            try audioSession.setActive(true)
-        } catch {
-            print("audioSession: couldn't set category active \(error)")
-            return
-        }
+    @IBAction func keyStepperTapped(_ sender: UIStepper) {
+        keyboardView.setNumberOfKeys(count: Int(sender.value))
+        keyNumberLabel.text = String(keyStepper.value)
     }
-
-    @IBAction func stepperTapped(_ sender: AnyObject) {
-        if let stepper = sender as? UIStepper {
-            keyboardView.setNumberOfKeys(count: Int(stepper.value))
-        }
+    
+    @IBAction func octaveStepperTapped(_ sender: UIStepper) {
+        octave = Int(sender.value)
+        octaveLabel.text = String(octave)
     }
+    
 }
 
 
