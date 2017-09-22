@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 import QuartzCore
 
-protocol GLNPianoViewDelegate: class  {
-    func pianoKeyUp(_ keyNumber:Int)
-    func pianoKeyDown(_ keyNumber:Int)
+public protocol GLNPianoViewDelegate: class  {
+    func pianoKeyUp(_ keyNumber:UInt8)
+    func pianoKeyDown(_ keyNumber:UInt8)
 }
 
 @IBDesignable public class GLNPianoView : UIView {
@@ -22,7 +22,6 @@ protocol GLNPianoViewDelegate: class  {
     static let minNumberOfKeys = 12
     static let maxNumberOfKeys = 61
     
-    weak var delegate:GLNPianoViewDelegate?
     var keyDown = NSMutableArray(capacity:maxNumberOfKeys)
     var keyRects = NSMutableArray(capacity:maxNumberOfKeys)
     var keyLayers = NSMutableArray(capacity:maxNumberOfKeys)
@@ -36,6 +35,8 @@ protocol GLNPianoViewDelegate: class  {
     var lastWidth:CGFloat = 0
     var keyCornerRadius:CGFloat = 0
     var whiteKeyCount = 0
+    
+    public weak var delegate:GLNPianoViewDelegate?
     
     
     override public init(frame: CGRect) {
@@ -258,10 +259,10 @@ protocol GLNPianoViewDelegate: class  {
                 if let downState = keyDownState {
                     keyDown[i] = NSNumber(value: (downState as Bool))
                     if ((keyDownState) == true) {
-                        delegate?.pianoKeyDown(i)
+                        delegate?.pianoKeyDown(UInt8(i))
                         keyDown(i)
                     } else {
-                        delegate?.pianoKeyUp(i)
+                        delegate?.pianoKeyUp(UInt8(i))
                         keyUp(i)
                     }
                 }
