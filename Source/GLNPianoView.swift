@@ -11,8 +11,8 @@ import UIKit
 import QuartzCore
 
 public protocol GLNPianoViewDelegate: class  {
-    func pianoKeyUp(_ keyNumber:UInt8)
-    func pianoKeyDown(_ keyNumber:UInt8)
+    func pianoKeyUp(_ keyNumber: UInt8)
+    func pianoKeyDown(_ keyNumber: UInt8)
 }
 
 @IBDesignable public class GLNPianoView : UIView {

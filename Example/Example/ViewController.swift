@@ -17,7 +17,7 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
     @IBOutlet weak var keyNumberLabel: UILabel!
     @IBOutlet weak var octaveStepper: UIStepper!
     @IBOutlet weak var octaveLabel: UILabel!
-    var octave = 60
+    var octave: UInt8 = 60
     let audioEngine = AudioEngine()
     
     
@@ -36,11 +36,11 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    func pianoKeyDown(_ keyNumber:Int) {
+    func pianoKeyDown(_ keyNumber: UInt8) {
         audioEngine.sampler.startNote(UInt8(octave + keyNumber), withVelocity: 64, onChannel: 0)
     }
     
-    func pianoKeyUp(_ keyNumber:Int) {
+    func pianoKeyUp(_ keyNumber: UInt8) {
         audioEngine.sampler.stopNote(UInt8(octave + keyNumber), onChannel: 0)
     }
     
@@ -50,7 +50,7 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
     }
     
     @IBAction func octaveStepperTapped(_ sender: UIStepper) {
-        octave = Int(sender.value)
+        octave = UInt8(sender.value)
         octaveLabel.text = String(octave)
     }
     
