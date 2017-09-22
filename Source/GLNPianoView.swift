@@ -15,7 +15,7 @@ protocol GLNPianoViewDelegate: class  {
     func pianoKeyDown(_ keyNumber:Int)
 }
 
-@IBDesignable class GLNPianoView : UIView {
+@IBDesignable public class GLNPianoView : UIView {
     
     @IBInspectable var totalNumKeys:Int = 24
     
@@ -38,17 +38,17 @@ protocol GLNPianoViewDelegate: class  {
     var whiteKeyCount = 0
     
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         self.commonInit()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.commonInit()
     }
     
-    override func prepareForInterfaceBuilder() {
+    override public func prepareForInterfaceBuilder() {
         totalNumKeys = clamp(totalNumKeys, min: GLNPianoView.minNumberOfKeys, max: GLNPianoView.maxNumberOfKeys)
     }
     
@@ -87,7 +87,7 @@ protocol GLNPianoViewDelegate: class  {
         }
     }
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         
         commonInit()
@@ -286,18 +286,18 @@ protocol GLNPianoViewDelegate: class  {
     
     //Mark - Touch Handling Code
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             currentTouches.add(touch)
         }
         updateKeyStates()
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         updateKeyStates()
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             currentTouches.remove(touch)
         }
