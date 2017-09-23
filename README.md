@@ -35,8 +35,8 @@ func pianoKeyUp(_ keyNumber: UInt8) {
 
 ### Requirements
 
-- Requires iOS 8.0 or later
-- Requires Automatic Reference Counting (ARC)
+- iOS 8.0+
+- Swift 4.0+
 
 ## Author
 
