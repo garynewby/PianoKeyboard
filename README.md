@@ -2,7 +2,7 @@ GLNPianoView
 ============
 
 A piano keyboard view, written in Swift 4.0. 
-Has an IBInspectable key count property and IB_DESIGNABLE preview. 
+Has an IBInspectable key count and show notes properties, and IB_DESIGNABLE preview. 
 All image elements are drawn using Core Graphics. 
 
 ![alt tag](https://github.com/garynewby/GLNPianoView/raw/master/screen.png)
