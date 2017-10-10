@@ -20,21 +20,16 @@ public protocol GLNPianoViewDelegate: class  {
     @IBInspectable var showNotes:Bool = true
     public weak var delegate:GLNPianoViewDelegate?
     public var octave: UInt8 = 60
+    private var keyObjectsArray:[GLNPianoKey?] = []
     private static let minNumberOfKeys = 12
     private static let maxNumberOfKeys = 61
-    private var keyDown = NSMutableArray(capacity:maxNumberOfKeys)
-    private var keyRects = NSMutableArray(capacity:maxNumberOfKeys)
-    private var keyLayers = NSMutableArray(capacity:maxNumberOfKeys)
-    private var currentTouches = NSMutableSet(capacity:maxNumberOfKeys)
-    private var whiteDoImg:UIImage?
-    private var whiteUpImg:UIImage?
-    private var blackDoImg:UIImage?
-    private var blackUpImg:UIImage?
+    private var currentTouchesSet = NSMutableSet(capacity:maxNumberOfKeys)
     private var blackHeight:CGFloat = 0
     private var blackWidth:CGFloat = 0
     private var lastWidth:CGFloat = 0
     private var whiteKeyCount = 0
-    var keyCornerRadius:CGFloat = 0
+    private var keyCornerRadius:CGFloat = 0
+    
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,7 +42,7 @@ public protocol GLNPianoViewDelegate: class  {
     }
     
     override public func prepareForInterfaceBuilder() {
-        totalNumKeys = clamp(totalNumKeys, min: GLNPianoView.minNumberOfKeys, max: GLNPianoView.maxNumberOfKeys)
+        totalNumKeys = GLNPianoHelper.clamp(totalNumKeys, min: GLNPianoView.minNumberOfKeys, max: GLNPianoView.maxNumberOfKeys)
     }
     
     func commonInit() {
@@ -56,17 +51,11 @@ public protocol GLNPianoViewDelegate: class  {
         keyCornerRadius = blackWidth * 8.0
         whiteKeyCount = 0
         lastWidth = 0
-        
-        currentTouches = NSMutableSet()
-        keyDown = NSMutableArray()
-        keyRects = NSMutableArray()
-        keyLayers = NSMutableArray()
+        currentTouchesSet = NSMutableSet()
+        keyObjectsArray = [GLNPianoKey?](repeating: nil, count: (totalNumKeys + 1))
         
         for i in 1 ..< totalNumKeys+1 {
-            keyDown.add(NSNumber(value: false as Bool))
-            keyRects.add(NSValue(cgRect: CGRect.zero))
-            keyLayers.add(NSNull())
-            if (isWhiteKey(i)) {
+            if (i.isWhiteKey()) {
                 whiteKeyCount += 1
             }
         }
@@ -82,50 +71,41 @@ public protocol GLNPianoViewDelegate: class  {
     
     override public func layoutSubviews() {
         super.layoutSubviews()
+        
         commonInit()
         
-        let rect:CGRect = bounds
+        let rect:CGRect    = bounds
         let whiteKeyHeight = rect.size.height
         let whiteKeyWidth  = whiteKeyWidthForRect(rect)
         let blackKeyHeight = rect.size.height * blackHeight
         let blackKeyWidth  = whiteKeyWidth * blackWidth
         let blackKeyOffset = blackKeyWidth / 2.0
         
-        blackUpImg = keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown:false)
-        blackDoImg = keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown:true)
-        whiteUpImg = keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown:false)
-        whiteDoImg = keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown:true)
-        
         // White Keys
         var x:CGFloat = 0
         for i in 0 ..< totalNumKeys {
-            if (isWhiteKey(i)) {
+            if (i.isWhiteKey()) {
                 let newX = (x + 0.5)
                 let newW = ((x + whiteKeyWidth + 0.5) - newX)
                 let keyRect = CGRect(x: newX, y: 0, width: newW, height: whiteKeyHeight - 1)
-                let keyLayer = createCALayer(UIColor.white, aRect:keyRect, white:true)
-                keyLayers[i] = keyLayer;
-                layer.addSublayer(keyLayer)
-                if (showNotes) {
-                    layer.addSublayer(noteLayer(midiNumber: i + Int(octave), keyRect: keyRect, textColour: UIColor.lightGray))
-                }
+                let key =  GLNPianoKey.init(color: UIColor.white, aRect: keyRect, whiteKey: true, blackKeyWidth: blackKeyWidth,
+                                            blackKeyHeight: blackKeyHeight, keyCornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber:(i + Int(octave)))
+                keyObjectsArray[i] = key;
+                layer.addSublayer(key.layer)
                 x += whiteKeyWidth
             }
         }
-        
         // Black Keys
         x = 0.0
         for i in 0 ..< totalNumKeys {
-            if (isWhiteKey(i)) {
+            if (i.isWhiteKey()) {
                 x += whiteKeyWidth
             } else {
                 let keyRect = CGRect(x: (x - blackKeyOffset), y: 0, width: blackKeyWidth, height: blackKeyHeight)
-                let keyLayer = createCALayer(UIColor.black, aRect:keyRect, white:false)
-                keyLayers[i] = keyLayer;
-                layer.addSublayer(keyLayer)
-                if (showNotes) {
-                    layer.addSublayer(noteLayer(midiNumber: i + Int(octave), keyRect: keyRect, textColour: UIColor.white))
-                }
+                let key = GLNPianoKey.init(color: UIColor.black, aRect: keyRect, whiteKey: false, blackKeyWidth: blackKeyWidth,
+                                           blackKeyHeight: blackKeyHeight, keyCornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber:(i + Int(octave)))
+                keyObjectsArray[i] = key;
+                layer.addSublayer(key.layer)
             }
         }
     }
@@ -139,128 +119,43 @@ public protocol GLNPianoViewDelegate: class  {
         return (rect.size.width / CGFloat(whiteKeyCount))
     }
     
-    func createCALayer(_ color:UIColor, aRect:CGRect, white:Bool) -> CALayer {
-        let rect = CGRect(x: aRect.minX, y: aRect.minY - (keyCornerRadius*2.0), width: aRect.width, height: aRect.height + (keyCornerRadius*2.0))
-        let layer  = CALayer()
-        if let blackUp = blackUpImg?.cgImage, let whiteUp = whiteUpImg?.cgImage {
-            var x:CGFloat = 0.0
-            layer.contentsCenter = CGRect(x: 0.5, y: 0.5, width: 0.02, height: 0.02)
-            if (white) {
-                x = 1.0
-                layer.contents = whiteUp
-            }
-            layer.frame = rect.insetBy(dx: x, dy: 0)
-            layer.isOpaque = true
-            layer.backgroundColor = color.cgColor
-            layer.cornerRadius = keyCornerRadius
-            
-            // Disable implict animations for specified keys
-            layer.actions = ["onOrderIn":NSNull(), "onOrderOut":NSNull(), "sublayers":NSNull(), "contents":NSNull(), "bounds":NSNull(), "position":NSNull()]
-            if (!white) {
-                // Black
-                layer.contents       = blackUp
-                layer.masksToBounds  = true
-            }
-        }
-        
-        return layer
-    }
-    
-    func keyDown(_ keyNum:Int) {
-        if keyNum < keyLayers.count {
-            if let keyLayer = keyLayers[keyNum] as? CALayer {
-                if (isWhiteKey(keyNum)) {
-                    keyLayer.contents = whiteDoImg?.cgImage
-                    keyLayer.contentsCenter = CGRect(x: 0.5, y: 0.5, width: 0.1, height: 0.1)
-                } else {
-                    keyLayer.contents = blackDoImg?.cgImage
-                }
-            }
-        }
-    }
-    
-    func keyUp(_ keyNum:Int) {
-        if keyNum < keyLayers.count {
-            if let keyLayer = keyLayers[keyNum] as? CALayer {
-                if (isWhiteKey(keyNum)) {
-                    keyLayer.contents = whiteUpImg?.cgImage
-                    keyLayer.contentsCenter = CGRect(x: 0.5, y: 0.5, width: 0.02, height: 0.02)
-                } else {
-                    keyLayer.contents = blackUpImg?.cgImage
-                }
-            }
-        }
-    }
-    
-    func updateKeyRects() {
-        if (lastWidth == bounds.size.width) {
-            return
-        }
-        lastWidth = bounds.size.width
-        
-        let rect           = frame
-        let whiteKeyHeight = bounds.size.height
-        let blackKeyHeight = whiteKeyHeight * blackHeight
-        let whiteKeyWidth  = whiteKeyWidthForRect(rect)
-        let blackKeyWidth  = whiteKeyWidth * blackWidth
-        let leftKeyBound   = whiteKeyWidth - (blackKeyWidth / 2.0)
-        
-        var lastWhiteKey:CGFloat = 0
-        keyRects[0] = NSValue(cgRect: CGRect(x: 0, y: 0, width: whiteKeyWidth, height: whiteKeyHeight))
-        for i in 1 ..< totalNumKeys {
-            if (!isWhiteKey(i)) {
-                keyRects[i] = NSValue(cgRect:CGRect(x: (lastWhiteKey * whiteKeyWidth) + leftKeyBound, y: 0, width: blackKeyWidth, height: blackKeyHeight))
-            } else {
-                lastWhiteKey += 1
-                keyRects[i] = NSValue(cgRect:CGRect(x: lastWhiteKey * whiteKeyWidth, y: 0, width: whiteKeyWidth, height: whiteKeyHeight))
-            }
-        }
-    }
-    
-    func updateKeyStates() {
-        updateKeyRects()
-        
-        let touches = currentTouches.allObjects as NSArray
+    func updateKeys() {
+        let touches = currentTouchesSet.allObjects as Array
         let count = touches.count
-        let currentKeyState = NSMutableArray()
-        for i in 0 ..< totalNumKeys {
-            currentKeyState[i] = NSNumber(value: false as Bool)
-        }
+        
+        var keyIsDownAtIndex = [Bool](repeating: false, count: totalNumKeys)
         
         for i in 0 ..< count {
-            let touch = touches.object(at: i)
+            let touch = touches[i]
             let point = (touch as AnyObject).location(in: self)
-            let index = getKeyboardKey(point)
+            let index = getKeyContaining(point)
             if (index != NSNotFound) {
-                currentKeyState[index] = NSNumber(value: true as Bool)
+                keyIsDownAtIndex[index] = true
             }
         }
         
         for i in 0 ..< totalNumKeys {
-            if (keyDown[i] as? Bool != currentKeyState[i] as? Bool) {
-                let keyDownState = (currentKeyState[i] as AnyObject).boolValue
-                if let downState = keyDownState {
-                    keyDown[i] = NSNumber(value: (downState as Bool))
-                    if ((keyDownState) == true) {
-                        delegate?.pianoKeyDown(UInt8(i))
-                        keyDown(i)
-                    } else {
-                        delegate?.pianoKeyUp(UInt8(i))
-                        keyUp(i)
-                    }
+            if (keyObjectsArray[i]?.isKeyDown != keyIsDownAtIndex[i]) {
+                if (keyIsDownAtIndex[i]) {
+                    delegate?.pianoKeyDown(UInt8(i))
+                    keyObjectsArray[i]?.setImage(keyNum: i, isDown: true)
+                } else {
+                    delegate?.pianoKeyUp(UInt8(i))
+                    keyObjectsArray[i]?.setImage(keyNum: i, isDown: false)
                 }
+                keyObjectsArray[i]?.isKeyDown = keyIsDownAtIndex[i]
             }
+            
         }
-        
         setNeedsDisplay()
     }
     
-    func getKeyboardKey(_ point:CGPoint) -> Int {
+    func getKeyContaining(_ point:CGPoint) -> Int {
         var keyNum = NSNotFound
         for i in 0 ..< totalNumKeys {
-            if ((keyRects[i] as AnyObject).cgRectValue.contains(point)) {
+            if let frame = keyObjectsArray[i]?.layer.frame, frame.contains(point) {
                 keyNum = i
-                if (!isWhiteKey(i)) {
+                if (!i.isWhiteKey()) {
                     break
                 }
             }
@@ -270,20 +165,23 @@ public protocol GLNPianoViewDelegate: class  {
     
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            currentTouches.add(touch)
+            currentTouchesSet.add(touch)
         }
-        updateKeyStates()
+        updateKeys()
     }
     
     override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        updateKeyStates()
+        for touch in touches {
+            currentTouchesSet.add(touch)
+        }
+        updateKeys()
     }
     
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            currentTouches.remove(touch)
+            currentTouchesSet.remove(touch)
         }
-        updateKeyStates()
+        updateKeys()
     }
     
     func toggleShowNotes() {

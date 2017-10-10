@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E3588801F76303000C2A9AF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E35887F1F76303000C2A9AF /* Extensions.swift */; };
+		4E2EB7BB1F7E57B8004E862E /* GLNPianoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EB7BA1F7E57B8004E862E /* GLNPianoKey.swift */; };
 		4E8236931CEBA2400050315B /* GLNPianoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8236921CEBA2400050315B /* GLNPianoView.swift */; };
 		4EC552F91E5A0AA200526EF5 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC552F81E5A0AA200526EF5 /* AudioEngine.swift */; };
 		4EEE35491CEBA0B500EAD308 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE35481CEBA0B500EAD308 /* AppDelegate.swift */; };
@@ -15,10 +15,11 @@
 		4EEE354E1CEBA0B500EAD308 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE354C1CEBA0B500EAD308 /* Main.storyboard */; };
 		4EEE35501CEBA0B500EAD308 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE354F1CEBA0B500EAD308 /* Assets.xcassets */; };
 		4EEE35531CEBA0B500EAD308 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE35511CEBA0B500EAD308 /* LaunchScreen.storyboard */; };
+		4EF34DA01F816676004AA739 /* GLNPianoExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF34D9F1F816676004AA739 /* GLNPianoExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4E35887F1F76303000C2A9AF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = ../../Source/Extensions.swift; sourceTree = "<group>"; };
+		4E2EB7BA1F7E57B8004E862E /* GLNPianoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GLNPianoKey.swift; path = ../../Source/GLNPianoKey.swift; sourceTree = "<group>"; };
 		4E8236921CEBA2400050315B /* GLNPianoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GLNPianoView.swift; path = ../../Source/GLNPianoView.swift; sourceTree = "<group>"; };
 		4EC552F81E5A0AA200526EF5 /* AudioEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 		4EEE35451CEBA0B500EAD308 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -28,6 +29,7 @@
 		4EEE354F1CEBA0B500EAD308 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EEE35521CEBA0B500EAD308 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4EEE35541CEBA0B500EAD308 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4EF34D9F1F816676004AA739 /* GLNPianoExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GLNPianoExtensions.swift; path = ../../Source/GLNPianoExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +67,8 @@
 				4EEE354A1CEBA0B500EAD308 /* ViewController.swift */,
 				4EC552F81E5A0AA200526EF5 /* AudioEngine.swift */,
 				4E8236921CEBA2400050315B /* GLNPianoView.swift */,
-				4E35887F1F76303000C2A9AF /* Extensions.swift */,
+				4E2EB7BA1F7E57B8004E862E /* GLNPianoKey.swift */,
+				4EF34D9F1F816676004AA739 /* GLNPianoExtensions.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -155,11 +158,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E3588801F76303000C2A9AF /* Extensions.swift in Sources */,
 				4EC552F91E5A0AA200526EF5 /* AudioEngine.swift in Sources */,
 				4E8236931CEBA2400050315B /* GLNPianoView.swift in Sources */,
 				4EEE354B1CEBA0B500EAD308 /* ViewController.swift in Sources */,
+				4EF34DA01F816676004AA739 /* GLNPianoExtensions.swift in Sources */,
 				4EEE35491CEBA0B500EAD308 /* AppDelegate.swift in Sources */,
+				4E2EB7BB1F7E57B8004E862E /* GLNPianoKey.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
