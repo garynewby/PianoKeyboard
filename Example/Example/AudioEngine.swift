@@ -16,7 +16,6 @@ class AudioEngine {
     var sampler = AVAudioUnitSampler()
     var reverb = AVAudioUnitReverb()
     var delay = AVAudioUnitDelay()
-
     
     func start() {
         engine = AVAudioEngine()
@@ -25,7 +24,7 @@ class AudioEngine {
         engine.attach(sampler)
         engine.attach(reverb)
         engine.attach(delay)
-        
+
         engine.connect(sampler, to: delay, format: nil)
         engine.connect(delay, to: reverb, format: nil)
         engine.connect(reverb, to: engine.mainMixerNode, format: nil)
