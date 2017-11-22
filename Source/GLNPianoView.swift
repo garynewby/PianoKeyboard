@@ -192,20 +192,22 @@ public class GLNPianoView : UIView {
                 } else {
                     delegate?.pianoKeyUp(UInt8(noteNumber))
                 }
-                key.setImage(keyNum: noteNumber, isDown: isKeyDown)
                 key.isKeyDown = isKeyDown
             }
         }
     }
     
     private func getKeyContaining(_ point:CGPoint) -> Int {
+        var keyNum = NSNotFound
         for key in keys {
-            let frame = key.layer.frame
-            if frame.contains(point) {
-                return key.noteNumber
+            if key.layer.frame.contains(point) {
+                keyNum = key.noteNumber
+                if !key.isWhiteKey {
+                    break
+                }
             }
         }
-        return NSNotFound
+        return keyNum
     }
     
     public func reset() {

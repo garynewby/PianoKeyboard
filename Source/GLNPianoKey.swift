@@ -12,7 +12,17 @@ import QuartzCore
 public class GLNPianoKey {
     
     public private(set) var layer:CALayer
-    public internal(set) var isKeyDown = false
+    public internal(set) var isKeyDown = false {
+        didSet {
+            if isWhiteKey {
+                layer.contents = (isKeyDown) ? whiteDoImage?.cgImage :  whiteUpImage?.cgImage
+                let wh = (isKeyDown) ? 0.1 : 0.02
+                layer.contentsCenter = CGRect(x: 0.5, y: 0.5, width: wh, height: wh)
+            } else {
+                layer.contents = (isKeyDown) ? blackDoImage?.cgImage : blackUpImage?.cgImage
+            }
+        }
+    }
     private var whiteDoImage:UIImage?
     private var whiteUpImage:UIImage?
     private var blackDoImage:UIImage?
@@ -69,16 +79,6 @@ public class GLNPianoKey {
         if showNotes,
             let text = noteText {
             layer.addSublayer(noteLayer(keyRect: aRect, text: text))
-        }
-    }
-    
-    internal func setImage(keyNum: Int, isDown: Bool) {
-        if isWhiteKey {
-            layer.contents = (isDown) ? whiteDoImage?.cgImage :  whiteUpImage?.cgImage
-            let wh = (isDown) ? 0.1 : 0.02
-            layer.contentsCenter = CGRect(x: 0.5, y: 0.5, width: wh, height: wh)
-        } else {
-            layer.contents = (isDown) ? blackDoImage?.cgImage : blackUpImage?.cgImage
         }
     }
     
