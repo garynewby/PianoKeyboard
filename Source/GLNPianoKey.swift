@@ -11,19 +11,42 @@ import QuartzCore
 
 public class GLNPianoKey {
     
-    public var layer:CALayer
-    public var isKeyDown = false
+    public private(set) var layer:CALayer
+    public internal(set) var isKeyDown = false {
+        didSet {
+            if isWhiteKey {
+                layer.contents = (isKeyDown) ? whiteDoImage?.cgImage :  whiteUpImage?.cgImage
+                let wh = (isKeyDown) ? 0.1 : 0.02
+                layer.contentsCenter = CGRect(x: 0.5, y: 0.5, width: wh, height: wh)
+            } else {
+                layer.contents = (isKeyDown) ? blackDoImage?.cgImage : blackUpImage?.cgImage
+            }
+        }
+    }
     private var whiteDoImage:UIImage?
     private var whiteUpImage:UIImage?
     private var blackDoImage:UIImage?
     private var blackUpImage:UIImage?
-    private var noteNumber: Int
+    public private(set) var noteNumber: Int
+    public let isWhiteKey: Bool
+    private let keysPerOctave: Int
     
-    init(color:UIColor, aRect:CGRect, whiteKey:Bool, blackKeyWidth:CGFloat, blackKeyHeight:CGFloat, keyCornerRadius:CGFloat, showNotes: Bool, noteNumber: Int) {
-        self.noteNumber = noteNumber;
+    init(color:UIColor,
+         aRect:CGRect,
+         whiteKey:Bool,
+         blackKeyWidth:CGFloat,
+         blackKeyHeight:CGFloat,
+         keyCornerRadius:CGFloat,
+         showNotes: Bool,
+         noteText: String? = nil,
+         noteNumber: Int,
+         keysPerOctave: Int = 12) {
+        self.noteNumber = noteNumber
+        self.isWhiteKey = whiteKey
+        self.keysPerOctave = keysPerOctave
         layer = CALayer()
         let rect = CGRect(x: aRect.minX, y: aRect.minY - (keyCornerRadius*2.0), width: aRect.width, height: aRect.height + (keyCornerRadius*2.0))
-
+        
         blackUpImage = self.keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown:false, keyCornerRadius: keyCornerRadius)
         blackDoImage = self.keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown:true, keyCornerRadius: keyCornerRadius)
         
@@ -53,24 +76,13 @@ public class GLNPianoKey {
             }
         }
         
-        if (showNotes) {
-              if (whiteKey) {
-                layer.addSublayer(noteLayer(keyRect: aRect))
-              }
+        if showNotes,
+            let text = noteText {
+            layer.addSublayer(noteLayer(keyRect: aRect, text: text))
         }
     }
     
-    func setImage(keyNum: Int, isDown: Bool) {
-        if (keyNum.isWhiteKey()) {
-            layer.contents = (isDown) ? whiteDoImage?.cgImage :  whiteUpImage?.cgImage
-            let wh = (isDown) ? 0.1 : 0.02
-            layer.contentsCenter = CGRect(x: 0.5, y: 0.5, width: wh, height: wh)
-        } else {
-            layer.contents = (isDown) ? blackDoImage?.cgImage : blackUpImage?.cgImage
-        }
-    }
-    
-    func keyImage(_ aSize:CGSize, blackKey:Bool, keyDown:(Bool), keyCornerRadius:CGFloat) -> UIImage {
+    private func keyImage(_ aSize:CGSize, blackKey:Bool, keyDown:Bool, keyCornerRadius:CGFloat) -> UIImage? {
         let scale = UIScreen.main.scale
         var size:CGSize = aSize
         size.width *= scale
@@ -81,7 +93,7 @@ public class GLNPianoKey {
         if let context = UIGraphicsGetCurrentContext() {
             let colorSpace = CGColorSpaceCreateDeviceRGB()
             
-            if (blackKey) {
+            if blackKey {
                 let strokeColor1 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.951)
                 let strokeColor2 = UIColor(red: 0.379, green: 0.379, blue: 0.379, alpha: 1)
                 let gradientColors = [strokeColor1.cgColor, strokeColor2.cgColor]
@@ -98,7 +110,7 @@ public class GLNPianoKey {
                     var topRectHeight = size.height*0.86
                     var bottomRectOffset = size.height*0.875
                     let bottomRectHeight = size.height*0.125
-                    if (keyDown) {
+                    if keyDown {
                         topRectHeight = size.height*0.91
                         bottomRectOffset = size.height*0.925
                     }
@@ -121,11 +133,11 @@ public class GLNPianoKey {
                 // White key
                 let strokeColor1 = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0)
                 var strokeColor2 = UIColor(red:0.1, green: 0.1, blue: 0.1, alpha: 0.20)
-                if (keyDown) {
-                    strokeColor2 = GLNPianoHelper.noteColourFor(midiNumber: noteNumber, alpha: 0.75)
+                if keyDown {
+                    strokeColor2 = noteColourFor(alpha: 0.75)
                     // Background
                     let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-                    context.setFillColor(GLNPianoHelper.noteColourFor(midiNumber: noteNumber, alpha: 0.30).cgColor)
+                    context.setFillColor(noteColourFor(alpha: 0.30).cgColor)
                     context.fill(frame)
                 }
                 
@@ -142,17 +154,16 @@ public class GLNPianoKey {
             context.restoreGState()
         }
         
-        if let image = UIGraphicsGetImageFromCurrentImageContext() {
-            return image
-        }
-        return UIImage()
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
     }
     
-    func noteLayer(keyRect: CGRect) -> CATextLayer {
+    private func noteLayer(keyRect: CGRect, text: String) -> CATextLayer {
         let noteLayer = VerticallyCenteredTextLayer()
-        noteLayer.string = GLNPianoHelper.noteStringFor(midiNumber: noteNumber)
+        noteLayer.string = text
         noteLayer.foregroundColor = UIColor.white.cgColor
-        noteLayer.backgroundColor = GLNPianoHelper.noteColourFor(midiNumber: noteNumber, alpha: 0.35).cgColor
+        noteLayer.backgroundColor = noteColourFor(alpha: 0.35).cgColor
         noteLayer.font = UIFont.boldSystemFont(ofSize: 0.0)
         noteLayer.fontSize = (keyRect.size.width/4.0)
         noteLayer.alignmentMode = "center"
@@ -163,7 +174,18 @@ public class GLNPianoKey {
         return noteLayer
     }
     
+    private func noteColourFor(alpha: CGFloat) -> UIColor {
+        let hue = (CGFloat(noteNumber).truncatingRemainder(dividingBy: CGFloat(keysPerOctave)) / CGFloat(keysPerOctave))
+        return UIColor(hue: hue, saturation: 0.0, brightness: 0.40, alpha: alpha)
+    }
+    
 }
 
-
-
+private class VerticallyCenteredTextLayer : CATextLayer {
+    override func draw(in ctx: CGContext) {
+        ctx.saveGState()
+        ctx.translateBy(x: 0.0, y: (self.bounds.size.height - self.fontSize)/2.0 - self.fontSize/10.0)
+        super.draw(in: ctx)
+        ctx.restoreGState()
+    }
+}
