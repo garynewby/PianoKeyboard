@@ -70,7 +70,7 @@ public class GLNPianoKey {
         }
     }
     
-    func keyImage(_ aSize:CGSize, blackKey:Bool, keyDown:(Bool), keyCornerRadius:CGFloat) -> UIImage {
+    func keyImage(_ aSize:CGSize, blackKey:Bool, keyDown:(Bool), keyCornerRadius:CGFloat) -> UIImage? {
         let scale = UIScreen.main.scale
         var size:CGSize = aSize
         size.width *= scale
@@ -142,10 +142,10 @@ public class GLNPianoKey {
             context.restoreGState()
         }
         
-        if let image = UIGraphicsGetImageFromCurrentImageContext() {
-            return image
-        }
-        return UIImage()
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
     }
     
     func noteLayer(keyRect: CGRect) -> CATextLayer {
