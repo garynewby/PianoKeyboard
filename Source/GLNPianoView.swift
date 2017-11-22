@@ -173,7 +173,7 @@ public class GLNPianoView : UIView {
     }
     
     public func updateKeys() {
-        var keyIsDownAtIndex = [Bool](repeating: falsze, count: totalNumKeys)
+        var keyIsDownAtIndex = [Bool](repeating: false, count: totalNumKeys)
         
         for touch in touches {
             let point = touch.location(in: self)
