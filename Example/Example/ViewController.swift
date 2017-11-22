@@ -18,7 +18,7 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
     @IBOutlet weak var octaveStepper: UIStepper!
     @IBOutlet weak var octaveLabel: UILabel!
     private let audioEngine = AudioEngine()
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +28,7 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         layer.startPoint = CGPoint(x: 0.0, y: 0.80)
         layer.endPoint = CGPoint(x: 0.0, y: 1.0)
         fasciaView.layer.insertSublayer(layer, at: 0)
-      
+        
         keyboardView.octave = 60
         keyboardView.delegate = self;
         keyStepper.value = Double(keyboardView.totalNumKeys)

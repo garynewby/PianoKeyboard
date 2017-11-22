@@ -33,6 +33,46 @@ func pianoKeyUp(_ keyNumber: UInt8) {
 }
 ```
 
+### Data Source Methods
+
+If you want to set a non-conventional arrangement of keys in your piano view you can do it with the data source. Data source is optional, if not implemented then the view takes the default values.
+
+Set the number of keys per octave. (Default value: 12).
+
+```swift
+let keysPerOctave = 13 // Setting a crazy piano with 13 keys per octave!!!
+
+
+func numberOfKeysPerOctaveInPiano(_ piano: GLNPianoView) -> Int {
+  return keysPerOctave
+}
+```
+
+Set what keys are white in your new non-convetional arrangement. (Default value: look at the private method `GLNPianoView.isWhiteKey(_:)`).
+
+```swift
+func piano(_ piano: GLNPianoView, isWhiteKey key: Int) -> Bool {
+  let k = key % keysPerOctave
+  return (k == 0 || k == 2 || k == 4 || k == 5 || k == 7 || k == 9 || k == 11 || k == 12)
+}
+```
+
+Set what keys display their name. (Default value: the same as `GLNPianoView.showNotes`).
+
+```swift
+func piano(_ piano: GLNPianoView, shouldShowTextForKey key: Int) -> Bool {
+  return key == 0 || key % keysPerOctave == 0
+}
+```
+
+Set a custom name for each key. (Default value: look at the private method `GLNPianoView.textForNote(_:)`)
+
+```swift
+func piano(_ piano: GLNPianoView, textForKey key: Int) -> String {
+  return "C\(2 + key / keysPerOctave)"
+}
+```
+
 ### Requirements
 
 - iOS 8.0+
@@ -41,6 +81,10 @@ func pianoKeyUp(_ keyNumber: UInt8) {
 ## Author
 
 Gary Newby
+
+## Collaborators
+
+Francisco Bernal
 
 ## License
 
