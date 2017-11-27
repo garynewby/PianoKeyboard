@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -27,7 +26,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="B94-ha-u7Q">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="B94-ha-u7Q">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1S7-pm-SIJ">
@@ -39,7 +38,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <connections>
-                                                    <action selector="keyStepperTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="y0E-fa-2TU"/>
+                                                    <action selector="keyNumberStepperTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="Nfx-wZ-qY6"/>
                                                 </connections>
                                             </stepper>
                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="60" maximumValue="96" stepValue="12" translatesAutoresizingMaskIntoConstraints="NO" id="zwD-Hl-KuX">
@@ -79,35 +78,37 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sHT-dQ-dzj">
-                                                <rect key="frame" x="598" y="30" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="showNotes:" destination="BYZ-38-t0r" eventType="valueChanged" id="j1s-VR-XqK"/>
-                                                </connections>
-                                            </switch>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3D-Be-77K">
-                                                <rect key="frame" x="503.5" y="37" width="79.5" height="17.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3D-Be-77K">
+                                                <rect key="frame" x="503" y="37" width="79.5" height="17.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sHT-dQ-dzj">
+                                                <rect key="frame" x="598" y="30" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="showNotes:" destination="BYZ-38-t0r" eventType="valueChanged" id="j1s-VR-XqK"/>
+                                                </connections>
+                                            </switch>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="sHT-dQ-dzj" secondAttribute="trailing" constant="20" id="037-Fe-m9A"/>
-                                            <constraint firstItem="O3D-Be-77K" firstAttribute="centerY" secondItem="sHT-dQ-dzj" secondAttribute="centerY" id="6yN-8x-ncp"/>
-                                            <constraint firstItem="sHT-dQ-dzj" firstAttribute="leading" secondItem="O3D-Be-77K" secondAttribute="trailing" constant="15" id="ku5-j4-RWo"/>
-                                            <constraint firstItem="sHT-dQ-dzj" firstAttribute="top" secondItem="1S7-pm-SIJ" secondAttribute="top" constant="30" id="psd-fr-dQK"/>
-                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ufA-QA-Ylh" userLabel="Keyboard" customClass="GLNPianoView" customModule="Example" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="187.5" width="667" height="187.5"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="totalNumKeys">
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showNotes" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="numberOfKeys">
                                                 <integer key="value" value="24"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showNotes" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="blackKeyHeight">
+                                                <real key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="blackKeyWidth">
+                                                <real key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
@@ -115,25 +116,24 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="B94-ha-u7Q" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="BnA-HR-iRG"/>
-                            <constraint firstItem="B94-ha-u7Q" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="GSf-I1-mIJ"/>
-                            <constraint firstAttribute="trailing" secondItem="B94-ha-u7Q" secondAttribute="trailing" id="Nzy-dE-1j6"/>
-                            <constraint firstItem="1S7-pm-SIJ" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="lie-kI-NjO"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="B94-ha-u7Q" secondAttribute="bottom" id="mFw-5O-sep"/>
+                            <constraint firstItem="B94-ha-u7Q" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="3ZV-rS-Qh7"/>
+                            <constraint firstItem="B94-ha-u7Q" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="DVV-VI-Lef"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="B94-ha-u7Q" secondAttribute="bottom" id="pad-IR-iQf"/>
+                            <constraint firstAttribute="trailing" secondItem="B94-ha-u7Q" secondAttribute="trailing" id="rTE-5f-tad"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="fasciaView" destination="1S7-pm-SIJ" id="noe-4l-HeB"/>
+                        <outlet property="fascia" destination="1S7-pm-SIJ" id="KtK-kr-NZo"/>
                         <outlet property="keyNumberLabel" destination="cRF-uv-LtE" id="ilU-ee-MCT"/>
-                        <outlet property="keyStepper" destination="rho-Cu-33h" id="EKA-PZ-d37"/>
-                        <outlet property="keyboardView" destination="ufA-QA-Ylh" id="sdA-77-LSb"/>
+                        <outlet property="keyNumberStepper" destination="rho-Cu-33h" id="MIU-cC-Wak"/>
+                        <outlet property="keyboard" destination="ufA-QA-Ylh" id="rLo-r7-SCB"/>
                         <outlet property="octaveLabel" destination="mqQ-ei-u50" id="ZJ7-Ad-Je4"/>
                         <outlet property="octaveStepper" destination="zwD-Hl-KuX" id="yfj-pr-xPl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="272.11394302848578" y="300"/>
+            <point key="canvasLocation" x="517" y="499"/>
         </scene>
     </scenes>
 </document>
