@@ -59,7 +59,7 @@ public protocol GLNPianoViewDelegate: class {
         }
     }
     
-    var octave: UInt8 {
+    public var octave: UInt8 {
         get {
             return _octave
         }
