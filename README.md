@@ -1,6 +1,6 @@
 GLNPianoView
 ============
-An iOS piano keyboard view, written in Swift 4.0. 
+An iOS piano keyboard view, written in Swift 4. 
 Has an IBDesignable preview in interface builder with IBInspectable properties for:
 - Number of keys
 - Hide/show note names on white keys
