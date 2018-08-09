@@ -211,8 +211,15 @@ import QuartzCore
         }
         updateKeys()
     }
-
+    
     public override func touchesEnded(_ touches: Set<UITouch>, with _: UIEvent?) {
+        for touch in touches {
+            currentTouches.remove(touch)
+        }
+        updateKeys()
+    }
+
+    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             currentTouches.remove(touch)
         }
