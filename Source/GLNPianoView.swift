@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-public protocol GLNPianoViewDelegate: class {
+@objc public protocol GLNPianoViewDelegate: class {
     func pianoKeyUp(_ keyNumber: UInt8)
     func pianoKeyDown(_ keyNumber: UInt8)
 }
@@ -17,7 +17,8 @@ public protocol GLNPianoViewDelegate: class {
 @IBDesignable public class GLNPianoView: UIView {
 
     @IBInspectable var showNotes: Bool = true
-    public weak var delegate: GLNPianoViewDelegate?
+    @objc public weak var delegate: GLNPianoViewDelegate?
+    
     private var _octave: UInt8 = 60
     private var keyObjectsArray: [GLNPianoKey?] = []
     private var _numberOfKeys: Int = 24
@@ -59,7 +60,7 @@ public protocol GLNPianoViewDelegate: class {
         }
     }
     
-    var octave: UInt8 {
+    public var octave: UInt8 {
         get {
             return _octave
         }
@@ -67,6 +68,11 @@ public protocol GLNPianoViewDelegate: class {
             _octave = newValue
             setNeedsLayout()
         }
+    }
+    
+    @objc public func toggleShowNotes() {
+        showNotes = !showNotes
+        setNeedsLayout()
     }
 
     public override init(frame: CGRect) {
@@ -79,7 +85,7 @@ public protocol GLNPianoViewDelegate: class {
         commonInit()
     }
 
-    func commonInit() {
+    private func commonInit() {
         keyCornerRadius = _blackKeyWidth * 8.0
         whiteKeyCount = 0
         currentTouches = NSMutableSet()
@@ -141,16 +147,16 @@ public protocol GLNPianoViewDelegate: class {
         }
     }
 
-    func isWhiteKey(_ keyNumber: Int) -> Bool {
+    private func isWhiteKey(_ keyNumber: Int) -> Bool {
         let k = keyNumber % 12
         return (k == 0 || k == 2 || k == 4 || k == 5 || k == 7 || k == 9 || k == 11)
     }
 
-    func whiteKeyWidthForRect(_ rect: CGRect) -> CGFloat {
+    private func whiteKeyWidthForRect(_ rect: CGRect) -> CGFloat {
         return (rect.size.width / CGFloat(whiteKeyCount))
     }
 
-    func updateKeys() {
+    private func updateKeys() {
         let touches = currentTouches.allObjects as Array
         let count = touches.count
         var keyIsDownAtIndex = [Bool](repeating: false, count: _numberOfKeys)
@@ -179,7 +185,7 @@ public protocol GLNPianoViewDelegate: class {
         setNeedsDisplay()
     }
 
-    func getKeyContaining(_ point: CGPoint) -> Int {
+    private func getKeyContaining(_ point: CGPoint) -> Int {
         var keyNum = NSNotFound
         for i in 0 ..< _numberOfKeys {
             if let frame = keyObjectsArray[i]?.layer.frame, frame.contains(point) {
@@ -212,13 +218,8 @@ public protocol GLNPianoViewDelegate: class {
         }
         updateKeys()
     }
-
-    func toggleShowNotes() {
-        showNotes = !showNotes
-        setNeedsLayout()
-    }
     
-    func clamp(value: Int, min: Int, max: Int) -> Int {
+    private func clamp(value: Int, min: Int, max: Int) -> Int {
         let r = value < min ? min : value
         return r > max ? max : r
     }
