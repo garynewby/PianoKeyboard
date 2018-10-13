@@ -74,6 +74,16 @@ import QuartzCore
         showNotes = !showNotes
         setNeedsLayout()
     }
+    
+    @objc public func aKeyIsDown() -> Bool {
+        var downKeyCount = 0
+        for key in keyObjectsArray {
+            if let k = key, k.isDown {
+                downKeyCount += 1
+            }
+        }
+        return (downKeyCount > 0)
+    }
 
     public override init(frame: CGRect) {
         super.init(frame: frame)

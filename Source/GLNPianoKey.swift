@@ -12,13 +12,13 @@ import QuartzCore
 public class GLNPianoKey {
 
     public var layer: CALayer
+    public var noteNumber: Int
     public var isDown = false
     public var isWhiteKey = false
     private var whiteDown: UIImage?
     private var whiteUp: UIImage?
     private var blackDown: UIImage?
     private var blackUp: UIImage?
-    private var noteNumber: Int
 
     init(color: UIColor, aRect: CGRect, whiteKey: Bool, blackKeyWidth: CGFloat, blackKeyHeight: CGFloat, keyCornerRadius: CGFloat, showNotes: Bool, noteNumber: Int) {
         self.noteNumber = noteNumber
