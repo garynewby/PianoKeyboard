@@ -51,13 +51,14 @@ class AudioEngine {
         }
 
         let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayback,
-                                         with: AVAudioSessionCategoryOptions.mixWithOthers)
-        } catch {
-            print("audioSession: couldn't set category \(error)")
-            return
+       
+        if #available(iOS 10.0, *) {
+            try! AVAudioSession.sharedInstance().setCategory(.playback, mode:  AVAudioSession.Mode.measurement)
+        } else {
+            // Workaround until https://forums.swift.org/t/using-methods-marked-unavailable-in-swift-4-2/14949 is fixed
+            AVAudioSession.sharedInstance().perform(NSSelectorFromString("setCategory:error:"), with: AVAudioSession.CategoryOptions.mixWithOthers)
         }
+
         do {
             try audioSession.setActive(true)
         } catch {

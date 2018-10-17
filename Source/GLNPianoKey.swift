@@ -157,7 +157,7 @@ public class GLNPianoKey {
         noteLayer.backgroundColor = noteColourFor(midiNumber: noteNumber, alpha: 0.35).cgColor
         noteLayer.font = UIFont.boldSystemFont(ofSize: 0.0)
         noteLayer.fontSize = (keyRect.size.width / 4.0)
-        noteLayer.alignmentMode = "center"
+        noteLayer.alignmentMode = .center
         let width = keyRect.size.width / 2.0
         let height = width
         noteLayer.cornerRadius = (height * 0.5)
