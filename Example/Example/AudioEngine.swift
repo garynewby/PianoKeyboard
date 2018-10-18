@@ -39,14 +39,14 @@ class AudioEngine {
         delay.lowPassCutoff = 16000.0
 
         if engine.isRunning {
-            print("audio engine already running")
+            print("Audio engine already running")
             return
         }
         do {
             try engine.start()
-            print("audio engine started")
+            print("Audio engine started")
         } catch {
-            print("could not start audio engine")
+            print("Error: couldn't start audio engine")
             return
         }
 
@@ -62,7 +62,7 @@ class AudioEngine {
         do {
             try audioSession.setActive(true)
         } catch {
-            print("audioSession: couldn't set category active \(error)")
+            print("Error: AudioSession couldn't set category active")
             return
         }
     }
