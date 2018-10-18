@@ -15,31 +15,32 @@ import QuartzCore
 }
 
 @IBDesignable public class GLNPianoView: UIView {
-
+    
     @IBInspectable var showNotes: Bool = true
     @objc public weak var delegate: GLNPianoViewDelegate?
-    
+    private static let minNumberOfKeys = 12
+    private static let maxNumberOfKeys = 61
     private var _octave: UInt8 = 60
     private var keyObjectsArray: [GLNPianoKey?] = []
     private var _numberOfKeys: Int = 24
-    private static let minNumberOfKeys = 12
-    private static let maxNumberOfKeys = 61
     private var _blackKeyHeight: CGFloat = 0.60
     private var _blackKeyWidth: CGFloat = 0.80
     private var currentTouches = NSMutableSet(capacity: maxNumberOfKeys)
     private var whiteKeyCount = 0
     private var keyCornerRadius: CGFloat = 0
-
+    
     @IBInspectable public var numberOfKeys: Int {
         get {
             return _numberOfKeys
         }
         set {
-            _numberOfKeys = clamp(value: newValue, min: GLNPianoView.minNumberOfKeys, max: GLNPianoView.maxNumberOfKeys)
+            _numberOfKeys = clamp(value: newValue,
+                                  min: GLNPianoView.minNumberOfKeys,
+                                  max: GLNPianoView.maxNumberOfKeys)
             setNeedsLayout()
         }
     }
-
+    
     @IBInspectable public var blackKeyHeight: CGFloat {
         get {
             return _blackKeyHeight
@@ -49,7 +50,7 @@ import QuartzCore
             _blackKeyHeight = (value + 5) * 0.05
         }
     }
-
+    
     @IBInspectable public var blackKeyWidth: CGFloat {
         get {
             return _blackKeyWidth
@@ -84,50 +85,51 @@ import QuartzCore
         }
         return (downKeyCount > 0)
     }
-
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
-
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
-
+    
     private func commonInit() {
         keyCornerRadius = _blackKeyWidth * 8.0
         whiteKeyCount = 0
         currentTouches = NSMutableSet()
         keyObjectsArray = [GLNPianoKey?](repeating: nil, count: (_numberOfKeys + 1))
-
+        
         for i in 1 ..< _numberOfKeys + 1 {
             if isWhiteKey(i) {
                 whiteKeyCount += 1
             }
         }
-
+        
         isMultipleTouchEnabled = true
         layer.masksToBounds = true
+        
         if let subLayers = layer.sublayers {
             for layer in subLayers {
                 layer.removeFromSuperlayer()
             }
         }
     }
-
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         commonInit()
-
+        
         let rect: CGRect = bounds
         let whiteKeyHeight = rect.size.height
         let whiteKeyWidth = whiteKeyWidthForRect(rect)
         let blackKeyHeight = rect.size.height * _blackKeyHeight
         let blackKeyWidth = whiteKeyWidth * _blackKeyWidth
         let blackKeyOffset = blackKeyWidth / 2.0
-
+        
         // White Keys
         var x: CGFloat = 0
         for i in 0 ..< _numberOfKeys {
@@ -135,8 +137,8 @@ import QuartzCore
                 let newX = (x + 0.5)
                 let newW = ((x + whiteKeyWidth + 0.5) - newX)
                 let keyRect = CGRect(x: newX, y: 0, width: newW, height: whiteKeyHeight - 1)
-                let key = GLNPianoKey(color: UIColor.white, aRect: keyRect, whiteKey: true, blackKeyWidth: blackKeyWidth,
-                                      blackKeyHeight: blackKeyHeight, keyCornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber: (i + Int(octave)))
+                let key = GLNPianoKey(color: UIColor.white, rect: keyRect, type: .white, cornerRadius: keyCornerRadius,
+                                      showNotes: showNotes, noteNumber: (i + Int(octave)))
                 keyObjectsArray[i] = key
                 layer.addSublayer(key.layer)
                 x += whiteKeyWidth
@@ -149,28 +151,29 @@ import QuartzCore
                 x += whiteKeyWidth
             } else {
                 let keyRect = CGRect(x: (x - blackKeyOffset), y: 0, width: blackKeyWidth, height: blackKeyHeight)
-                let key = GLNPianoKey(color: UIColor.black, aRect: keyRect, whiteKey: false, blackKeyWidth: blackKeyWidth,
-                                      blackKeyHeight: blackKeyHeight, keyCornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber: (i + Int(octave)))
+                let key = GLNPianoKey(color: UIColor.black, rect: keyRect, type: .black, cornerRadius: keyCornerRadius,
+                                      showNotes: showNotes, noteNumber: (i + Int(octave)),
+                                      blackKeyWidth: blackKeyWidth, blackKeyHeight: blackKeyHeight)
                 keyObjectsArray[i] = key
                 layer.addSublayer(key.layer)
             }
         }
     }
-
+    
     private func isWhiteKey(_ keyNumber: Int) -> Bool {
         let k = keyNumber % 12
         return (k == 0 || k == 2 || k == 4 || k == 5 || k == 7 || k == 9 || k == 11)
     }
-
+    
     private func whiteKeyWidthForRect(_ rect: CGRect) -> CGFloat {
         return (rect.size.width / CGFloat(whiteKeyCount))
     }
-
+    
     private func updateKeys() {
         let touches = currentTouches.allObjects as Array
         let count = touches.count
         var keyIsDownAtIndex = [Bool](repeating: false, count: _numberOfKeys)
-
+        
         for i in 0 ..< count {
             let touch = touches[i]
             let point = (touch as AnyObject).location(in: self)
@@ -179,7 +182,7 @@ import QuartzCore
                 keyIsDownAtIndex[index] = true
             }
         }
-
+        
         for i in 0 ..< _numberOfKeys {
             if keyObjectsArray[i]?.isDown != keyIsDownAtIndex[i] {
                 if keyIsDownAtIndex[i] {
@@ -194,7 +197,7 @@ import QuartzCore
         }
         setNeedsDisplay()
     }
-
+    
     private func getKeyContaining(_ point: CGPoint) -> Int {
         var keyNum = NSNotFound
         for i in 0 ..< _numberOfKeys {
@@ -207,14 +210,14 @@ import QuartzCore
         }
         return keyNum
     }
-
+    
     public override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
         for touch in touches {
             currentTouches.add(touch)
         }
         updateKeys()
     }
-
+    
     public override func touchesMoved(_ touches: Set<UITouch>, with _: UIEvent?) {
         for touch in touches {
             currentTouches.add(touch)
@@ -228,7 +231,7 @@ import QuartzCore
         }
         updateKeys()
     }
-
+    
     public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             currentTouches.remove(touch)

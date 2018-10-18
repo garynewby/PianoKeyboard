@@ -9,61 +9,56 @@
 import UIKit
 import QuartzCore
 
-public class GLNPianoKey {
+public enum GLNPianoKeyType {
+    case white
+    case black
+}
 
+public class GLNPianoKey {
     public var layer: CALayer
     public var noteNumber: Int
     public var isDown = false
-    public var isWhiteKey = false
+    public var type: GLNPianoKeyType
     private var whiteDown: UIImage?
     private var whiteUp: UIImage?
     private var blackDown: UIImage?
     private var blackUp: UIImage?
 
-    init(color: UIColor, aRect: CGRect, whiteKey: Bool, blackKeyWidth: CGFloat, blackKeyHeight: CGFloat, keyCornerRadius: CGFloat, showNotes: Bool, noteNumber: Int) {
+    init(color: UIColor, rect: CGRect, type: GLNPianoKeyType, cornerRadius: CGFloat, showNotes: Bool, noteNumber: Int, blackKeyWidth: CGFloat = 0, blackKeyHeight: CGFloat = 0) {
         self.noteNumber = noteNumber
-        isWhiteKey = whiteKey
+        self.type = type
+        let x: CGFloat = 1.0
+        let rect = CGRect(x: rect.minX, y: rect.minY - (cornerRadius * 2.0), width: rect.width, height: rect.height + (cornerRadius * 2.0))
+
         layer = CALayer()
-        let rect = CGRect(x: aRect.minX, y: aRect.minY - (keyCornerRadius * 2.0), width: aRect.width, height: aRect.height + (keyCornerRadius * 2.0))
-
-        blackUp = keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown: false, keyCornerRadius: keyCornerRadius)
-        blackDown = keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown: true, keyCornerRadius: keyCornerRadius)
-
-        whiteUp = keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown: false, keyCornerRadius: keyCornerRadius)
-        whiteDown = keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown: true, keyCornerRadius: keyCornerRadius)
-
-        if let blackUp = blackUp?.cgImage,
-            let whiteUp = whiteUp?.cgImage {
-            var x: CGFloat = 0.0
-            layer.contentsCenter = CGRect(x: 0.5, y: 0.5, width: 0.02, height: 0.02)
-            if isWhiteKey {
-                x = 1.0
+        layer.contentsCenter = CGRect(x: 0.5, y: 0.5, width: 0.02, height: 0.02)
+        layer.frame = rect.insetBy(dx: x, dy: 0)
+        layer.isOpaque = true
+        layer.backgroundColor = color.cgColor
+        layer.cornerRadius = cornerRadius
+        layer.masksToBounds = true
+        layer.actions = ["onOrderIn": NSNull(), "onOrderOut": NSNull(), "sublayers": NSNull(), "contents": NSNull(), "bounds": NSNull(), "position": NSNull()]
+        
+        if type == .white {
+            whiteUp = keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown: false, keyCornerRadius: cornerRadius)
+            whiteDown = keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown: true, keyCornerRadius: cornerRadius)
+            if let whiteUp = whiteUp?.cgImage {
                 layer.contents = whiteUp
             }
-            layer.frame = rect.insetBy(dx: x, dy: 0)
-            layer.isOpaque = true
-            layer.backgroundColor = color.cgColor
-            layer.cornerRadius = keyCornerRadius
-            layer.masksToBounds = true
-
-            // Disable implict animations for specified keys
-            layer.actions = ["onOrderIn": NSNull(), "onOrderOut": NSNull(), "sublayers": NSNull(), "contents": NSNull(), "bounds": NSNull(), "position": NSNull()]
-            if !isWhiteKey {
-                // Black
-                layer.contents = blackUp
-                layer.masksToBounds = true
+            if showNotes {
+                layer.addSublayer(noteLayer(keyRect: rect))
             }
-        }
-
-        if showNotes {
-            if whiteKey {
-                layer.addSublayer(noteLayer(keyRect: aRect))
+        } else {
+            blackUp = keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown: false, keyCornerRadius: cornerRadius)
+            blackDown = keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown: true, keyCornerRadius: cornerRadius)
+            if let blackUp = blackUp?.cgImage {
+                layer.contents = blackUp
             }
         }
     }
 
     func setImage(keyNum _: Int, isDown: Bool) {
-        if isWhiteKey {
+        if type == .white {
             layer.contents = isDown ? whiteDown?.cgImage : whiteUp?.cgImage
             let wh = isDown ? 0.1 : 0.02
             layer.contentsCenter = CGRect(x: 0.5, y: 0.5, width: wh, height: wh)
@@ -105,24 +100,38 @@ public class GLNPianoKey {
                         bottomRectOffset = size.height * 0.925
                     }
 
-                    let roundedRectangleRect = CGRect(x: frame.minX + border, y: frame.minY, width: width, height: topRectHeight)
-                    let roundedRectanglePath = UIBezierPath(roundedRect: roundedRectangleRect, cornerRadius: keyCornerRadius)
+                    let roundedRectangleRect = CGRect(x: frame.minX + border,
+                                                      y: frame.minY,
+                                                      width: width,
+                                                      height: topRectHeight)
+                    let roundedRectanglePath = UIBezierPath(roundedRect: roundedRectangleRect,
+                                                            cornerRadius: keyCornerRadius)
                     context.saveGState()
                     roundedRectanglePath.addClip()
-                    context.drawLinearGradient(gradient, start: CGPoint(x: roundedRectangleRect.midX, y: roundedRectangleRect.minY), end: CGPoint(x: roundedRectangleRect.midX, y: roundedRectangleRect.maxY), options: [])
+                    context.drawLinearGradient(gradient,
+                                               start: CGPoint(x: roundedRectangleRect.midX, y: roundedRectangleRect.minY),
+                                               end: CGPoint(x: roundedRectangleRect.midX, y: roundedRectangleRect.maxY),
+                                               options: [])
                     context.restoreGState()
 
-                    let roundedRectangle2Rect = CGRect(x: frame.minX + border, y: frame.minY + bottomRectOffset, width: width, height: bottomRectHeight)
+                    let roundedRectangle2Rect = CGRect(x: frame.minX + border,
+                                                       y: frame.minY + bottomRectOffset,
+                                                       width: width,
+                                                       height: bottomRectHeight)
                     let roundedRectangle2Path = UIBezierPath(roundedRect: roundedRectangle2Rect, cornerRadius: keyCornerRadius)
                     context.saveGState()
                     roundedRectangle2Path.addClip()
-                    context.drawLinearGradient(gradient, start: CGPoint(x: roundedRectangle2Rect.midX, y: roundedRectangle2Rect.maxY), end: CGPoint(x: roundedRectangle2Rect.midX, y: roundedRectangle2Rect.minY), options: [])
+                    context.drawLinearGradient(gradient,
+                                               start: CGPoint(x: roundedRectangle2Rect.midX, y: roundedRectangle2Rect.maxY),
+                                               end: CGPoint(x: roundedRectangle2Rect.midX, y: roundedRectangle2Rect.minY),
+                                               options: [])
                 }
 
             } else {
                 // White key
                 let strokeColor1 = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0)
                 var strokeColor2 = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.20)
+                
                 if keyDown {
                     strokeColor2 = noteColourFor(midiNumber: noteNumber, alpha: 0.75)
                     // Background
@@ -138,7 +147,12 @@ public class GLNPianoKey {
                     let rectanglePath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: size.width, height: size.height))
                     context.saveGState()
                     rectanglePath.addClip()
-                    context.drawRadialGradient(gradient, startCenter: CGPoint(x: size.width / 2.0, y: size.height / 2.0), startRadius: size.height * 0.01, endCenter: CGPoint(x: size.width / 2.0, y: size.height / 2.0), endRadius: size.height * 0.6, options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
+                    context.drawRadialGradient(gradient,
+                                               startCenter: CGPoint(x: size.width / 2.0, y: size.height / 2.0),
+                                               startRadius: size.height * 0.01,
+                                               endCenter: CGPoint(x: size.width / 2.0, y: size.height / 2.0),
+                                               endRadius: size.height * 0.6,
+                                               options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
                 }
             }
             context.restoreGState()
@@ -161,7 +175,8 @@ public class GLNPianoKey {
         let width = keyRect.size.width / 2.0
         let height = width
         noteLayer.cornerRadius = (height * 0.5)
-        noteLayer.frame = CGRect(x: (keyRect.size.width * 0.25), y: (layer.frame.size.height - height - 10), width: width, height: height)
+        noteLayer.frame = CGRect(x: (keyRect.size.width * 0.25),
+                                 y: (layer.frame.size.height - height - 10), width: width, height: height)
         return noteLayer
     }
 
