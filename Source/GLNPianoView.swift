@@ -211,6 +211,11 @@ import QuartzCore
         return keyNum
     }
     
+    private func clamp(value: Int, min: Int, max: Int) -> Int {
+        let r = value < min ? min : value
+        return r > max ? max : r
+    }
+    
     public override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
         for touch in touches {
             currentTouches.add(touch)
@@ -239,8 +244,15 @@ import QuartzCore
         updateKeys()
     }
     
-    private func clamp(value: Int, min: Int, max: Int) -> Int {
-        let r = value < min ? min : value
-        return r > max ? max : r
+    public func highlightKeyWith(noteNumber: UInt8, down: Bool) {
+        for (i, key) in keyObjectsArray.enumerated() {
+            if let key = key  {
+                if key.noteNumber == Int(noteNumber) {
+                    key.isDown = down
+                    key.setImage(keyNum: i, isDown: down)
+                    setNeedsDisplay()
+                }
+            }
+        }
     }
 }
