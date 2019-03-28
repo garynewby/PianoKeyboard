@@ -10,16 +10,13 @@ import UIKit
 import AVFoundation
 
 class AudioEngine {
-
-    var engine = AVAudioEngine()
-    var sampler = AVAudioUnitSampler()
-    var reverb = AVAudioUnitReverb()
-    var delay = AVAudioUnitDelay()
+    
+    private let engine = AVAudioEngine()
+    private(set) var sampler = AVAudioUnitSampler()
+    private let reverb = AVAudioUnitReverb()
+    private let delay = AVAudioUnitDelay()
 
     func start() {
-        engine = AVAudioEngine()
-        sampler = AVAudioUnitSampler()
-
         engine.attach(sampler)
         engine.attach(reverb)
         engine.attach(delay)

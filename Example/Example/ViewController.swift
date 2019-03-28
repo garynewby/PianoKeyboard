@@ -21,7 +21,15 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        keyboard.delegate = self
+        keyNumberStepper.value = Double(keyboard.numberOfKeys)
+        keyNumberLabel.text = String(keyNumberStepper.value)
+        octaveLabel.text = String(octaveStepper.value)
+        audioEngine.start()
+    }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         let layer = CAGradientLayer()
         layer.frame = fascia.bounds
         layer.colors = [UIColor.black.cgColor, UIColor.darkGray.cgColor, UIColor.black.cgColor]
@@ -29,11 +37,6 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         layer.endPoint = CGPoint(x: 0.0, y: 1.0)
         fascia.layer.insertSublayer(layer, at: 0)
 
-        keyboard.delegate = self
-        keyNumberStepper.value = Double(keyboard.numberOfKeys)
-        keyNumberLabel.text = String(keyNumberStepper.value)
-        octaveLabel.text = String(octaveStepper.value)
-        audioEngine.start()
     }
 
     override func didReceiveMemoryWarning() {
