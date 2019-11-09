@@ -9,23 +9,23 @@
 import UIKit
 
 @objc public protocol GLNPianoViewDelegate: class {
-    func pianoKeyUp(_ keyNumber: UInt8)
-    func pianoKeyDown(_ keyNumber: UInt8)
+    func pianoKeyUp(_ keyNumber: Int)
+    func pianoKeyDown(_ keyNumber: Int)
 }
 
 @IBDesignable public class GLNPianoView: UIView {
     
     @IBInspectable var showNotes: Bool = true
     @objc public weak var delegate: GLNPianoViewDelegate?
-    private var keyObjectsArray: [GLNPianoKey?] = []
-    private var currentTouches = NSMutableSet(capacity: maxNumberOfKeys)
+    private var keysArray: [GLNPianoKey?] = []
+    private var currentTouches = NSMutableSet(capacity: Int(maxNumberOfKeys))
     private static let minNumberOfKeys = 12
     private static let maxNumberOfKeys = 61
-    private var _octave: UInt8 = 60
-    private var _numberOfKeys: Int = 24
+    private var _octave = 60
+    private var _numberOfKeys = 24
+    private var whiteKeyCount = 0
     private var _blackKeyHeight: CGFloat = 0.60
     private var _blackKeyWidth: CGFloat = 0.80
-    private var whiteKeyCount = 0
     private var keyCornerRadius: CGFloat = 0
     
     @IBInspectable public var numberOfKeys: Int {
@@ -58,7 +58,7 @@ import UIKit
         }
     }
     
-    public var octave: UInt8 {
+    public var octave: Int {
         get {
             return _octave
         }
@@ -75,7 +75,7 @@ import UIKit
     
     @objc public func aKeyIsDown() -> Bool {
         var downKeyCount = 0
-        for key in keyObjectsArray {
+        for key in keysArray {
             if let k = key, k.isDown {
                 downKeyCount += 1
             }
@@ -92,7 +92,7 @@ import UIKit
         keyCornerRadius = _blackKeyWidth * 8.0
         whiteKeyCount = 0
         currentTouches = NSMutableSet()
-        keyObjectsArray = [GLNPianoKey?](repeating: nil, count: (_numberOfKeys + 1))
+        keysArray = [GLNPianoKey?](repeating: nil, count: Int(_numberOfKeys + 1))
         for index in 1 ..< _numberOfKeys + 1 {
             if index.isWhiteKey() {
                 whiteKeyCount += 1
@@ -121,8 +121,8 @@ import UIKit
                 let newW = ((xPosition + whiteKeyWidth + 0.5) - newX)
                 let keyRect = CGRect(x: newX, y: 0, width: newW, height: whiteKeyHeight - 1)
                 let key = GLNPianoKey(color: UIColor.white, rect: keyRect, type: .white, cornerRadius: keyCornerRadius,
-                                      showNotes: showNotes, noteNumber: (index + Int(octave)))
-                keyObjectsArray[index] = key
+                                      showNotes: showNotes, noteNumber: index + octave)
+                keysArray[index] = key
                 layer.addSublayer(key.layer)
                 xPosition += whiteKeyWidth
             }
@@ -135,9 +135,9 @@ import UIKit
             } else {
                 let keyRect = CGRect(x: (xPosition - blackKeyOffset), y: 0, width: blackKeyWidth, height: blackKeyHeight)
                 let key = GLNPianoKey(color: UIColor.black, rect: keyRect, type: .black, cornerRadius: keyCornerRadius,
-                                      showNotes: showNotes, noteNumber: (index + Int(octave)),
+                                      showNotes: showNotes, noteNumber: index + octave,
                                       blackKeyWidth: blackKeyWidth, blackKeyHeight: blackKeyHeight)
-                keyObjectsArray[index] = key
+                keysArray[index] = key
                 layer.addSublayer(key.layer)
             }
         }
@@ -161,15 +161,15 @@ import UIKit
         }
         
         for index in 0 ..< _numberOfKeys {
-            if keyObjectsArray[index]?.isDown != keyIsDownAt[index] {
+            if keysArray[index]?.isDown != keyIsDownAt[index] {
                 if keyIsDownAt[index] {
-                    delegate?.pianoKeyDown(UInt8(index))
-                    keyObjectsArray[index]?.setImage(keyNum: index, isDown: true)
+                    delegate?.pianoKeyDown(index)
+                    keysArray[index]?.setImage(keyNum: index, isDown: true)
                 } else {
-                    delegate?.pianoKeyUp(UInt8(index))
-                    keyObjectsArray[index]?.setImage(keyNum: index, isDown: false)
+                    delegate?.pianoKeyUp(index)
+                    keysArray[index]?.setImage(keyNum: index, isDown: false)
                 }
-                keyObjectsArray[index]?.isDown = keyIsDownAt[index]
+                keysArray[index]?.isDown = keyIsDownAt[index]
             }
         }
         setNeedsDisplay()
@@ -178,7 +178,7 @@ import UIKit
     private func getKeyContaining(_ point: CGPoint) -> Int {
         var keyNum = NSNotFound
         for index in 0 ..< _numberOfKeys {
-            if let frame = keyObjectsArray[index]?.layer.frame, frame.contains(point) {
+            if let frame = keysArray[index]?.layer.frame, frame.contains(point) {
                 keyNum = index
                 if !index.isWhiteKey() {
                     break
@@ -188,14 +188,28 @@ import UIKit
         return keyNum
     }
 
-    public func highlightKeyWith(noteNumber: UInt8, down: Bool) {
-        for (index, key) in keyObjectsArray.enumerated() {
-            if let key = key  {
-                if key.noteNumber == Int(noteNumber) {
-                    key.isDown = down
-                    key.setImage(keyNum: index, isDown: down)
-                    setNeedsDisplay()
+    public func highlightKeys(_ noteNames: [String], color: UIColor, play: Bool) {
+        reset()
+        for note in noteNames {
+            let noteNumber = Note.number(of: note)
+            for key in keysArray {
+                if let key = key  {
+                    if key.noteNumber == noteNumber {
+                        key.layer.backgroundColor = color.cgColor
+                        if play {
+                            delegate?.pianoKeyDown(key.noteNumber - octave)
+                        }
+                    }
                 }
+            }
+        }
+    }
+    
+    public func reset() {
+        keysArray.forEach {
+            $0?.layer.backgroundColor = UIColor.white.cgColor
+            if let noteNumber = $0?.noteNumber {
+                delegate?.pianoKeyUp(noteNumber - octave)
             }
         }
     }
@@ -227,5 +241,4 @@ import UIKit
         }
         updateKeys()
     }
-
 }

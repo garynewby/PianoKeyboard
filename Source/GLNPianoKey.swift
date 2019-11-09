@@ -14,12 +14,13 @@ public enum GLNPianoKeyType {
 }
 
 public final class GLNPianoKey {
+    private var upImage: UIImage?
+    private var downImage: UIImage?
     public var type: GLNPianoKeyType
     public var layer: CALayer
     public var noteNumber: Int
     public var isDown = false
-    private var upImage: UIImage?
-    private var downImage: UIImage?
+    public var noteLayer: GLNNoteLayer?
 
     init(color: UIColor, rect: CGRect, type: GLNPianoKeyType, cornerRadius: CGFloat, showNotes: Bool, noteNumber: Int, blackKeyWidth: CGFloat = 0, blackKeyHeight: CGFloat = 0) {
         self.noteNumber = noteNumber
@@ -43,8 +44,10 @@ public final class GLNPianoKey {
                 layer.contents = image
             }
             if showNotes {
-                let noteLayer = GLNNoteLayer(layerHeight: layer.frame.size.height, keyRect: rect, noteNumber: noteNumber)
-                layer.addSublayer(noteLayer)
+                noteLayer = GLNNoteLayer(layerHeight: layer.frame.size.height, keyRect: rect, noteNumber: noteNumber)
+                if let noteLayer = noteLayer {
+                    layer.addSublayer(noteLayer)
+                }
             }
         } else {
             upImage = UIImage.keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown: false, keyCornerRadius: cornerRadius, noteNumber: noteNumber)

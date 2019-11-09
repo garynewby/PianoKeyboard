@@ -36,19 +36,46 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         layer.startPoint = CGPoint(x: 0.0, y: 0.80)
         layer.endPoint = CGPoint(x: 0.0, y: 1.0)
         fascia.layer.insertSublayer(layer, at: 0)
-
+        
+        // Auto highlighting
+        autoHighlight(score: [["C4", "E4", "G4"],
+                              ["D4", "F4", "A4"],
+                              ["E4", "G4", "B4"],
+                              ["C4", "E4", "G4"]],
+                      position: 0, loop: false, tempo: 80.0, play: true)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    func pianoKeyDown(_ keyNumber: UInt8) {
-        audioEngine.sampler.startNote((keyboard.octave + keyNumber), withVelocity: 64, onChannel: 0)
+    func pianoKeyDown(_ keyNumber: Int) {
+        audioEngine.sampler.startNote(UInt8(keyboard.octave + keyNumber), withVelocity: 64, onChannel: 0)
     }
 
-    func pianoKeyUp(_ keyNumber: UInt8) {
-        audioEngine.sampler.stopNote((keyboard.octave + keyNumber), onChannel: 0)
+    func pianoKeyUp(_ keyNumber: Int) {
+        audioEngine.sampler.stopNote(UInt8(keyboard.octave + keyNumber), onChannel: 0)
+    }
+    
+    func autoHighlight(score: [[String]], position: Int, loop: Bool, tempo: Double, play: Bool) {
+        keyboard.highlightKeys(score[position], color: UIColor.init(red: 1.0, green: 0.7, blue: 0.7, alpha: 1.0), play: play)
+        let delay = 60.0/tempo
+        let nextPosition = position + 1
+        if nextPosition < score.count {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+                self?.autoHighlight(score: score, position: nextPosition, loop: loop, tempo: tempo, play: play)
+            }
+        } else {
+            if loop {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+                    self?.autoHighlight(score: score, position: 0, loop: loop, tempo: tempo, play: play)
+                }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+                    self?.keyboard.reset()
+                }
+            }
+        }
     }
 
     @IBAction func showNotes(_: Any) {
@@ -61,7 +88,7 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
     }
 
     @IBAction func octaveStepperTapped(_ sender: UIStepper) {
-        keyboard.octave = UInt8(sender.value)
+        keyboard.octave = Int(sender.value)
         octaveLabel.text = String(keyboard.octave)
     }
 }
