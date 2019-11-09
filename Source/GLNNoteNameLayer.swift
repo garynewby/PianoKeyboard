@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-public final class GLNNoteLayer: CATextLayer {
+public final class GLNNoteNameLayer: CATextLayer {
     public override init(layer: Any) {
         super.init(layer: layer)
     }

@@ -123,7 +123,7 @@ import UIKit
                 let key = GLNPianoKey(color: UIColor.white, rect: keyRect, type: .white, cornerRadius: keyCornerRadius,
                                       showNotes: showNotes, noteNumber: index + octave)
                 keysArray[index] = key
-                layer.addSublayer(key.layer)
+                layer.addSublayer(key.imageLayer)
                 xPosition += whiteKeyWidth
             }
         }
@@ -138,7 +138,7 @@ import UIKit
                                       showNotes: showNotes, noteNumber: index + octave,
                                       blackKeyWidth: blackKeyWidth, blackKeyHeight: blackKeyHeight)
                 keysArray[index] = key
-                layer.addSublayer(key.layer)
+                layer.addSublayer(key.imageLayer)
             }
         }
     }
@@ -178,7 +178,7 @@ import UIKit
     private func getKeyContaining(_ point: CGPoint) -> Int {
         var keyNum = NSNotFound
         for index in 0 ..< _numberOfKeys {
-            if let frame = keysArray[index]?.layer.frame, frame.contains(point) {
+            if let frame = keysArray[index]?.imageLayer.frame, frame.contains(point) {
                 keyNum = index
                 if !index.isWhiteKey() {
                     break
@@ -195,7 +195,8 @@ import UIKit
             for key in keysArray {
                 if let key = key  {
                     if key.noteNumber == noteNumber {
-                        key.layer.backgroundColor = color.cgColor
+                        //key.layer.backgroundColor = color.cgColor
+                        key.highlightLayer.backgroundColor = color.cgColor
                         if play {
                             delegate?.pianoKeyDown(key.noteNumber - octave)
                         }
@@ -207,7 +208,7 @@ import UIKit
     
     public func reset() {
         keysArray.forEach {
-            $0?.layer.backgroundColor = UIColor.white.cgColor
+            $0?.highlightLayer.backgroundColor = UIColor.clear.cgColor
             if let noteNumber = $0?.noteNumber {
                 delegate?.pianoKeyUp(noteNumber - octave)
             }

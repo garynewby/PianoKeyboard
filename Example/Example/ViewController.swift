@@ -42,11 +42,22 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         fascia.layer.insertSublayer(layer, at: 0)
         
         // Auto highlighting
-        autoHighlight(score: [["C4", "E4", "G4"],
-                              ["D4", "F4", "A4"],
-                              ["E4", "G4", "B4"],
-                              ["C4", "E4", "G4"]],
-                      position: 0, loop: false, tempo: 80.0, play: true)
+        let chordDemo = false
+        if chordDemo {
+            autoHighlight(score: [["C4", "Eb4", "G4"],
+                                  ["D4", "F4", "A4"],
+                                  ["E4", "F#4", "B4"],
+                                  ["C4", "E4", "G4"]
+                ], position: 0, loop: true, tempo: 130.0, play: true)
+        } else {
+            autoHighlight(score: [[Note.name(of: 60), Note.name(of: 63), Note.name(of: 67)],
+                                  [Note.name(of: 62)],
+                                  [Note.name(of: 63)],
+                                  [Note.name(of: 65)],
+                                  [Note.name(of: 63)],
+                                  [Note.name(of: 62)]
+                ], position: 0, loop: true, tempo: 130.0, play: true)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,7 +73,7 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
     }
     
     func autoHighlight(score: [[String]], position: Int, loop: Bool, tempo: Double, play: Bool) {
-        keyboard.highlightKeys(score[position], color: UIColor.init(red: 1.0, green: 0.7, blue: 0.7, alpha: 1.0), play: play)
+        keyboard.highlightKeys(score[position], color: UIColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.35), play: play)
         let delay = 60.0/tempo
         let nextPosition = position + 1
         if nextPosition < score.count {

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E356D142376F0A300928D66 /* GLNNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356D132376F0A300928D66 /* GLNNote.swift */; };
-		4EBA474622B05F0E0000113B /* GLNNoteLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA474522B05F0E0000113B /* GLNNoteLayer.swift */; };
+		4EBA474622B05F0E0000113B /* GLNNoteNameLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA474522B05F0E0000113B /* GLNNoteNameLayer.swift */; };
 		4EBA474822B05F2E0000113B /* GLNExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA474722B05F2E0000113B /* GLNExtensions.swift */; };
 		4EC552F91E5A0AA200526EF5 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC552F81E5A0AA200526EF5 /* AudioEngine.swift */; };
 		4ED397C31F8D798900FB1473 /* GLNPianoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED397BF1F8D797C00FB1473 /* GLNPianoKey.swift */; };
@@ -22,7 +22,7 @@
 
 /* Begin PBXFileReference section */
 		4E356D132376F0A300928D66 /* GLNNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GLNNote.swift; path = ../Source/GLNNote.swift; sourceTree = "<group>"; };
-		4EBA474522B05F0E0000113B /* GLNNoteLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GLNNoteLayer.swift; path = ../Source/GLNNoteLayer.swift; sourceTree = "<group>"; };
+		4EBA474522B05F0E0000113B /* GLNNoteNameLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GLNNoteNameLayer.swift; path = ../Source/GLNNoteNameLayer.swift; sourceTree = "<group>"; };
 		4EBA474722B05F2E0000113B /* GLNExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GLNExtensions.swift; path = ../Source/GLNExtensions.swift; sourceTree = "<group>"; };
 		4EC552F81E5A0AA200526EF5 /* AudioEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 		4ED397BF1F8D797C00FB1473 /* GLNPianoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GLNPianoKey.swift; path = ../Source/GLNPianoKey.swift; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 			children = (
 				4ED397C01F8D797C00FB1473 /* GLNPianoView.swift */,
 				4ED397BF1F8D797C00FB1473 /* GLNPianoKey.swift */,
-				4EBA474522B05F0E0000113B /* GLNNoteLayer.swift */,
+				4EBA474522B05F0E0000113B /* GLNNoteNameLayer.swift */,
 				4EBA474722B05F2E0000113B /* GLNExtensions.swift */,
 				4E356D132376F0A300928D66 /* GLNNote.swift */,
 			);
@@ -174,7 +174,7 @@
 			files = (
 				4ED397C41F8D798900FB1473 /* GLNPianoView.swift in Sources */,
 				4ED397C31F8D798900FB1473 /* GLNPianoKey.swift in Sources */,
-				4EBA474622B05F0E0000113B /* GLNNoteLayer.swift in Sources */,
+				4EBA474622B05F0E0000113B /* GLNNoteNameLayer.swift in Sources */,
 				4EC552F91E5A0AA200526EF5 /* AudioEngine.swift in Sources */,
 				4EEE354B1CEBA0B500EAD308 /* ViewController.swift in Sources */,
 				4EEE35491CEBA0B500EAD308 /* AppDelegate.swift in Sources */,
