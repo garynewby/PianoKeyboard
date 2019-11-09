@@ -5,6 +5,7 @@ Has an IBDesignable preview in interface builder with IBInspectable properties f
 - Number of keys
 - Hide/show note names on white keys
 - Black key height and width
+- Hightlight keys (play note)
 
 All image elements are drawn using Core Graphics. 
 

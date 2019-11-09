@@ -24,6 +24,10 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         keyboard.delegate = self
         keyNumberStepper.value = Double(keyboard.numberOfKeys)
         keyNumberLabel.text = String(keyNumberStepper.value)
+        keyNumberStepper.layer.cornerRadius = 8.0
+        keyNumberStepper.layer.masksToBounds = true
+        octaveStepper.layer.cornerRadius = 8.0
+        octaveStepper.layer.masksToBounds = true
         octaveLabel.text = String(octaveStepper.value)
         audioEngine.start()
     }

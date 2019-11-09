@@ -9,7 +9,7 @@
 import Foundation
 
 class Note {
-    static let notesArray = [
+    static let noteNames = [
         "C-1", "C#-1", "D-1", "Eb-1", "E-1", "F-1", "F#-1", "G-1", "Ab-1", "A-1", "Bb-1", "B-1",
         "C0", "C#0", "D0", "Eb0", "E0", "F0", "F#0", "G0", "Ab0", "A0", "Bb0", "B0",
         "C1", "C#1", "D1", "Eb1", "E1", "F1", "F#1", "G1", "Ab1", "A1", "Bb1", "B1",
@@ -23,10 +23,10 @@ class Note {
     ]
     
     static func name(of noteNumber: Int) -> String {
-        return "\(notesArray[Int(noteNumber)])"
+        return "\(noteNames[Int(noteNumber)])"
     }
     
     static func number(of noteName: String) -> Int? {
-        return notesArray.firstIndex(of: noteName)
+        return noteNames.firstIndex(of: noteName)
     }
 }
