@@ -189,7 +189,6 @@ import UIKit
     }
 
     public func highlightKeys(_ keysAndColors: [(noteNumber: Int, color: UIColor)], play: Bool) {
-//    public func highlightKeys(_ noteNames: [String], color: UIColor, play: Bool) {
         reset()
         for (noteNumber, color) in keysAndColors {
             for key in keysArray {
