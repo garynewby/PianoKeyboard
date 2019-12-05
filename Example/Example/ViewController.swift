@@ -87,7 +87,7 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
             highlightKeys[Note.number(of: noteString)!] = playingColor
         }
         
-        keyboard.highlightKeys(highlightKeys, play: play)
+        keyboard.highlightKeys(highlightKeys.map {($0.key, $0.value)}, play: play)
         let delay = 60.0/tempo
         let nextPosition = position + 1
         if nextPosition < score.count {

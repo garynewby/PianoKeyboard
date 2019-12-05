@@ -188,11 +188,10 @@ import UIKit
         return keyNum
     }
 
-    public func highlightKeys(_ keysAndColors: [Int:UIColor], play: Bool) {
+    public func highlightKeys(_ keysAndColors: [(noteNumber: Int, color: UIColor)], play: Bool) {
 //    public func highlightKeys(_ noteNames: [String], color: UIColor, play: Bool) {
         reset()
-        for (key, color) in keysAndColors {
-            let noteNumber = key
+        for (noteNumber, color) in keysAndColors {
             for key in keysArray {
                 if let key = key  {
                     if key.noteNumber == noteNumber {
