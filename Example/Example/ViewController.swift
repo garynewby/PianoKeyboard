@@ -73,7 +73,21 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
     }
     
     func autoHighlight(score: [[String]], position: Int, loop: Bool, tempo: Double, play: Bool) {
-        keyboard.highlightKeys(score[position], color: UIColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.35), play: play)
+        let playingColor = UIColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.35)
+        let highlightColor = UIColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.15)
+        
+        // Collect all included notes in score
+        var highlightKeys: [Int: UIColor] = [:]
+        for step in score {
+            for noteString in step {
+                highlightKeys[Note.number(of: noteString)!] = highlightColor
+            }
+        }
+        for noteString in score[position] {
+            highlightKeys[Note.number(of: noteString)!] = playingColor
+        }
+        
+        keyboard.highlightKeys(highlightKeys, play: play)
         let delay = 60.0/tempo
         let nextPosition = position + 1
         if nextPosition < score.count {
