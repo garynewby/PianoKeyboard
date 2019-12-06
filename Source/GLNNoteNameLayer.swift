@@ -1,5 +1,5 @@
 //
-//  GLNNoteLayer.swift
+//  GLNNoteNameLayer.swift
 //  Example
 //
 //  Created by Gary Newby on 6/11/19.
