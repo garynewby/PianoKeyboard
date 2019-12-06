@@ -24,9 +24,9 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         keyboard.delegate = self
 
         // Customm labels
-        keyboard.labels[60] = "Do"
-        keyboard.labels[62] = "Re"
-        keyboard.labels[64] = "Me"
+        keyboard.setLabel(for: 60, text: "Do")
+        keyboard.setLabel(for: 62, text: "Re")
+        keyboard.setLabel(for: 64, text: "Mi")
 
         keyNumberStepper.value = Double(keyboard.numberOfKeys)
         keyNumberLabel.text = String(keyNumberStepper.value)

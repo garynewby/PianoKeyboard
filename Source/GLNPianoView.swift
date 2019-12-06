@@ -27,7 +27,7 @@ import UIKit
     private var _blackKeyHeight: CGFloat = 0.60
     private var _blackKeyWidth: CGFloat = 0.80
     private var keyCornerRadius: CGFloat = 0
-    var labels: [String?] = Array.init(repeating: nil, count: 128)
+    private var labels: [String?] = Array.init(repeating: nil, count: 128)
     
     @IBInspectable public var blackKeyHeight: CGFloat {
         get {
@@ -86,6 +86,8 @@ import UIKit
         return (downKeyCount > 0)
     }
 
+    // MARK: - Init
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         initKeys()
@@ -95,13 +97,6 @@ import UIKit
         super.init(coder: coder)
         initKeys()
     }
-
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-//        initKeys()
-    }
-
-    // MARK: - Init
 
     private func initKeys() {
         keyCornerRadius = _blackKeyWidth * 8.0
@@ -253,6 +248,15 @@ import UIKit
                 }
             }
         }
+    }
+
+    // MARK: - Labels
+
+    public func setLabel(for midiNumber: Int, text: String) {
+        guard midiNumber < labels.count else {
+            return
+        }
+        labels[midiNumber] = text
     }
 
     // MARK: - Touches
