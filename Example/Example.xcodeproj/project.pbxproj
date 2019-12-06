@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E356D142376F0A300928D66 /* GLNNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356D132376F0A300928D66 /* GLNNote.swift */; };
+		4E9778DB2399C0F7005454A9 /* GLNNoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9778DA2399C0F7005454A9 /* GLNNoteTests.swift */; };
 		4EBA474622B05F0E0000113B /* GLNNoteNameLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA474522B05F0E0000113B /* GLNNoteNameLayer.swift */; };
 		4EBA474822B05F2E0000113B /* GLNExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA474722B05F2E0000113B /* GLNExtensions.swift */; };
 		4EC552F91E5A0AA200526EF5 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC552F81E5A0AA200526EF5 /* AudioEngine.swift */; };
@@ -20,8 +21,21 @@
 		4EEE35531CEBA0B500EAD308 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEE35511CEBA0B500EAD308 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4E9778DD2399C0F7005454A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4EEE353D1CEBA0B500EAD308 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4EEE35441CEBA0B500EAD308;
+			remoteInfo = Example;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		4E356D132376F0A300928D66 /* GLNNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GLNNote.swift; path = ../Source/GLNNote.swift; sourceTree = "<group>"; };
+		4E9778D82399C0F7005454A9 /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E9778DA2399C0F7005454A9 /* GLNNoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLNNoteTests.swift; sourceTree = "<group>"; };
+		4E9778DC2399C0F7005454A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4EBA474522B05F0E0000113B /* GLNNoteNameLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GLNNoteNameLayer.swift; path = ../Source/GLNNoteNameLayer.swift; sourceTree = "<group>"; };
 		4EBA474722B05F2E0000113B /* GLNExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GLNExtensions.swift; path = ../Source/GLNExtensions.swift; sourceTree = "<group>"; };
 		4EC552F81E5A0AA200526EF5 /* AudioEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
@@ -37,6 +51,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4E9778D52399C0F7005454A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4EEE35421CEBA0B500EAD308 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -47,6 +68,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E9778D92399C0F7005454A9 /* ExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				4E9778DA2399C0F7005454A9 /* GLNNoteTests.swift */,
+				4E9778DC2399C0F7005454A9 /* Info.plist */,
+			);
+			path = ExampleTests;
+			sourceTree = "<group>";
+		};
 		4ED397BE1F8D796300FB1473 /* GLNPianoView */ = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +95,7 @@
 				4EEE35471CEBA0B500EAD308 /* Example */,
 				4ED397BE1F8D796300FB1473 /* GLNPianoView */,
 				4EEE355A1CEBA0BE00EAD308 /* Supporting Files */,
+				4E9778D92399C0F7005454A9 /* ExampleTests */,
 				4EEE35461CEBA0B500EAD308 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				4EEE35451CEBA0B500EAD308 /* Example.app */,
+				4E9778D82399C0F7005454A9 /* ExampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,6 +134,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4E9778D72399C0F7005454A9 /* ExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E9778E12399C0F7005454A9 /* Build configuration list for PBXNativeTarget "ExampleTests" */;
+			buildPhases = (
+				4E9778D42399C0F7005454A9 /* Sources */,
+				4E9778D52399C0F7005454A9 /* Frameworks */,
+				4E9778D62399C0F7005454A9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E9778DE2399C0F7005454A9 /* PBXTargetDependency */,
+			);
+			name = ExampleTests;
+			productName = ExampleTests;
+			productReference = 4E9778D82399C0F7005454A9 /* ExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		4EEE35441CEBA0B500EAD308 /* Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4EEE35571CEBA0B500EAD308 /* Build configuration list for PBXNativeTarget "Example" */;
@@ -125,10 +175,16 @@
 		4EEE353D1CEBA0B500EAD308 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Gary Newby";
 				TargetAttributes = {
+					4E9778D72399C0F7005454A9 = {
+						CreatedOnToolsVersion = 11.2.1;
+						DevelopmentTeam = F4FKZMR5MG;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4EEE35441CEBA0B500EAD308;
+					};
 					4EEE35441CEBA0B500EAD308 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = RP89MENV25;
@@ -150,11 +206,19 @@
 			projectRoot = "";
 			targets = (
 				4EEE35441CEBA0B500EAD308 /* Example */,
+				4E9778D72399C0F7005454A9 /* ExampleTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4E9778D62399C0F7005454A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4EEE35431CEBA0B500EAD308 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -168,6 +232,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4E9778D42399C0F7005454A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E9778DB2399C0F7005454A9 /* GLNNoteTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4EEE35411CEBA0B500EAD308 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -184,6 +256,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4E9778DE2399C0F7005454A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4EEE35441CEBA0B500EAD308 /* Example */;
+			targetProxy = 4E9778DD2399C0F7005454A9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4EEE354C1CEBA0B500EAD308 /* Main.storyboard */ = {
@@ -205,6 +285,56 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4E9778DF2399C0F7005454A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F4FKZMR5MG;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ExampleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.marksandspencer.ExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
+			};
+			name = Debug;
+		};
+		4E9778E02399C0F7005454A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F4FKZMR5MG;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ExampleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.marksandspencer.ExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
+			};
+			name = Release;
+		};
 		4EEE35551CEBA0B500EAD308 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -342,6 +472,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4E9778E12399C0F7005454A9 /* Build configuration list for PBXNativeTarget "ExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E9778DF2399C0F7005454A9 /* Debug */,
+				4E9778E02399C0F7005454A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4EEE35401CEBA0B500EAD308 /* Build configuration list for PBXProject "Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name         = 'GLNPianoView'
-  s.version      = '1.0.17'
+  s.version      = '1.0.18'
   s.license      = { :type => 'MIT', :file => 'LICENCE.md' }
   s.description  = 'An iOS piano keyboard view, written in Swift. Has an IBInspectable properties and IB_DESIGNABLE preview. Suitable for iPhone or iPad. All image elements are drawn using Core Graphics.'
   s.summary      = 'An iOS piano keyboard view, written in Swift.'
   s.homepage     = 'https://github.com/garynewby/GLNPianoView.git'
   s.authors      = { 'Gary Newby' => 'gary@mellowmuse.com' }
-  s.source       = { :git => 'https://github.com/garynewby/GLNPianoView.git', :tag => '1.0.17' }
+  s.source       = { :git => 'https://github.com/garynewby/GLNPianoView.git', :tag => '1.0.18' }
   s.source_files = 'Source/*.{swift}'
   s.requires_arc = true
   s.platform     = :ios

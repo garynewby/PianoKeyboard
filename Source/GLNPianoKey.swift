@@ -22,8 +22,9 @@ public final class GLNPianoKey {
     public var noteNumber: Int
     public var isDown = false
     public var noteLayer: GLNNoteNameLayer?
+    public var resetsHighLight: Bool = true
 
-    init(color: UIColor, rect: CGRect, type: GLNPianoKeyType, cornerRadius: CGFloat, showNotes: Bool, noteNumber: Int, blackKeyWidth: CGFloat = 0, blackKeyHeight: CGFloat = 0) {
+    init(color: UIColor, rect: CGRect, type: GLNPianoKeyType, cornerRadius: CGFloat, showNotes: Bool, noteNumber: Int, label: String?, blackKeyWidth: CGFloat = 0, blackKeyHeight: CGFloat = 0) {
         self.noteNumber = noteNumber
         self.type = type
         let x: CGFloat = 1.0
@@ -43,18 +44,20 @@ public final class GLNPianoKey {
         imageLayer.addSublayer(highlightLayer)
         
         if type == .white {
+            highlightLayer.compositingFilter = "darkenBlendMode"
             upImage = UIImage.keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown: false, keyCornerRadius: cornerRadius, noteNumber: noteNumber)
             downImage = UIImage.keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown: true, keyCornerRadius: cornerRadius, noteNumber: noteNumber)
             if let image = upImage?.cgImage {
                 imageLayer.contents = image
             }
             if showNotes {
-                noteLayer = GLNNoteNameLayer(layerHeight: imageLayer.frame.size.height, keyRect: rect, noteNumber: noteNumber)
+                noteLayer = GLNNoteNameLayer(layerHeight: imageLayer.frame.size.height, keyRect: rect, noteNumber: noteNumber, label: label)
                 if let noteLayer = noteLayer {
                     imageLayer.addSublayer(noteLayer)
                 }
             }
         } else {
+            highlightLayer.compositingFilter = "lightenBlendMode"
             upImage = UIImage.keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown: false, keyCornerRadius: cornerRadius, noteNumber: noteNumber)
             downImage = UIImage.keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown: true, keyCornerRadius: cornerRadius, noteNumber: noteNumber)
             if let image = upImage?.cgImage {

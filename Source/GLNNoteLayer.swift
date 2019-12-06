@@ -9,16 +9,16 @@
 import UIKit
 import QuartzCore
 
-public final class GLNNoteNameLayer: CATextLayer {
+public final class GLNNoteLayer: CATextLayer {
     public override init(layer: Any) {
         super.init(layer: layer)
     }
     
-    public init(layerHeight: CGFloat, keyRect: CGRect, noteNumber: Int, label: String? = nil) {
+    public init(layerHeight: CGFloat, keyRect: CGRect, noteNumber: Int) {
         super.init()
         let width = keyRect.size.width / 2.0
         let height = width
-        self.string = label != nil ? label : GLNNote.name(for: noteNumber)
+        self.string = Note.name(of: noteNumber)
         self.foregroundColor = UIColor.white.cgColor
         self.backgroundColor = UIColor.noteColourFor(midiNumber: noteNumber, alpha: 0.75).cgColor
         self.font = UIFont.boldSystemFont(ofSize: 0.0)

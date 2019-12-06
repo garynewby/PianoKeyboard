@@ -27,16 +27,7 @@ import UIKit
     private var _blackKeyHeight: CGFloat = 0.60
     private var _blackKeyWidth: CGFloat = 0.80
     private var keyCornerRadius: CGFloat = 0
-    
-    @IBInspectable public var numberOfKeys: Int {
-        get {
-            return _numberOfKeys
-        }
-        set {
-            _numberOfKeys = newValue.clamp(min: GLNPianoView.minNumberOfKeys, max: GLNPianoView.maxNumberOfKeys)
-            setNeedsLayout()
-        }
-    }
+    var labels: [String?] = Array.init(repeating: nil, count: 128)
     
     @IBInspectable public var blackKeyHeight: CGFloat {
         get {
@@ -57,13 +48,25 @@ import UIKit
             _blackKeyWidth = (value.rounded() + 10) * 0.05
         }
     }
-    
+
+    @IBInspectable public var numberOfKeys: Int {
+        get {
+            return _numberOfKeys
+        }
+        set {
+            _numberOfKeys = newValue.clamp(min: GLNPianoView.minNumberOfKeys, max: GLNPianoView.maxNumberOfKeys)
+            initKeys()
+            setNeedsLayout()
+        }
+    }
+
     public var octave: Int {
         get {
             return _octave
         }
         set {
             _octave = newValue
+            initKeys()
             setNeedsLayout()
         }
     }
@@ -83,10 +86,22 @@ import UIKit
         return (downKeyCount > 0)
     }
 
-    public override func layoutSubviews() {
-        super.layoutSubviews()
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
         initKeys()
     }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initKeys()
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+//        initKeys()
+    }
+
+    // MARK: - Init
 
     private func initKeys() {
         keyCornerRadius = _blackKeyWidth * 8.0
@@ -120,8 +135,8 @@ import UIKit
                 let newX = (xPosition + 0.5)
                 let newW = ((xPosition + whiteKeyWidth + 0.5) - newX)
                 let keyRect = CGRect(x: newX, y: 0, width: newW, height: whiteKeyHeight - 1)
-                let key = GLNPianoKey(color: UIColor.white, rect: keyRect, type: .white, cornerRadius: keyCornerRadius,
-                                      showNotes: showNotes, noteNumber: index + octave)
+                let noteNumber = index + octave
+                let key = GLNPianoKey(color: UIColor.white, rect: keyRect, type: .white, cornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber: noteNumber, label: labels[noteNumber])
                 keysArray[index] = key
                 layer.addSublayer(key.imageLayer)
                 xPosition += whiteKeyWidth
@@ -134,9 +149,8 @@ import UIKit
                 xPosition += whiteKeyWidth
             } else {
                 let keyRect = CGRect(x: (xPosition - blackKeyOffset), y: 0, width: blackKeyWidth, height: blackKeyHeight)
-                let key = GLNPianoKey(color: UIColor.black, rect: keyRect, type: .black, cornerRadius: keyCornerRadius,
-                                      showNotes: showNotes, noteNumber: index + octave,
-                                      blackKeyWidth: blackKeyWidth, blackKeyHeight: blackKeyHeight)
+                let noteNumber = index + octave
+                let key = GLNPianoKey(color: UIColor.black, rect: keyRect, type: .black, cornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber: noteNumber, label: labels[noteNumber], blackKeyWidth: blackKeyWidth, blackKeyHeight: blackKeyHeight)
                 keysArray[index] = key
                 layer.addSublayer(key.imageLayer)
             }
@@ -188,32 +202,60 @@ import UIKit
         return keyNum
     }
 
-    public func highlightKeys(_ noteNames: [String], color: UIColor, play: Bool) {
-        reset()
+    // MARK: - Highlighting
+
+    public func highlightKeys(noteNames: [String], color: UIColor, play: Bool = false) {
+        reset(didPlay: play)
         for note in noteNames {
-            let noteNumber = Note.number(of: note)
-            for key in keysArray {
-                if let key = key  {
-                    if key.noteNumber == noteNumber {
-                        //key.layer.backgroundColor = color.cgColor
-                        key.highlightLayer.backgroundColor = color.cgColor
-                        if play {
-                            delegate?.pianoKeyDown(key.noteNumber - octave)
-                        }
-                    }
+            let noteNumber = GLNNote.midiNumber(for: note)
+            highlight(noteNumber: noteNumber, color: color, play: play)
+        }
+    }
+
+    public func highlightKeys(noteNumbers: [Int], color: UIColor, play: Bool = false) {
+        reset(didPlay: play)
+        for noteNumber in noteNumbers {
+            highlight(noteNumber: noteNumber, color: color, play: play)
+        }
+    }
+
+    public func highlightKey(noteName: String, color: UIColor, play: Bool = false) {
+        reset(didPlay: play)
+        let noteNumber = GLNNote.midiNumber(for: noteName)
+        highlight(noteNumber: noteNumber, color: color, play: play)
+    }
+
+    public func highlightKey(noteNumber: Int, color: UIColor, play: Bool = false, resets: Bool = true) {
+        reset(didPlay: play)
+        highlight(noteNumber: noteNumber, color: color, play: play, resets: resets)
+    }
+
+    private func highlight(noteNumber: Int, color: UIColor, play: Bool, resets: Bool = true) {
+        for key in keysArray {
+            if let key = key, key.noteNumber == noteNumber  {
+                key.highlightLayer.backgroundColor = color.cgColor
+                key.resetsHighLight = resets
+                if play {
+                    delegate?.pianoKeyDown(key.noteNumber - octave)
                 }
             }
         }
     }
-    
-    public func reset() {
-        keysArray.forEach {
-            $0?.highlightLayer.backgroundColor = UIColor.clear.cgColor
-            if let noteNumber = $0?.noteNumber {
-                delegate?.pianoKeyUp(noteNumber - octave)
+
+    public func reset(didPlay: Bool) {
+        for key in keysArray {
+            if let key = key  {
+                if key.resetsHighLight {
+                    key.highlightLayer.backgroundColor = UIColor.clear.cgColor
+                }
+                if didPlay {
+                    delegate?.pianoKeyUp(key.noteNumber - octave)
+                }
             }
         }
     }
+
+    // MARK: - Touches
     
     public override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
         for touch in touches {
