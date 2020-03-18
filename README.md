@@ -28,7 +28,7 @@ pod 'GLNPianoView'
 
 ## Demo
 
-The <i>Example</i> demo project demonstrates how to use and integrate the GLNPianoView into your project, using AVAudioEngine and an AVAudioUnitSampler as the sound source.
+The <i>Example</i> app demonstrates how to integrate and use GLNPianoView into your project. It includes a simple an AVAudioEngine and an AVAudioUnitSampler as sound source.
 
 
 ### Delegate Methods
