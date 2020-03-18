@@ -32,11 +32,11 @@ The <i>Example</i> demo project demonstrates how to use and integrate the GLNPia
 ### Delegate Methods
 
 ```swift
-func pianoKeyDown(_ keyNumber: UInt8) {
+func pianoKeyDown(_ keyNumber: Int) {
   // Called when the key corresponding to midi number keyNumber is pressed
 }
 
-func pianoKeyUp(_ keyNumber: UInt8) {
+func pianoKeyUp(_ keyNumber: Int) {
   // Called when the key corresponding to midi number keyNumber is released
 }
 ```
