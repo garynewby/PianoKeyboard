@@ -10,23 +10,38 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController, GLNPianoViewDelegate {
-    @IBOutlet weak var fascia: UIView!
-    @IBOutlet weak var keyboard: GLNPianoView!
-    @IBOutlet weak var keyNumberStepper: UIStepper!
-    @IBOutlet weak var keyNumberLabel: UILabel!
-    @IBOutlet weak var octaveStepper: UIStepper!
-    @IBOutlet weak var octaveLabel: UILabel!
+    @IBOutlet private var fascia: UIView!
+    @IBOutlet private var keyboard: GLNPianoView!
+    @IBOutlet private var keyNumberStepper: UIStepper!
+    @IBOutlet private var keyNumberLabel: UILabel!
+    @IBOutlet private var octaveStepper: UIStepper!
+    @IBOutlet private var octaveLabel: UILabel!
+    @IBOutlet private var showNotesSwitch: UISwitch!
+    @IBOutlet private var latchSwitch: UISwitch!
+
     private let audioEngine = AudioEngine()
-    var sequence: Sequence?
+    private var sequence: Sequence?
+    private lazy var fasciaLayer: CAGradientLayer = {
+        let layer = CAGradientLayer()
+        layer.frame = fascia.bounds
+        layer.colors = [UIColor.black.cgColor, UIColor.darkGray.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.darkGray.cgColor, UIColor.black.cgColor]
+        layer.startPoint = CGPoint(x: 0.0, y: 0.80)
+        layer.endPoint = CGPoint(x: 0.0, y: 1.0)
+        return layer
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         keyboard.delegate = self
 
-        // Customm labels
+        // Custom labels
         keyboard.setLabel(for: 60, text: "Do")
         keyboard.setLabel(for: 62, text: "Re")
         keyboard.setLabel(for: 64, text: "Mi")
+
+        for noteNumber in 65...72 {
+            keyboard.setLabel(for: noteNumber, text: GLNNote.name(for: noteNumber))
+        }
 
         keyNumberStepper.value = Double(keyboard.numberOfKeys)
         keyNumberLabel.text = String(keyNumberStepper.value)
@@ -37,34 +52,30 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         octaveStepper.layer.masksToBounds = true
         octaveLabel.text = String(octaveStepper.value)
 
+        showNotesSwitch.subviews[0].subviews[0].backgroundColor = .gray
+        latchSwitch.subviews[0].subviews[0].backgroundColor = .gray
+
         audioEngine.start()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        let layer = CAGradientLayer()
-        layer.frame = fascia.bounds
-        layer.colors = [UIColor.black.cgColor, UIColor.darkGray.cgColor, UIColor.black.cgColor]
-        layer.startPoint = CGPoint(x: 0.0, y: 0.80)
-        layer.endPoint = CGPoint(x: 0.0, y: 1.0)
-        fascia.layer.insertSublayer(layer, at: 0)
-        
-        // Auto highlighting/playing examples
-        noteDemo()
-        //chordDemo()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        keyboard.highlightKey(noteNumber: 72, color: UIColor.red.withAlphaComponent(0.7), resets: false)
-        keyboard.highlightKey(noteNumber: 75, color: UIColor.red.withAlphaComponent(0.7), resets: false)
-        keyboard.highlightKey(noteNumber: 79, color: UIColor.red.withAlphaComponent(0.7), resets: false)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        keyboard.highlightKey(noteNumber: 72, color: UIColor.red.withAlphaComponent(0.7), resets: false)
+        keyboard.highlightKey(noteNumber: 75, color: UIColor.red.withAlphaComponent(0.7), resets: false)
+        keyboard.highlightKey(noteNumber: 79, color: UIColor.red.withAlphaComponent(0.7), resets: false)
+
+        fascia.layer.insertSublayer(fasciaLayer, at: 0)
+
+        // Auto highlighting/playing examples
+        noteDemo()
+        //chordDemo()
+    }
+
 
     private func chordDemo() {
         autoHighlight(score: [["C4", "E4", "G4", "B4"],
@@ -126,7 +137,11 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         audioEngine.sampler.stopNote(UInt8(keyboard.octave + keyNumber), onChannel: 0)
     }
 
-    @IBAction func showNotes(_: Any) {
+    @IBAction func latchTapped(_ sender: Any) {
+        keyboard.toggleLatch()
+    }
+
+    @IBAction func showNotesTapped(_: Any) {
         keyboard.toggleShowNotes()
     }
 
@@ -141,29 +156,3 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
     }
 }
 
-class Sequence {
-    let functions : Array<() -> ()>
-    let delay: Double
-    var functionIndex = 0
-    var run = true
-
-    init(delay: Double, functions: (() -> ())...) {
-        self.functions = functions
-        self.delay = delay
-        loop()
-    }
-
-    func loop() {
-        functions[functionIndex]()
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            self.functionIndex = (self.functionIndex + 1) % self.functions.count
-            if self.run {
-                self.loop()
-            }
-        }
-    }
-
-    func stop() {
-        run = false
-    }
-}

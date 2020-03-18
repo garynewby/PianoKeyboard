@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E356D142376F0A300928D66 /* GLNNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356D132376F0A300928D66 /* GLNNote.swift */; };
+		4E55CBE224222CA50026CBF7 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55CBE124222CA50026CBF7 /* Sequence.swift */; };
 		4E9778DB2399C0F7005454A9 /* GLNNoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9778DA2399C0F7005454A9 /* GLNNoteTests.swift */; };
 		4EBA474622B05F0E0000113B /* GLNNoteNameLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA474522B05F0E0000113B /* GLNNoteNameLayer.swift */; };
 		4EBA474822B05F2E0000113B /* GLNExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA474722B05F2E0000113B /* GLNExtensions.swift */; };
@@ -33,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		4E356D132376F0A300928D66 /* GLNNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GLNNote.swift; path = ../Source/GLNNote.swift; sourceTree = "<group>"; };
+		4E55CBE124222CA50026CBF7 /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
+		4E55CBE4242233EC0026CBF7 /* GLNPianoView.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = GLNPianoView.podspec; path = ../../GLNPianoView.podspec; sourceTree = "<group>"; };
 		4E9778D82399C0F7005454A9 /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9778DA2399C0F7005454A9 /* GLNNoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLNNoteTests.swift; sourceTree = "<group>"; };
 		4E9778DC2399C0F7005454A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -114,6 +117,7 @@
 			children = (
 				4EEE35481CEBA0B500EAD308 /* AppDelegate.swift */,
 				4EEE354A1CEBA0B500EAD308 /* ViewController.swift */,
+				4E55CBE124222CA50026CBF7 /* Sequence.swift */,
 				4EC552F81E5A0AA200526EF5 /* AudioEngine.swift */,
 			);
 			path = Example;
@@ -122,6 +126,7 @@
 		4EEE355A1CEBA0BE00EAD308 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4E55CBE4242233EC0026CBF7 /* GLNPianoView.podspec */,
 				4EEE35541CEBA0B500EAD308 /* Info.plist */,
 				4EEE354C1CEBA0B500EAD308 /* Main.storyboard */,
 				4EEE35511CEBA0B500EAD308 /* LaunchScreen.storyboard */,
@@ -246,6 +251,7 @@
 			files = (
 				4ED397C41F8D798900FB1473 /* GLNPianoView.swift in Sources */,
 				4ED397C31F8D798900FB1473 /* GLNPianoKey.swift in Sources */,
+				4E55CBE224222CA50026CBF7 /* Sequence.swift in Sources */,
 				4EBA474622B05F0E0000113B /* GLNNoteNameLayer.swift in Sources */,
 				4EC552F91E5A0AA200526EF5 /* AudioEngine.swift in Sources */,
 				4EEE354B1CEBA0B500EAD308 /* ViewController.swift in Sources */,

@@ -19,8 +19,8 @@ import UIKit
     @objc public weak var delegate: GLNPianoViewDelegate?
     private var keysArray: [GLNPianoKey?] = []
     private var currentTouches = NSMutableSet(capacity: Int(maxNumberOfKeys))
-    private static let minNumberOfKeys = 12
-    private static let maxNumberOfKeys = 61
+    static let minNumberOfKeys = 12
+    static let maxNumberOfKeys = 61
     private var _octave = 60
     private var _numberOfKeys = 24
     private var whiteKeyCount = 0
@@ -28,6 +28,7 @@ import UIKit
     private var _blackKeyWidth: CGFloat = 0.80
     private var keyCornerRadius: CGFloat = 0
     private var labels: [String?] = Array.init(repeating: nil, count: 128)
+    private var latch: Bool = false
     
     @IBInspectable public var blackKeyHeight: CGFloat {
         get {
@@ -56,7 +57,6 @@ import UIKit
         set {
             _numberOfKeys = newValue.clamp(min: GLNPianoView.minNumberOfKeys, max: GLNPianoView.maxNumberOfKeys)
             initKeys()
-            setNeedsLayout()
         }
     }
 
@@ -67,13 +67,18 @@ import UIKit
         set {
             _octave = newValue
             initKeys()
-            setNeedsLayout()
         }
+    }
+
+    @objc public func toggleLatch() {
+        latch.toggle()
+        currentTouches.removeAllObjects()
+        updateKeys()
     }
     
     @objc public func toggleShowNotes() {
         showNotes.toggle()
-        setNeedsLayout()
+        initKeys()
     }
     
     @objc public func aKeyIsDown() -> Bool {
@@ -86,17 +91,7 @@ import UIKit
         return (downKeyCount > 0)
     }
 
-    // MARK: - Init
-
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        initKeys()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        initKeys()
-    }
+    // MARK: - InitKeys
 
     private func initKeys() {
         keyCornerRadius = _blackKeyWidth * 8.0
@@ -181,7 +176,6 @@ import UIKit
                 keysArray[index]?.isDown = keyIsDownAt[index]
             }
         }
-        setNeedsDisplay()
     }
     
     private func getKeyContaining(_ point: CGPoint) -> Int {
@@ -195,6 +189,11 @@ import UIKit
             }
         }
         return keyNum
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        initKeys()
     }
 
     // MARK: - Highlighting
@@ -276,10 +275,12 @@ import UIKit
     }
     
     public override func touchesEnded(_ touches: Set<UITouch>, with _: UIEvent?) {
-        for touch in touches {
-            currentTouches.remove(touch)
+        if !latch {
+            for touch in touches {
+                currentTouches.remove(touch)
+            }
+            updateKeys()
         }
-        updateKeys()
     }
     
     public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {

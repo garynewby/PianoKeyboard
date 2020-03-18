@@ -5,10 +5,13 @@ Has an IBDesignable preview in interface builder with IBInspectable properties f
 - Number of keys
 - Hide/show note names on white keys
 - Black key height and width
-- Hightlight keys, individual colour (play note)
+- Hightlight keys, with individual colour (optional play note)
 - Custom key labels
 
-All image elements are drawn using Core Graphics. 
+Other features
+- Latch/Hold key
+
+All images are drawn using Core Graphics. 
 
 ![alt tag](https://github.com/garynewby/GLNPianoView/raw/master/screen.png)
 
@@ -35,6 +38,19 @@ func pianoKeyDown(_ keyNumber: UInt8) {
 
 func pianoKeyUp(_ keyNumber: UInt8) {
   // Called when the key corresponding to midi number keyNumber is released
+}
+```
+
+### Key Labels
+
+A key's label must be assigned a value for it to show:
+```
+keyboard.setLabel(for: 60, text: "Do")
+keyboard.setLabel(for: 62, text: "Re")
+keyboard.setLabel(for: 64, text: "Mi")
+
+for noteNumber in 65...72 {
+    keyboard.setLabel(for: noteNumber, text: GLNNote.name(for: noteNumber))
 }
 ```
 

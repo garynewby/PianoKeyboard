@@ -50,7 +50,7 @@ public final class GLNPianoKey {
             if let image = upImage?.cgImage {
                 imageLayer.contents = image
             }
-            if showNotes {
+            if let label = label, showNotes {
                 noteLayer = GLNNoteNameLayer(layerHeight: imageLayer.frame.size.height, keyRect: rect, noteNumber: noteNumber, label: label)
                 if let noteLayer = noteLayer {
                     imageLayer.addSublayer(noteLayer)

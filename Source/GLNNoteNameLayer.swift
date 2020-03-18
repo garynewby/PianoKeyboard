@@ -14,18 +14,21 @@ public final class GLNNoteNameLayer: CATextLayer {
         super.init(layer: layer)
     }
     
-    public init(layerHeight: CGFloat, keyRect: CGRect, noteNumber: Int, label: String? = nil) {
+    public init(layerHeight: CGFloat, keyRect: CGRect, noteNumber: Int, label: String) {
         super.init()
+        
         let width = keyRect.size.width / 2.0
         let height = width
-        self.string = label != nil ? label : GLNNote.name(for: noteNumber)
-        self.foregroundColor = UIColor.white.cgColor
-        self.backgroundColor = UIColor.noteColourFor(midiNumber: noteNumber, alpha: 0.75).cgColor
-        self.font = UIFont.boldSystemFont(ofSize: 0.0)
-        self.fontSize = (keyRect.size.width / 4.0)
-        self.alignmentMode = .center
-        self.cornerRadius = (height * 0.5)
-        self.frame = CGRect(x: (keyRect.size.width * 0.25), y: (layerHeight - height - 10), width: width, height: height)
+
+        contentsScale = UIScreen.main.scale
+        string = label
+        foregroundColor = UIColor.white.cgColor
+        backgroundColor = UIColor.noteColourFor(midiNumber: noteNumber, alpha: 0.75).cgColor
+        font = UIFont.boldSystemFont(ofSize: 0.0)
+        fontSize = (keyRect.size.width / 4.0)
+        alignmentMode = .center
+        cornerRadius = (height * 0.5)
+        frame = CGRect(x: (keyRect.size.width * 0.25), y: (layerHeight - height - 10), width: width, height: height)
     }
 
     required init?(coder aDecoder: NSCoder) {
