@@ -11,7 +11,9 @@ Has an IBDesignable preview in interface builder with IBInspectable properties f
 Other features
 - Latch/Hold key
 
-All images are drawn using Core Graphics. 
+All images are drawn using Core Graphics.
+
+## Example app
 
 ![alt tag](https://github.com/garynewby/GLNPianoView/raw/master/screen.png)
 
