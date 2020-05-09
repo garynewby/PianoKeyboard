@@ -20,10 +20,17 @@ All images are drawn using Core Graphics.
 
 ## Installation
 
-GLNPianoView is available through CocoaPods. To install it, simply add the following line to your Podfile:
+### CocoaPods
+To use via CocoaPods, add the following line to your Podfile:
 
-```swift
+```
 pod 'GLNPianoView'
+```
+
+### Swift Package Manager
+With Xcode 11+ you can add GLNPianoView to your project using the Swift Package Manager. From the File menu select Swift Packages and then select Add Package Dependency. A dialogue then will request the package repository URL, enter:
+```
+https://github.com/garynewby/GLNPianoView.git
 ```
 
 ## Demo
