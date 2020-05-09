@@ -14,12 +14,12 @@ public enum GLNPianoKeyType {
 }
 
 public final class GLNPianoKey {
-    private var upImage: UIImage?
-    private var downImage: UIImage?
-    public var type: GLNPianoKeyType
-    public var imageLayer: CALayer
-    public var highlightLayer: CALayer
-    public var noteNumber: Int
+    private let upImage: UIImage
+    private let downImage: UIImage
+    public let type: GLNPianoKeyType
+    public let imageLayer = CALayer()
+    public let highlightLayer = CALayer()
+    public let noteNumber: Int
     public var isDown = false
     public var noteLayer: GLNNoteNameLayer?
     public var resetsHighLight: Bool = true
@@ -30,7 +30,6 @@ public final class GLNPianoKey {
         let x: CGFloat = 1.0
         let rect = CGRect(x: rect.minX, y: rect.minY - (cornerRadius * 2.0), width: rect.width, height: rect.height + (cornerRadius * 2.0))
 
-        imageLayer = CALayer()
         imageLayer.contentsCenter = CGRect(x: 0.5, y: 0.5, width: 0.02, height: 0.02)
         imageLayer.frame = rect.insetBy(dx: x, dy: 0)
         imageLayer.isOpaque = true
@@ -38,16 +37,15 @@ public final class GLNPianoKey {
         imageLayer.cornerRadius = cornerRadius
         imageLayer.masksToBounds = true
         imageLayer.actions = ["onOrderIn": NSNull(), "onOrderOut": NSNull(), "sublayers": NSNull(), "contents": NSNull(), "bounds": NSNull(), "position": NSNull()]
-        highlightLayer = CALayer()
+
         highlightLayer.backgroundColor = UIColor.clear.cgColor
         highlightLayer.frame = imageLayer.bounds
         imageLayer.addSublayer(highlightLayer)
         
         if type == .white {
-            highlightLayer.compositingFilter = "darkenBlendMode"
-            upImage = UIImage.keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown: false, keyCornerRadius: cornerRadius, noteNumber: noteNumber)
-            downImage = UIImage.keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown: true, keyCornerRadius: cornerRadius, noteNumber: noteNumber)
-            if let image = upImage?.cgImage {
+            upImage = UIImage.keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown: false, keyCornerRadius: cornerRadius, noteNumber: noteNumber) ?? UIImage()
+            downImage = UIImage.keyImage(CGSize(width: 21, height: 21), blackKey: false, keyDown: true, keyCornerRadius: cornerRadius, noteNumber: noteNumber) ?? UIImage()
+            if let image = upImage.cgImage {
                 imageLayer.contents = image
             }
             if let label = label, showNotes {
@@ -56,23 +54,24 @@ public final class GLNPianoKey {
                     imageLayer.addSublayer(noteLayer)
                 }
             }
+            highlightLayer.compositingFilter = "darkenBlendMode"
         } else {
-            highlightLayer.compositingFilter = "lightenBlendMode"
-            upImage = UIImage.keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown: false, keyCornerRadius: cornerRadius, noteNumber: noteNumber)
-            downImage = UIImage.keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown: true, keyCornerRadius: cornerRadius, noteNumber: noteNumber)
-            if let image = upImage?.cgImage {
+            upImage = UIImage.keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown: false, keyCornerRadius: cornerRadius, noteNumber: noteNumber) ?? UIImage()
+            downImage = UIImage.keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown: true, keyCornerRadius: cornerRadius, noteNumber: noteNumber) ?? UIImage()
+            if let image = upImage.cgImage {
                 imageLayer.contents = image
             }
+            highlightLayer.compositingFilter = "lightenBlendMode"
         }
     }
 
     func setImage(keyNum _: Int, isDown: Bool) {
         if type == .white {
             let shadowDimension = isDown ? 0.1 : 0.02
-            imageLayer.contents = isDown ? downImage?.cgImage : upImage?.cgImage
+            imageLayer.contents = isDown ? downImage.cgImage : upImage.cgImage
             imageLayer.contentsCenter = CGRect(x: 0.5, y: 0.5, width: shadowDimension, height: shadowDimension)
         } else {
-            imageLayer.contents = isDown ? downImage?.cgImage : upImage?.cgImage
+            imageLayer.contents = isDown ? downImage.cgImage : upImage.cgImage
         }
     }
 }

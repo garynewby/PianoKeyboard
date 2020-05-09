@@ -14,22 +14,24 @@ import UIKit
 }
 
 @IBDesignable public class GLNPianoView: UIView {
+
+    static let minNumberOfKeys = 12
+    static let maxNumberOfKeys = 61
     
-    @IBInspectable var showNotes: Bool = true
     @objc public weak var delegate: GLNPianoViewDelegate?
     private var keysArray: [GLNPianoKey?] = []
     private var currentTouches = NSMutableSet(capacity: Int(maxNumberOfKeys))
-    static let minNumberOfKeys = 12
-    static let maxNumberOfKeys = 61
     private var _octave = 60
     private var _numberOfKeys = 24
-    private var whiteKeyCount = 0
     private var _blackKeyHeight: CGFloat = 0.60
     private var _blackKeyWidth: CGFloat = 0.80
+    private var whiteKeyCount = 0
     private var keyCornerRadius: CGFloat = 0
     private var labels: [String?] = Array.init(repeating: nil, count: 128)
     private var latch: Bool = false
     
+    @IBInspectable var showNotes: Bool = true
+
     @IBInspectable public var blackKeyHeight: CGFloat {
         get {
             return _blackKeyHeight
@@ -47,6 +49,7 @@ import UIKit
         set {
             let value = newValue.clamp(min: 0, max: 8)
             _blackKeyWidth = (value.rounded() + 10) * 0.05
+            keyCornerRadius = _blackKeyWidth * 8.0
         }
     }
 
@@ -94,7 +97,6 @@ import UIKit
     // MARK: - InitKeys
 
     private func initKeys() {
-        keyCornerRadius = _blackKeyWidth * 8.0
         whiteKeyCount = 0
         currentTouches = NSMutableSet()
         keysArray = [GLNPianoKey?](repeating: nil, count: Int(_numberOfKeys + 1))

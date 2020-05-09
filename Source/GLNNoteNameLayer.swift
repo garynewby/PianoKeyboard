@@ -10,16 +10,11 @@ import UIKit
 import QuartzCore
 
 public final class GLNNoteNameLayer: CATextLayer {
-    public override init(layer: Any) {
-        super.init(layer: layer)
-    }
-    
     public init(layerHeight: CGFloat, keyRect: CGRect, noteNumber: Int, label: String) {
         super.init()
         
         let width = keyRect.size.width / 2.0
         let height = width
-
         contentsScale = UIScreen.main.scale
         string = label
         foregroundColor = UIColor.white.cgColor
@@ -32,7 +27,7 @@ public final class GLNNoteNameLayer: CATextLayer {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
     }
 
     public override func draw(in ctx: CGContext) {
