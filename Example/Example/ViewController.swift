@@ -11,7 +11,7 @@ import AVFoundation
 
 class ViewController: UIViewController, PianoViewDelegate {
     @IBOutlet private var fascia: UIView!
-    @IBOutlet private var keyboard: PianoView!
+    @IBOutlet private var keyboard: PianoKeyboard!
     @IBOutlet private var keyNumberStepper: UIStepper!
     @IBOutlet private var keyNumberLabel: UILabel!
     @IBOutlet private var octaveStepper: UIStepper!

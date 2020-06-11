@@ -2,19 +2,19 @@
 import PackageDescription
 
 let package = Package(
-    name: "PianoView",
+    name: "PianoKeyboard",
     platforms: [
         .iOS("9.0")
     ],
     products: [
         .library(
-            name: "PianoView",
-            targets: ["PianoView"]
+            name: "PianoKeyboard",
+            targets: ["PianoKeyboard"]
         )
     ],
     targets: [
         .target(
-            name: "PianoView",
+            name: "PianoKeyboard",
             path: "Source"
         )
     ]

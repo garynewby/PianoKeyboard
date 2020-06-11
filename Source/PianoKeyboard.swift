@@ -13,7 +13,7 @@ import UIKit
     func pianoKeyDown(_ keyNumber: Int)
 }
 
-@IBDesignable public class PianoView: UIView {
+@IBDesignable public class PianoKeyboard: UIView {
 
     static let minNumberOfKeys = 12
     static let maxNumberOfKeys = 61
@@ -58,7 +58,7 @@ import UIKit
             return _numberOfKeys
         }
         set {
-            _numberOfKeys = newValue.clamp(min: PianoView.minNumberOfKeys, max: PianoView.maxNumberOfKeys)
+            _numberOfKeys = newValue.clamp(min: PianoKeyboard.minNumberOfKeys, max: PianoKeyboard.maxNumberOfKeys)
             initKeys()
         }
     }

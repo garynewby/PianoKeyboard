@@ -19,12 +19,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PianoView" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="zEz-LZ-nD7">
-                                <rect key="frame" x="69" y="410" width="276" height="76.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PianoKeyboard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="zEz-LZ-nD7">
+                                <rect key="frame" x="54.5" y="405.5" width="305" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="zEz-LZ-nD7" secondAttribute="height" multiplier="263:73" id="MK2-CD-pHF"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="64"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="50"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>

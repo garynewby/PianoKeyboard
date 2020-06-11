@@ -1,4 +1,4 @@
-PianoView
+PianoKeyboard
 ============
 An iOS piano keyboard view for iPhone or iPad, written in Swift 5. 
 Has an IBDesignable preview in interface builder with IBInspectable properties for:
@@ -15,7 +15,7 @@ All images are drawn using Core Graphics.
 
 ## Example app
 
-![alt tag](https://github.com/garynewby/PianoView/raw/master/screen.png)
+![alt tag](https://github.com/garynewby/PianoKeyboard/raw/master/screen.png)
 
 
 ## Installation
@@ -24,18 +24,18 @@ All images are drawn using Core Graphics.
 To use via CocoaPods, add the following line to your Podfile:
 
 ```
-pod 'PianoView'
+pod 'PianoKeyboard'
 ```
 
 ### Swift Package Manager
-With Xcode 11+ you can add PianoView to your project using the Swift Package Manager. From the File menu select Swift Packages and then select Add Package Dependency. A dialogue then will request the package repository URL, enter:
+With Xcode 11+ you can add PianoKeyboard to your project using the Swift Package Manager. From the File menu select Swift Packages and then select Add Package Dependency. A dialogue then will request the package repository URL, enter:
 ```
-https://github.com/garynewby/PianoView.git
+https://github.com/garynewby/PianoKeyboard.git
 ```
 
 ## Demo
 
-The Example app demonstrates how to integrate and use PianoView in your project. It includes a simple AVAudioEngine/AVAudioUnitSampler based sound source.
+The Example app demonstrates how to integrate and use PianoKeyboard in your project. It includes a simple AVAudioEngine/AVAudioUnitSampler based sound source.
 
 
 ### Delegate Methods
