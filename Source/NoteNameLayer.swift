@@ -1,5 +1,5 @@
 //
-//  GLNNoteNameLayer.swift
+//  NoteNameLayer.swift
 //  Example
 //
 //  Created by Gary Newby on 6/11/19.
@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-public final class GLNNoteNameLayer: CATextLayer {
+public final class NoteNameLayer: CATextLayer {
     public init(layerHeight: CGFloat, keyRect: CGRect, noteNumber: Int, label: String) {
         super.init()
         

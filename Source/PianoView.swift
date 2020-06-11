@@ -1,6 +1,6 @@
 //
-//  GLNPianoView.swift
-//  GLNPianoView
+//  PianoView.swift
+//  PianoView
 //
 //  Created by Gary Newby on 16/05/2016.
 //  Copyright © 2016 Gary Newby. All rights reserved.
@@ -8,18 +8,18 @@
 
 import UIKit
 
-@objc public protocol GLNPianoViewDelegate: class {
+@objc public protocol PianoViewDelegate: class {
     func pianoKeyUp(_ keyNumber: Int)
     func pianoKeyDown(_ keyNumber: Int)
 }
 
-@IBDesignable public class GLNPianoView: UIView {
+@IBDesignable public class PianoView: UIView {
 
     static let minNumberOfKeys = 12
     static let maxNumberOfKeys = 61
     
-    @objc public weak var delegate: GLNPianoViewDelegate?
-    private var keysArray: [GLNPianoKey?] = []
+    @objc public weak var delegate: PianoViewDelegate?
+    private var keysArray: [PianoKey?] = []
     private var currentTouches = NSMutableSet(capacity: Int(maxNumberOfKeys))
     private var _octave = 60
     private var _numberOfKeys = 24
@@ -58,7 +58,7 @@ import UIKit
             return _numberOfKeys
         }
         set {
-            _numberOfKeys = newValue.clamp(min: GLNPianoView.minNumberOfKeys, max: GLNPianoView.maxNumberOfKeys)
+            _numberOfKeys = newValue.clamp(min: PianoView.minNumberOfKeys, max: PianoView.maxNumberOfKeys)
             initKeys()
         }
     }
@@ -99,7 +99,7 @@ import UIKit
     private func initKeys() {
         whiteKeyCount = 0
         currentTouches = NSMutableSet()
-        keysArray = [GLNPianoKey?](repeating: nil, count: Int(_numberOfKeys + 1))
+        keysArray = [PianoKey?](repeating: nil, count: Int(_numberOfKeys + 1))
         for index in 1 ..< _numberOfKeys + 1 {
             if index.isWhiteKey() {
                 whiteKeyCount += 1
@@ -128,7 +128,7 @@ import UIKit
                 let newW = ((xPosition + whiteKeyWidth + 0.5) - newX)
                 let keyRect = CGRect(x: newX, y: 0, width: newW, height: whiteKeyHeight - 1)
                 let noteNumber = index + octave
-                let key = GLNPianoKey(color: UIColor.white, rect: keyRect, type: .white, cornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber: noteNumber, label: labels[noteNumber])
+                let key = PianoKey(color: UIColor.white, rect: keyRect, type: .white, cornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber: noteNumber, label: labels[noteNumber])
                 keysArray[index] = key
                 layer.addSublayer(key.imageLayer)
                 xPosition += whiteKeyWidth
@@ -142,7 +142,7 @@ import UIKit
             } else {
                 let keyRect = CGRect(x: (xPosition - blackKeyOffset), y: 0, width: blackKeyWidth, height: blackKeyHeight)
                 let noteNumber = index + octave
-                let key = GLNPianoKey(color: UIColor.black, rect: keyRect, type: .black, cornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber: noteNumber, label: labels[noteNumber], blackKeyWidth: blackKeyWidth, blackKeyHeight: blackKeyHeight)
+                let key = PianoKey(color: UIColor.black, rect: keyRect, type: .black, cornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber: noteNumber, label: labels[noteNumber], blackKeyWidth: blackKeyWidth, blackKeyHeight: blackKeyHeight)
                 keysArray[index] = key
                 layer.addSublayer(key.imageLayer)
             }
@@ -203,7 +203,7 @@ import UIKit
     public func highlightKeys(noteNames: [String], color: UIColor, play: Bool = false) {
         reset(didPlay: play)
         for note in noteNames {
-            let noteNumber = GLNNote.midiNumber(for: note)
+            let noteNumber = Note.midiNumber(for: note)
             highlight(noteNumber: noteNumber, color: color, play: play)
         }
     }
@@ -217,7 +217,7 @@ import UIKit
 
     public func highlightKey(noteName: String, color: UIColor, play: Bool = false) {
         reset(didPlay: play)
-        let noteNumber = GLNNote.midiNumber(for: noteName)
+        let noteNumber = Note.midiNumber(for: noteName)
         highlight(noteNumber: noteNumber, color: color, play: play)
     }
 

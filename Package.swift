@@ -2,19 +2,19 @@
 import PackageDescription
 
 let package = Package(
-    name: "GLNPianoView",
+    name: "PianoView",
     platforms: [
         .iOS("9.0")
     ],
     products: [
         .library(
-            name: "GLNPianoView",
-            targets: ["GLNPianoView"]
+            name: "PianoView",
+            targets: ["PianoView"]
         )
     ],
     targets: [
         .target(
-            name: "GLNPianoView",
+            name: "PianoView",
             path: "Source"
         )
     ]

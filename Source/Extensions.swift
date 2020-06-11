@@ -1,6 +1,6 @@
 //
-//  GLNExtensions.swift
-//  GLNPianoView
+//  Extensions.swift
+//  PianoView
 //
 //  Created by Gary Newby on 23/09/2017.
 //  Copyright © 2017 Gary Newby. All rights reserved.

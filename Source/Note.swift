@@ -1,5 +1,5 @@
 //
-//  GLNNotes.swift
+//  Notes.swift
 //  Example
 //
 //  Created by Gary Newby on 04/11/2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct GLNNote {
+public struct Note {
     static let sharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     static let flats  = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
 

@@ -1,6 +1,6 @@
 //
-//  GLNPianoKey.swift
-//  GLNPianoView
+//  PianoKey.swift
+//  PianoView
 //
 //  Created by Gary Newby on 23/09/2017.
 //  Copyright © 2017 Gary Newby. All rights reserved.
@@ -8,23 +8,23 @@
 
 import UIKit
 
-public enum GLNPianoKeyType {
+public enum PianoKeyType {
     case white
     case black
 }
 
-public final class GLNPianoKey {
+public final class PianoKey {
     private let upImage: UIImage
     private let downImage: UIImage
-    public let type: GLNPianoKeyType
+    public let type: PianoKeyType
     public let imageLayer = CALayer()
     public let highlightLayer = CALayer()
     public let noteNumber: Int
     public var isDown = false
-    public var noteLayer: GLNNoteNameLayer?
+    public var noteLayer: NoteNameLayer?
     public var resetsHighLight: Bool = true
 
-    init(color: UIColor, rect: CGRect, type: GLNPianoKeyType, cornerRadius: CGFloat, showNotes: Bool, noteNumber: Int, label: String?, blackKeyWidth: CGFloat = 0, blackKeyHeight: CGFloat = 0) {
+    init(color: UIColor, rect: CGRect, type: PianoKeyType, cornerRadius: CGFloat, showNotes: Bool, noteNumber: Int, label: String?, blackKeyWidth: CGFloat = 0, blackKeyHeight: CGFloat = 0) {
         self.noteNumber = noteNumber
         self.type = type
         let x: CGFloat = 1.0
@@ -49,7 +49,7 @@ public final class GLNPianoKey {
                 imageLayer.contents = image
             }
             if let label = label, showNotes {
-                noteLayer = GLNNoteNameLayer(layerHeight: imageLayer.frame.size.height, keyRect: rect, noteNumber: noteNumber, label: label)
+                noteLayer = NoteNameLayer(layerHeight: imageLayer.frame.size.height, keyRect: rect, noteNumber: noteNumber, label: label)
                 if let noteLayer = noteLayer {
                     imageLayer.addSublayer(noteLayer)
                 }

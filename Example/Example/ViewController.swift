@@ -9,9 +9,9 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, GLNPianoViewDelegate {
+class ViewController: UIViewController, PianoViewDelegate {
     @IBOutlet private var fascia: UIView!
-    @IBOutlet private var keyboard: GLNPianoView!
+    @IBOutlet private var keyboard: PianoView!
     @IBOutlet private var keyNumberStepper: UIStepper!
     @IBOutlet private var keyNumberLabel: UILabel!
     @IBOutlet private var octaveStepper: UIStepper!
@@ -40,7 +40,7 @@ class ViewController: UIViewController, GLNPianoViewDelegate {
         keyboard.setLabel(for: 64, text: "Mi")
 
         for noteNumber in 65...72 {
-            keyboard.setLabel(for: noteNumber, text: GLNNote.name(for: noteNumber))
+            keyboard.setLabel(for: noteNumber, text: Note.name(for: noteNumber))
         }
 
         keyNumberStepper.value = Double(keyboard.numberOfKeys)
