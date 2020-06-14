@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc public protocol PianoViewDelegate: class {
+@objc public protocol PianoKeyboardDelegate: class {
     func pianoKeyUp(_ keyNumber: Int)
     func pianoKeyDown(_ keyNumber: Int)
 }
@@ -18,7 +18,7 @@ import UIKit
     static let minNumberOfKeys = 12
     static let maxNumberOfKeys = 61
     
-    @objc public weak var delegate: PianoViewDelegate?
+    @objc public weak var delegate: PianoKeyboardDelegate?
     private var keysArray: [PianoKey?] = []
     private var currentTouches = NSMutableSet(capacity: Int(maxNumberOfKeys))
     private var _octave = 60

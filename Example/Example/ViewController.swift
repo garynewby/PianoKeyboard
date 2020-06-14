@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, PianoViewDelegate {
+class ViewController: UIViewController, PianoKeyboardDelegate {
     @IBOutlet private var fascia: UIView!
     @IBOutlet private var keyboard: PianoKeyboard!
     @IBOutlet private var keyNumberStepper: UIStepper!
@@ -18,7 +18,6 @@ class ViewController: UIViewController, PianoViewDelegate {
     @IBOutlet private var octaveLabel: UILabel!
     @IBOutlet private var showNotesSwitch: UISwitch!
     @IBOutlet private var latchSwitch: UISwitch!
-
     private let audioEngine = AudioEngine()
     private var sequence: Sequence?
     private lazy var fasciaLayer: CAGradientLayer = {
@@ -76,6 +75,43 @@ class ViewController: UIViewController, PianoViewDelegate {
         //chordDemo()
     }
 
+    //MARK: - Settings
+
+    @IBAction func latchTapped(_ sender: Any) {
+        keyboard.toggleLatch()
+    }
+
+    @IBAction func showNotesTapped(_: Any) {
+        keyboard.toggleShowNotes()
+    }
+
+    @IBAction func keyNumberStepperTapped(_ sender: UIStepper) {
+        keyboard.numberOfKeys = Int(sender.value)
+        keyNumberLabel.text = String(keyNumberStepper.value)
+    }
+
+    @IBAction func octaveStepperTapped(_ sender: UIStepper) {
+        keyboard.octave = Int(sender.value)
+        octaveLabel.text = String(keyboard.octave)
+    }
+}
+
+//MARK: - PianoKeyboardDelegate
+
+extension ViewController {
+
+    func pianoKeyDown(_ keyNumber: Int) {
+        audioEngine.sampler.startNote(UInt8(keyboard.octave + keyNumber), withVelocity: 64, onChannel: 0)
+    }
+
+    func pianoKeyUp(_ keyNumber: Int) {
+        audioEngine.sampler.stopNote(UInt8(keyboard.octave + keyNumber), onChannel: 0)
+    }
+}
+
+//MARK: - Labels and Highlighting
+
+extension ViewController {
 
     private func chordDemo() {
         autoHighlight(score: [["C4", "E4", "G4", "B4"],
@@ -128,31 +164,4 @@ class ViewController: UIViewController, PianoViewDelegate {
             }
         }
     }
-
-    func pianoKeyDown(_ keyNumber: Int) {
-        audioEngine.sampler.startNote(UInt8(keyboard.octave + keyNumber), withVelocity: 64, onChannel: 0)
-    }
-
-    func pianoKeyUp(_ keyNumber: Int) {
-        audioEngine.sampler.stopNote(UInt8(keyboard.octave + keyNumber), onChannel: 0)
-    }
-
-    @IBAction func latchTapped(_ sender: Any) {
-        keyboard.toggleLatch()
-    }
-
-    @IBAction func showNotesTapped(_: Any) {
-        keyboard.toggleShowNotes()
-    }
-
-    @IBAction func keyNumberStepperTapped(_ sender: UIStepper) {
-        keyboard.numberOfKeys = Int(sender.value)
-        keyNumberLabel.text = String(keyNumberStepper.value)
-    }
-
-    @IBAction func octaveStepperTapped(_ sender: UIStepper) {
-        keyboard.octave = Int(sender.value)
-        octaveLabel.text = String(keyboard.octave)
-    }
 }
-
