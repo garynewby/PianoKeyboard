@@ -14,7 +14,5 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Start xcodebuild build
-      run: |
-        pod install --repo-update --clean-install
-        xcodebuild -configuration Release clean build -project Example/Example.xcodeproj -scheme Example -destination "platform=iOS Simulator,name=iPhone 11 Pro"
+      run: xcodebuild -configuration Release clean build test -project Example/Example.xcodeproj -scheme Example -destination "platform=iOS Simulator,name=iPhone 11 Pro"
         
