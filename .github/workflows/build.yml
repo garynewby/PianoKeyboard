@@ -14,5 +14,5 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Start xcodebuild build
-      run: xcodebuild -configuration Release clean build test -project Example/Example.xcodeproj -scheme Example -destination "platform=iOS Simulator,name=iPhone 11 Pro"
+      run: xcodebuild -configuration Debug clean build test -project Example/Example.xcodeproj -scheme Example -destination "platform=iOS Simulator,name=iPhone 11 Pro"
         
