@@ -1,0 +1,21 @@
+name: CI
+
+on:
+    push:
+        branches: [ master ]    
+    pull_request:
+        branches: [ master ]
+        
+jobs:
+    build-and-test:
+    
+        runs-on: macos-latest
+        
+        steps:
+        - uses: actions/checkout@v2
+        
+        - name: Select Xcode
+            run: sudo xcode-select -switch /Applications/XCode_11.4.1.app
+            
+        - name: Build and Test
+            run: xcodebild clean bild test -project Example/Example.xcodeproj -scheme Example
