@@ -1,5 +1,8 @@
 PianoKeyboard
 ============
+
+![CI](https://github.com/garynewby/PianoKeyboard/workflows/CI/badge.svg)
+
 An iOS piano keyboard view for iPhone or iPad, written in Swift 5. 
 Has an IBDesignable preview in interface builder with IBInspectable properties for:
 - Number of keys
