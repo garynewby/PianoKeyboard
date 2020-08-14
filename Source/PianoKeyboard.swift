@@ -120,6 +120,9 @@ import UIKit
         let blackKeyWidth = whiteKeyWidth * _blackKeyWidth
         let blackKeyOffset = blackKeyWidth / 2.0
 
+        accessibilityElements = []
+        isAccessibilityElement = false
+
         // White Keys
         var xPosition: CGFloat = 0
         for index in 0 ..< _numberOfKeys {
@@ -132,6 +135,13 @@ import UIKit
                 keysArray[index] = key
                 layer.addSublayer(key.imageLayer)
                 xPosition += whiteKeyWidth
+
+                if showNotes {
+                    let element = UIAccessibilityElement(accessibilityContainer: self)
+                    element.accessibilityIdentifier = labels[noteNumber]
+                    element.accessibilityFrame = convert(keyRect, to: nil)
+                    accessibilityElements?.append(element)
+                }
             }
         }
         // Black Keys
