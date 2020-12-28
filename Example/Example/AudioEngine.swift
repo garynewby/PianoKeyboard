@@ -10,7 +10,6 @@ import UIKit
 import AVFoundation
 
 class AudioEngine {
-    
     private let engine = AVAudioEngine()
     private(set) var sampler = AVAudioUnitSampler()
     private let reverb = AVAudioUnitReverb()
@@ -48,19 +47,17 @@ class AudioEngine {
         }
 
         let audioSession = AVAudioSession.sharedInstance()
-       
-        if #available(iOS 10.0, *) {
-            try! AVAudioSession.sharedInstance().setCategory(.playback, mode:  AVAudioSession.Mode.measurement)
-        } else {
-            // Workaround until https://forums.swift.org/t/using-methods-marked-unavailable-in-swift-4-2/14949 is fixed
-            AVAudioSession.sharedInstance().perform(NSSelectorFromString("setCategory:error:"), with: AVAudioSession.CategoryOptions.mixWithOthers)
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .measurement)
+        } catch {
+            print("Error: AudioSession couldn't set category")
         }
 
         do {
             try audioSession.setActive(true)
         } catch {
             print("Error: AudioSession couldn't set category active")
-            return
         }
     }
 }

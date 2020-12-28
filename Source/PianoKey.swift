@@ -21,6 +21,7 @@ public final class PianoKey {
     public let highlightLayer = CALayer()
     public let noteNumber: Int
     public var isDown = false
+    public var isLatched = false
     public var noteLayer: NoteNameLayer?
     public var resetsHighLight: Bool = true
 
@@ -48,12 +49,6 @@ public final class PianoKey {
             if let image = upImage.cgImage {
                 imageLayer.contents = image
             }
-            if let label = label, showNotes {
-                noteLayer = NoteNameLayer(layerHeight: imageLayer.frame.size.height, keyRect: rect, noteNumber: noteNumber, label: label)
-                if let noteLayer = noteLayer {
-                    imageLayer.addSublayer(noteLayer)
-                }
-            }
             highlightLayer.compositingFilter = "darkenBlendMode"
         } else {
             upImage = UIImage.keyImage(CGSize(width: blackKeyWidth, height: blackKeyHeight), blackKey: true, keyDown: false, keyCornerRadius: cornerRadius, noteNumber: noteNumber) ?? UIImage()
@@ -62,6 +57,13 @@ public final class PianoKey {
                 imageLayer.contents = image
             }
             highlightLayer.compositingFilter = "lightenBlendMode"
+        }
+
+        if let label = label, showNotes {
+            noteLayer = NoteNameLayer(layerHeight: imageLayer.frame.size.height, keyRect: rect, noteNumber: noteNumber, label: label)
+            if let noteLayer = noteLayer {
+                imageLayer.addSublayer(noteLayer)
+            }
         }
     }
 

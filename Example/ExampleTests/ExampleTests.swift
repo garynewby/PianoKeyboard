@@ -24,9 +24,9 @@ class ExampleTests: XCTestCase {
         XCTAssertEqual(Note.midiNumber(for: "C#-1"), 1)
         XCTAssertEqual(Note.midiNumber(for: "F#1"), 30)
         XCTAssertEqual(Note.midiNumber(for: "Gb1"), 30)
-        XCTAssertEqual(Note.midiNumber(for: "C4"),  60)
+        XCTAssertEqual(Note.midiNumber(for: "C4"), 60)
         XCTAssertEqual(Note.midiNumber(for: "Ab4"), 68)
-        XCTAssertEqual(Note.midiNumber(for: "B8"),  119)
+        XCTAssertEqual(Note.midiNumber(for: "B8"), 119)
     }
 
     func test_clampNumber() {

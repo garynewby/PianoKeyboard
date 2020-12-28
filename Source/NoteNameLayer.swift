@@ -15,15 +15,22 @@ public final class NoteNameLayer: CATextLayer {
         
         let width = keyRect.size.width / 2.0
         let height = width
+        var yOffset: CGFloat = 20
+
         contentsScale = UIScreen.main.scale
         string = label
         foregroundColor = UIColor.white.cgColor
-        backgroundColor = UIColor.noteColourFor(midiNumber: noteNumber, alpha: 0.75).cgColor
+
+        if noteNumber.isWhiteKey() {
+            backgroundColor = UIColor.noteColourFor(midiNumber: noteNumber, alpha: 0.75).cgColor
+            cornerRadius = (height * 0.5)
+            yOffset = 10
+        }
+
         font = UIFont.boldSystemFont(ofSize: 0.0)
         fontSize = (keyRect.size.width / 4.0)
         alignmentMode = .center
-        cornerRadius = (height * 0.5)
-        frame = CGRect(x: (keyRect.size.width * 0.25), y: (layerHeight - height - 10), width: width, height: height)
+        frame = CGRect(x: (keyRect.size.width * 0.25), y: (layerHeight - height - yOffset), width: width, height: height)
     }
 
     required init?(coder aDecoder: NSCoder) {

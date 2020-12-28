@@ -24,7 +24,7 @@ class ViewController: UIViewController, PianoKeyboardDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         demo = Demo(keyboard: keyboard)
         keyboard.delegate = self
 
@@ -64,10 +64,10 @@ class ViewController: UIViewController, PianoKeyboardDelegate {
         super.viewDidLayoutSubviews()
 
         demo?.notes()
-        //demo?.chords()
+        // demo?.chords()
     }
 
-    //MARK: - Settings
+    // MARK: - Settings
 
     @IBAction func latchTapped(_ sender: Any) {
         keyboard.toggleLatch()
@@ -88,7 +88,7 @@ class ViewController: UIViewController, PianoKeyboardDelegate {
     }
 }
 
-//MARK: - PianoKeyboardDelegate
+    // MARK: - PianoKeyboardDelegate
 
 extension ViewController {
     func pianoKeyDown(_ keyNumber: Int) {

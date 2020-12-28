@@ -1,12 +1,12 @@
 import Foundation
 
 class Sequence {
-    let functions : Array<() -> ()>
+    let functions: [() -> Void]
     let delay: Double
     var functionIndex = 0
     var run = true
 
-    init(delay: Double, functions: (() -> ())...) {
+    init(delay: Double, functions: (() -> Void)...) {
         self.functions = functions
         self.delay = delay
         loop()

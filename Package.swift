@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "PianoKeyboard",
     platforms: [
-        .iOS("9.0")
+        .iOS("10.0")
     ],
     products: [
         .library(

@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc public protocol PianoKeyboardDelegate: class {
+@objc public protocol PianoKeyboardDelegate: AnyObject {
     func pianoKeyUp(_ keyNumber: Int)
     func pianoKeyDown(_ keyNumber: Int)
 }
@@ -28,8 +28,8 @@ import UIKit
     private var whiteKeyCount = 0
     private var keyCornerRadius: CGFloat = 0
     private var labels: [String?] = Array.init(repeating: nil, count: 128)
-    private var latch: Bool = false
-    
+
+    @IBInspectable var latch: Bool = false
     @IBInspectable var showNotes: Bool = true
 
     @IBInspectable public var blackKeyHeight: CGFloat {
@@ -75,8 +75,8 @@ import UIKit
 
     @objc public func toggleLatch() {
         latch.toggle()
-        currentTouches.removeAllObjects()
-        updateKeys()
+        reset(didPlay: true)
+        initKeys()
     }
     
     @objc public func toggleShowNotes() {
@@ -84,14 +84,11 @@ import UIKit
         initKeys()
     }
     
-    @objc public func aKeyIsDown() -> Bool {
-        var downKeyCount = 0
-        for key in keysArray {
-            if let k = key, k.isDown {
-                downKeyCount += 1
-            }
+    public func keyIsDown(index: Int) -> Bool? {
+        guard index >= 0 && index < keysArray.count else {
+            return nil
         }
-        return (downKeyCount > 0)
+        return keysArray[index]?.isDown
     }
 
     // MARK: - InitKeys
@@ -178,12 +175,28 @@ import UIKit
         
         for index in 0 ..< _numberOfKeys {
             if keysArray[index]?.isDown != keyIsDownAt[index] {
-                if keyIsDownAt[index] {
-                    delegate?.pianoKeyDown(index)
-                    keysArray[index]?.setImage(keyNum: index, isDown: true)
+                if latch {
+                    let keyIsLatched = keysArray[index]?.isLatched ?? false
+
+                    if keyIsDownAt[index] && keyIsLatched {
+                        delegate?.pianoKeyUp(index)
+                        keysArray[index]?.setImage(keyNum: index, isDown: false)
+                        keysArray[index]?.isLatched = false
+                    }
+                    if keyIsDownAt[index] && !keyIsLatched {
+                        delegate?.pianoKeyDown(index)
+                        keysArray[index]?.setImage(keyNum: index, isDown: true)
+                        keysArray[index]?.isLatched = true
+                    }
+
                 } else {
-                    delegate?.pianoKeyUp(index)
-                    keysArray[index]?.setImage(keyNum: index, isDown: false)
+                    if keyIsDownAt[index] {
+                        delegate?.pianoKeyDown(index)
+                        keysArray[index]?.setImage(keyNum: index, isDown: true)
+                    } else {
+                        delegate?.pianoKeyUp(index)
+                        keysArray[index]?.setImage(keyNum: index, isDown: false)
+                    }
                 }
                 keysArray[index]?.isDown = keyIsDownAt[index]
             }
@@ -287,12 +300,10 @@ import UIKit
     }
     
     public override func touchesEnded(_ touches: Set<UITouch>, with _: UIEvent?) {
-        if !latch {
-            for touch in touches {
-                currentTouches.remove(touch)
-            }
-            updateKeys()
+        for touch in touches {
+            currentTouches.remove(touch)
         }
+        updateKeys()
     }
     
     public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
