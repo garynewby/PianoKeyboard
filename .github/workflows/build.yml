@@ -11,13 +11,14 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
+    - run: echo $PWD
     - uses: actions/checkout@master
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
     - uses: yanamura/ios-bump-version@v1
       with:
         version: 1.1.0
-        project-path: "./Example"
+        project-path: "Example"
     - name: Push bump-version
       run: |
         git add .
