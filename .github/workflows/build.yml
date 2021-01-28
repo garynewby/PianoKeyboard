@@ -1,4 +1,4 @@
-name: CI
+name: Build and test
 
 on:
   workflow_dispatch:
@@ -11,16 +11,6 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - run: echo "$PWD/Example"
     - uses: actions/checkout@master
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-    - uses: yanamura/ios-bump-version@v1
-      with:
-        version: 1.1.0
-        project-path: "${PWD}/Example"
-    - name: Push bump-version
-      run: |
-        git add .
-        git commit -m "bump version"
-        git push origin HEAD
+    - name: Start xcodebuild build
+      run: xcodebuild -configuration Debug clean build test -project Example/Example.xcodeproj -scheme Example -destination "platform=iOS Simulator,name=iPhone 11 Pro"
