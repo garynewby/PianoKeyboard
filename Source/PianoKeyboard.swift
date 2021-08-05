@@ -73,10 +73,15 @@ import UIKit
         }
     }
 
-    @objc public func toggleLatch() {
-        latch.toggle()
+    @objc public func setLatch(enabled: Bool) {
+        latch = enabled
         reset(didPlay: true)
         initKeys()
+    }
+
+    @objc public func toggleLatch() {
+        latch.toggle()
+        setLatch(enabled: latch)
     }
     
     @objc public func toggleShowNotes() {
