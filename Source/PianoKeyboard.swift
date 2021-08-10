@@ -107,7 +107,9 @@ import UIKit
                 whiteKeyCount += 1
             }
         }
+        #if !os(tvOS)
         isMultipleTouchEnabled = true
+        #endif
         layer.masksToBounds = true
         if let subLayers = layer.sublayers {
             for layer in subLayers {
