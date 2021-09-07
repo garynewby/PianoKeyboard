@@ -150,12 +150,22 @@ import UIKit
         }
         // Black Keys
         xPosition = 0.0
+        let leftEdgeBlackKeyIndices = [1, 6]
+        let rightEdgeBlackKeyIndices = [3, 10]
         for index in 0 ..< _numberOfKeys {
             if index.isWhiteKey() {
                 xPosition += whiteKeyWidth
             } else {
-                let keyRect = CGRect(x: (xPosition - blackKeyOffset), y: 0, width: blackKeyWidth, height: blackKeyHeight)
                 let noteNumber = index + octave
+                let indexInOctave = noteNumber % 12
+                let isLeftKey = leftEdgeBlackKeyIndices.contains(indexInOctave)
+                let isRightKey = rightEdgeBlackKeyIndices.contains(indexInOctave)
+                let keyShiftAdjust: CGFloat = 0.11
+                var adjustedOffset = blackKeyOffset
+                adjustedOffset += (isLeftKey ? blackKeyWidth * keyShiftAdjust : 0)
+                adjustedOffset -= (isRightKey ? blackKeyWidth * keyShiftAdjust : 0)
+                let keyRect = CGRect(x: (xPosition - adjustedOffset), y: 0, width: blackKeyWidth, height: blackKeyHeight)
+                print("offset for black key (\(isLeftKey) / \(isRightKey) at \(noteNumber) is \(adjustedOffset)")
                 let key = PianoKey(color: UIColor.black, rect: keyRect, type: .black, cornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber: noteNumber, label: labels[noteNumber], blackKeyWidth: blackKeyWidth, blackKeyHeight: blackKeyHeight)
                 keysArray[index] = key
                 layer.addSublayer(key.imageLayer)
