@@ -150,20 +150,28 @@ import UIKit
         }
         // Black Keys
         xPosition = 0.0
-        let leftEdgeBlackKeyIndices = [1, 6]
-        let rightEdgeBlackKeyIndices = [3, 10]
+        let cSharpIndex = 1
+        let fSharpIndex = 6
+        let dSharpIndex = 3
+        let aSharpIndex = 10
         for index in 0 ..< _numberOfKeys {
             if index.isWhiteKey() {
                 xPosition += whiteKeyWidth
             } else {
                 let noteNumber = index + octave
                 let indexInOctave = noteNumber % 12
-                let isLeftKey = leftEdgeBlackKeyIndices.contains(indexInOctave)
-                let isRightKey = rightEdgeBlackKeyIndices.contains(indexInOctave)
-                let keyShiftAdjust: CGFloat = 0.11
+                let keyShiftAdjust1: CGFloat = 0.10
+                let keyShiftAdjust2: CGFloat = 0.11
                 var adjustedOffset = blackKeyOffset
-                adjustedOffset += (isLeftKey ? blackKeyWidth * keyShiftAdjust : 0)
-                adjustedOffset -= (isRightKey ? blackKeyWidth * keyShiftAdjust : 0)
+                if indexInOctave == cSharpIndex {
+                    adjustedOffset += blackKeyWidth * keyShiftAdjust1
+                } else if indexInOctave == fSharpIndex {
+                    adjustedOffset += blackKeyWidth * keyShiftAdjust2
+                } else if indexInOctave == dSharpIndex {
+                    adjustedOffset -= blackKeyWidth * keyShiftAdjust1
+                } else if indexInOctave == aSharpIndex {
+                    adjustedOffset -= blackKeyWidth * keyShiftAdjust2
+                }
                 let keyRect = CGRect(x: (xPosition - adjustedOffset), y: 0, width: blackKeyWidth, height: blackKeyHeight)
                 let key = PianoKey(color: UIColor.black, rect: keyRect, type: .black, cornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber: noteNumber, label: labels[noteNumber], blackKeyWidth: blackKeyWidth, blackKeyHeight: blackKeyHeight)
                 keysArray[index] = key
