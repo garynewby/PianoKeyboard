@@ -165,7 +165,6 @@ import UIKit
                 adjustedOffset += (isLeftKey ? blackKeyWidth * keyShiftAdjust : 0)
                 adjustedOffset -= (isRightKey ? blackKeyWidth * keyShiftAdjust : 0)
                 let keyRect = CGRect(x: (xPosition - adjustedOffset), y: 0, width: blackKeyWidth, height: blackKeyHeight)
-                print("offset for black key (\(isLeftKey) / \(isRightKey) at \(noteNumber) is \(adjustedOffset)")
                 let key = PianoKey(color: UIColor.black, rect: keyRect, type: .black, cornerRadius: keyCornerRadius, showNotes: showNotes, noteNumber: noteNumber, label: labels[noteNumber], blackKeyWidth: blackKeyWidth, blackKeyHeight: blackKeyHeight)
                 keysArray[index] = key
                 layer.addSublayer(key.imageLayer)
