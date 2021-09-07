@@ -24,7 +24,7 @@ import UIKit
     private var _octave = 60
     private var _numberOfKeys = 24
     private var _blackKeyHeight: CGFloat = 0.60
-    private var _blackKeyWidth: CGFloat = 0.80
+    private var _blackKeyWidth: CGFloat = 0.60
     private var whiteKeyCount = 0
     private var keyCornerRadius: CGFloat = 0
     private var labels: [String?] = Array.init(repeating: nil, count: 128)
