@@ -30,7 +30,7 @@ import UIKit
     private var labels: [String?] = Array.init(repeating: nil, count: 128)
 
     @IBInspectable var latch: Bool = false
-    @IBInspectable var showNotes: Bool = true
+    @IBInspectable public var showNotes: Bool = true
 
     @IBInspectable public var blackKeyHeight: CGFloat {
         get {
