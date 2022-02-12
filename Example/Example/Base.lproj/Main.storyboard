@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,7 +31,7 @@
                                                         <subviews>
                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="12" minimumValue="12" maximumValue="61" translatesAutoresizingMaskIntoConstraints="NO" id="rho-Cu-33h">
                                                                 <rect key="frame" x="0.0" y="0.0" width="94" height="32"/>
-                                                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                 <connections>
                                                                     <action selector="keyNumberStepperTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="Nfx-wZ-qY6"/>
                                                                 </connections>
@@ -54,7 +55,7 @@
                                                         <subviews>
                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="60" maximumValue="96" stepValue="12" translatesAutoresizingMaskIntoConstraints="NO" id="zwD-Hl-KuX">
                                                                 <rect key="frame" x="0.0" y="0.0" width="94" height="32"/>
-                                                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                 <connections>
                                                                     <action selector="octaveStepperTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="zAB-i0-jIN"/>
                                                                 </connections>
@@ -106,7 +107,7 @@
                                                             </label>
                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="sHT-dQ-dzj">
                                                                 <rect key="frame" x="121.5" y="0.0" width="51" height="31"/>
-                                                                <color key="onTintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="onTintColor" systemColor="systemTealColor"/>
                                                                 <connections>
                                                                     <action selector="latchTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="qxu-Fi-P8o"/>
                                                                 </connections>
@@ -116,7 +117,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PianoKeyboard" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z03-bm-bGn">
                                                         <rect key="frame" x="0.0" y="94" width="170.5" height="32"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="27"/>
-                                                        <color key="textColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -149,6 +150,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="S7A-Ff-aGG"/>
                         <color key="backgroundColor" red="0.14377776015228427" green="0.14377776015228427" blue="0.14377776015228427" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="B94-ha-u7Q" firstAttribute="bottom" secondItem="S7A-Ff-aGG" secondAttribute="bottom" id="Xmy-ds-0py"/>
@@ -156,7 +158,6 @@
                             <constraint firstItem="B94-ha-u7Q" firstAttribute="top" secondItem="S7A-Ff-aGG" secondAttribute="top" id="dYV-7w-mAO"/>
                             <constraint firstItem="B94-ha-u7Q" firstAttribute="leading" secondItem="S7A-Ff-aGG" secondAttribute="leading" id="pg3-l6-ZNL"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="S7A-Ff-aGG"/>
                     </view>
                     <connections>
                         <outlet property="fascia" destination="1S7-pm-SIJ" id="KtK-kr-NZo"/>
@@ -174,4 +175,12 @@
             <point key="canvasLocation" x="516.79160419790105" y="498.39999999999998"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

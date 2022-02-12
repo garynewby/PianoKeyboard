@@ -3,7 +3,6 @@
 //  PianoView
 //
 //  Created by Gary Newby on 16/05/2016.
-//  Copyright © 2016 Gary Newby. All rights reserved.
 //
 
 import UIKit
@@ -15,13 +14,11 @@ import UIKit
 
 @IBDesignable public class PianoKeyboard: UIView {
 
-    static let minNumberOfKeys = 12
-    static let maxNumberOfKeys = 61
-    
-    @objc public weak var delegate: PianoKeyboardDelegate?
+    static var minNumberOfKeys: Int = 12
+    static var maxNumberOfKeys: Int = 61
+
     private var keysArray: [PianoKey?] = []
     private var currentTouches = NSMutableSet(capacity: Int(maxNumberOfKeys))
-    private var _octave = 60
     private var _numberOfKeys = 24
     private var _blackKeyHeight: CGFloat = 0.60
     private var _blackKeyWidth: CGFloat = 0.80
@@ -29,6 +26,7 @@ import UIKit
     private var keyCornerRadius: CGFloat = 0
     private var labels: [String?] = Array.init(repeating: nil, count: 128)
 
+    @objc public weak var delegate: PianoKeyboardDelegate?
     @IBInspectable var latch: Bool = false
     @IBInspectable var showNotes: Bool = true
 
@@ -58,17 +56,16 @@ import UIKit
             return _numberOfKeys
         }
         set {
-            _numberOfKeys = newValue.clamp(min: PianoKeyboard.minNumberOfKeys, max: PianoKeyboard.maxNumberOfKeys)
+            _numberOfKeys = newValue.clamp(
+                min: PianoKeyboard.minNumberOfKeys,
+                max: PianoKeyboard.maxNumberOfKeys
+            )
             initKeys()
         }
     }
 
-    public var octave: Int {
-        get {
-            return _octave
-        }
-        set {
-            _octave = newValue
+    public var octave: Int = 60 {
+        didSet {
             initKeys()
         }
     }

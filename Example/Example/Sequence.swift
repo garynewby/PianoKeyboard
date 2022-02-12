@@ -1,3 +1,10 @@
+//
+//  Demo.swift
+//  Example
+//
+//  Created by Gary Newby on 14/08/2020.
+//
+
 import Foundation
 
 class Sequence {

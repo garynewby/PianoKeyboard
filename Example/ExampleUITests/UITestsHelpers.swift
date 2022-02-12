@@ -11,9 +11,9 @@ import XCTest
 extension XCTestCase {
 
     func waitForElementToExist(_ element: XCUIElement) {
-      let exists = NSPredicate(format: "exists == true")
-      expectation(for: exists, evaluatedWith: element, handler: nil)
-      waitForExpectations(timeout: 10, handler: nil)
+        let exists = NSPredicate(format: "exists == true")
+        expectation(for: exists, evaluatedWith: element, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
     }
 
 }

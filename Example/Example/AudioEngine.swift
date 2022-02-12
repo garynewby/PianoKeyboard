@@ -2,8 +2,7 @@
 //  ViewController.swift
 //  Example
 //
-//  Created by gary on 17/05/2016.
-//  Copyright © 2016 Gary Newby. All rights reserved.
+//  Created by Gary Newby on 17/05/2016.
 //
 
 import UIKit
@@ -34,22 +33,10 @@ class AudioEngine {
         delay.feedback = 75.0
         delay.lowPassCutoff = 16000.0
 
-        if engine.isRunning {
-            print("Audio engine already running")
-            return
-        }
-        do {
-            try engine.start()
-            print("Audio engine started")
-        } catch {
-            print("Error: couldn't start audio engine")
-            return
-        }
-
         let audioSession = AVAudioSession.sharedInstance()
 
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .measurement)
+            try AVAudioSession.sharedInstance().setCategory(.playback)
         } catch {
             print("Error: AudioSession couldn't set category")
         }
@@ -58,6 +45,19 @@ class AudioEngine {
             try audioSession.setActive(true)
         } catch {
             print("Error: AudioSession couldn't set category active")
+        }
+
+        if engine.isRunning {
+            print("Audio engine already running")
+            return
+        }
+
+        do {
+            try engine.start()
+            print("Audio engine started")
+        } catch {
+            print("Error: couldn't start audio engine")
+            return
         }
     }
 }

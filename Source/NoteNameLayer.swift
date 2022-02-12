@@ -3,7 +3,6 @@
 //  Example
 //
 //  Created by Gary Newby on 6/11/19.
-//  Copyright © 2019 Gary Newby. All rights reserved.
 //
 
 import UIKit

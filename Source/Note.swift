@@ -1,9 +1,8 @@
 //
-//  Notes.swift
+//  Note.swift
 //  Example
 //
 //  Created by Gary Newby on 04/11/2019.
-//  Copyright © 2019 Gary Newby. All rights reserved.
 //
 
 import Foundation

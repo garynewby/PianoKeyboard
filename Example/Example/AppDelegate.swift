@@ -2,9 +2,8 @@
 //  AppDelegate.swift
 //  Example
 //
-//  Created by gary on 17/05/2016.
-//  Copyright © 2016 Gary Newby. All rights reserved.
-// swiftlint:disable line_length
+//  Created by Gary Newby on 17/05/2016.
+//
 
 import UIKit
 

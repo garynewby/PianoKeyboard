@@ -2,8 +2,7 @@
 //  ViewController.swift
 //  Example
 //
-//  Created by gary on 17/05/2016.
-//  Copyright © 2016 Gary Newby. All rights reserved.
+//  Created by Gary Newby on 17/05/2016.
 //
 
 import UIKit
@@ -63,8 +62,8 @@ class ViewController: UIViewController, PianoKeyboardDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        demo?.notes()
-        // demo?.chords()
+        // demo?.notes()
+        demo?.chords()
     }
 
     // MARK: - Settings
@@ -88,7 +87,7 @@ class ViewController: UIViewController, PianoKeyboardDelegate {
     }
 }
 
-    // MARK: - PianoKeyboardDelegate
+// MARK: - PianoKeyboardDelegate
 
 extension ViewController {
     func pianoKeyDown(_ keyNumber: Int) {
