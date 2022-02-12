@@ -46,7 +46,6 @@
 /* Begin PBXFileReference section */
 		4E356D132376F0A300928D66 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Note.swift; path = ../Source/Note.swift; sourceTree = "<group>"; };
 		4E55CBE124222CA50026CBF7 /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
-		4E55CBE4242233EC0026CBF7 /* PianoKeyboard.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = PianoKeyboard.podspec; path = ../../PianoKeyboard.podspec; sourceTree = "<group>"; };
 		4E9778D82399C0F7005454A9 /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9778DA2399C0F7005454A9 /* ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
 		4E9778DC2399C0F7005454A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -155,7 +154,6 @@
 		4EEE355A1CEBA0BE00EAD308 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4E55CBE4242233EC0026CBF7 /* PianoKeyboard.podspec */,
 				4EDC7C84249247330076ED29 /* Package.swift */,
 				4EEE35541CEBA0B500EAD308 /* Info.plist */,
 				4EEE354C1CEBA0B500EAD308 /* Main.storyboard */,
