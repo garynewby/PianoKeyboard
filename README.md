@@ -67,7 +67,6 @@ for noteNumber in 65...72 {
 ### Requirements
 
 - Swift 5
-- SwiftLint (for Example app) `brew install swiftlint`
 
 ## Author
 
