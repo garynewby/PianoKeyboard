@@ -7,10 +7,11 @@
 
 import UIKit
 import AVFoundation
+import PianoKeyboard
 
 class AudioEngine {
     private let engine = AVAudioEngine()
-    private(set) var sampler = AVAudioUnitSampler()
+    private let sampler = AVAudioUnitSampler()
     private let reverb = AVAudioUnitReverb()
     private let delay = AVAudioUnitDelay()
 
@@ -59,5 +60,15 @@ class AudioEngine {
             print("Error: couldn't start audio engine")
             return
         }
+    }
+}
+
+extension AudioEngine: PianoKeyboardDelegate {
+    func pianoKeyDown(_ keyNumber: Int) {
+        sampler.startNote(UInt8(keyNumber), withVelocity: 64, onChannel: 0)
+    }
+
+    func pianoKeyUp(_ keyNumber: Int) {
+        sampler.stopNote(UInt8(keyNumber), onChannel: 0)
     }
 }

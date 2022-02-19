@@ -1,8 +1,8 @@
 //
-//  Note.swift
-//  Example
+//  Notes.swift
+//  PianoKeyboard
 //
-//  Created by Gary Newby on 04/11/2019.
+//  Created by Gary Newby on 20/03/2023.
 //
 
 import Foundation

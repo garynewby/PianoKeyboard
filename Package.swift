@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "PianoKeyboard",
     platforms: [
-        .iOS("10.0")
+        .iOS("15.0")
     ],
     products: [
         .library(
@@ -15,7 +15,13 @@ let package = Package(
     targets: [
         .target(
             name: "PianoKeyboard",
+            dependencies: [],
             path: "Source"
-        )
+        ),
+        .testTarget(
+            name: "PianoKeyboardTests",
+            dependencies: [
+                "PianoKeyboard"
+            ])
     ]
 )
