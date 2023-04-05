@@ -1,5 +1,5 @@
 //
-//  KeyboardStyle.swift
+//  ModernStyle.swift
 //  PianoKeyboard
 //
 //  Created by Gary Newby on 25/03/2023.

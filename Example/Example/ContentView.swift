@@ -50,7 +50,6 @@ struct ContentView: View {
                 .padding(30)
             }
 
-            //PianoKeyboardView(viewModel: pianoKeyboardViewModel)
             PianoKeyboardView(viewModel: pianoKeyboardViewModel, style: styles[styleIndex])
                 .frame(height: 230)
 
