@@ -19,18 +19,13 @@ Easily customisable styles, configurable
 
 ## Installation
 
-```
-
 ### Swift Package Manager
 
-```
 https://github.com/garynewby/PianoKeyboard.git
-```
 
 ## Demo
 
-The Example app demonstrates how to integrate and use PianoKeyboard in your project. It includes a simple AVAudioEngine/AVAudioUnitSampler based sound source.
-
+The Example app demonstrates integrating PianoKeyboard in a SwiftUI project and creating a custom style, and includes a simple AVAudioEngine based sound source.
 
 ### Delegate Methods
 
@@ -46,7 +41,7 @@ func pianoKeyUp(_ keyNumber: Int) {
 
 ### Requirements
 
-- Swift 5
+- Swift 5, SwiftUI
 
 ## Author
 
