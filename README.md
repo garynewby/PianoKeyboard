@@ -22,7 +22,7 @@ Easily customisable styles, configurable
 ```
 
 ### Swift Package Manager
-With Xcode 11+ you can add PianoKeyboard to your project using the Swift Package Manager. From the File menu select Swift Packages and then select Add Package Dependency. A dialogue then will request the package repository URL, enter:
+
 ```
 https://github.com/garynewby/PianoKeyboard.git
 ```
