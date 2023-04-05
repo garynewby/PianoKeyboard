@@ -41,7 +41,7 @@ func pianoKeyUp(_ keyNumber: Int) {
 
 ### Requirements
 
-- Swift 5
+- Swift 5, SwiftUI
 
 ## Author
 
