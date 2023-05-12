@@ -9,15 +9,19 @@ import SwiftUI
 import PianoKeyboard
 
 struct ContentView: View {
-    @ObservedObject private var pianoKeyboardViewModel = PianoKeyboardViewModel()
+    @ObservedObject private var pianoKeyboardViewModel: PianoKeyboardViewModel
     @State var styleIndex: Int = 0
 
     private let audioEngine = AudioEngine()
-    private let styles: [AnyKeyboardStyle] = [
+    private let styles = [
         AnyKeyboardStyle(style: ClassicStyle(sfKeyWidthMultiplier: 0.55)),
         AnyKeyboardStyle(style: ModernStyle()),
         AnyKeyboardStyle(style: MyStyle()),
     ]
+
+    init(pianoKeyboardViewModel: PianoKeyboardViewModel = PianoKeyboardViewModel()) {
+        self.pianoKeyboardViewModel = pianoKeyboardViewModel
+    }
 
     var body: some View {
         VStack(alignment: .trailing, spacing: 0) {
@@ -56,11 +60,9 @@ struct ContentView: View {
         }
         .ignoresSafeArea()
         .onAppear() {
-            pianoKeyboardViewModel.delegate = audioEngine
             audioEngine.start()
         }
     }
-
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -68,6 +70,7 @@ struct ContentView_Previews: PreviewProvider {
         NavigationStack {
             ContentView()
         }
+        .previewInterfaceOrientation(.landscapeLeft)
     }
 }
 

@@ -14,7 +14,7 @@ public struct PianoKeyboardView<T: KeyboardStyle>: View {
 
     public init(
         viewModel: PianoKeyboardViewModel = PianoKeyboardViewModel(),
-        style: T = ClassicStyle()
+        style: T
     ) {
         self.viewModel = viewModel
         self.style = style

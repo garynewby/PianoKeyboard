@@ -19,8 +19,8 @@ public struct ClassicStyle: KeyboardStyle {
     public init(
         sfKeyWidthMultiplier: CGFloat = 0.65,
         sfKeyHeightMultiplier: CGFloat = 0.60,
-        sfKeyInsetMultiplier: CGFloat = 0.01,
-        cornerRadiusMultiplier: CGFloat = 0.005,
+        sfKeyInsetMultiplier: CGFloat = 0.15,
+        cornerRadiusMultiplier: CGFloat = 0.008,
         naturalKeySpace: CGFloat = 3,
         labelColor: Color = .black
     ) {
@@ -114,7 +114,7 @@ public struct ClassicStyle: KeyboardStyle {
 
                 context.fill(path, with: .color(Color(red: 0.1, green: 0.1, blue: 0.1)))
 
-                let inset = width * sfKeyInsetMultiplier
+                let inset = sfKeyWidth * sfKeyInsetMultiplier
                 let insetRect = rect
                     .insetBy(dx: inset, dy: inset)
                     .offsetBy(dx: 0, dy: key.touchDown ? -(inset) : -(inset * 1.5))

@@ -11,7 +11,6 @@ import XCTest
 
 class PianoKeyboardViewModelTests: XCTestCase {
 
-
     func test_numberOfKeys() {
         let sut = PianoKeyboardViewModel()
         sut.numberOfKeys = 25
