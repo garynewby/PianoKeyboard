@@ -8,17 +8,17 @@
 import SwiftUI
 import PianoKeyboard
 
-public struct MyStyle: KeyboardStyle {
+public struct CustomStyle: KeyboardStyle {
     public let naturalKeySpace: CGFloat = 2
 
     public init() {}
 
     public func naturalColor(_ down: Bool) -> Color {
-        down ? Color(red: 0.6, green: 0.6, blue: 0.6) : Color(red: 0.9, green: 0.9, blue: 0.9)
+        down ? Color(red: 0.6, green: 0.6, blue: 0.6) : Color(red: 0.4, green: 0.4, blue: 0.9)
     }
 
     public func sharpFlatColor(_ down: Bool) -> Color {
-        down ? Color(red: 0.4, green: 0.4, blue: 0.4) : Color(red: 0.2, green: 0.2, blue: 0.2)
+        down ? Color(red: 0.4, green: 0.4, blue: 0.4) : Color(red: 0.8, green: 0.2, blue: 0.2)
     }
 
     public func labelColor(_ noteNumber: Int) -> Color {
@@ -54,7 +54,7 @@ public struct MyStyle: KeyboardStyle {
 
                 context.draw(
                     Text(key.name)
-                        .font(.caption)
+                        .font(.subheadline.bold())
                         .foregroundColor(.white),
                     at: CGPoint(x: rect.origin.x + rect.width / 2.0, y: rect.midY)
                 )
@@ -63,6 +63,6 @@ public struct MyStyle: KeyboardStyle {
                 viewModel.keyRects[index] = rect.offsetBy(dx: xg, dy: yg)
             }
         }
-        .background(.white.opacity(0.7))
+        .background(.black)
     }
 }

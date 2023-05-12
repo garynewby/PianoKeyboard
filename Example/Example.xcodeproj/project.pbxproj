@@ -13,7 +13,7 @@
 		4ED2C03829DDDA6F00B9459C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ED2C03729DDDA6F00B9459C /* Preview Assets.xcassets */; };
 		4ED2C04329DDDC9D00B9459C /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED2C04229DDDC9D00B9459C /* AudioEngine.swift */; };
 		4ED2C04829DDDDC400B9459C /* PianoKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED2C04729DDDDC400B9459C /* PianoKeyboard */; };
-		4ED2C04A29DDEF2D00B9459C /* MyStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED2C04929DDEF2D00B9459C /* MyStyle.swift */; };
+		4ED2C04A29DDEF2D00B9459C /* CustomStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED2C04929DDEF2D00B9459C /* CustomStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,7 +24,7 @@
 		4ED2C03729DDDA6F00B9459C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4ED2C04229DDDC9D00B9459C /* AudioEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 		4ED2C04529DDDD4400B9459C /* PianoKeyboard */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PianoKeyboard; path = ..; sourceTree = "<group>"; };
-		4ED2C04929DDEF2D00B9459C /* MyStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStyle.swift; sourceTree = "<group>"; };
+		4ED2C04929DDEF2D00B9459C /* CustomStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +63,7 @@
 				4ED2C03029DDDA6E00B9459C /* ExampleApp.swift */,
 				4ED2C03229DDDA6E00B9459C /* ContentView.swift */,
 				4ED2C04229DDDC9D00B9459C /* AudioEngine.swift */,
-				4ED2C04929DDEF2D00B9459C /* MyStyle.swift */,
+				4ED2C04929DDEF2D00B9459C /* CustomStyle.swift */,
 				4ED2C03429DDDA6F00B9459C /* Assets.xcassets */,
 				4ED2C03629DDDA6F00B9459C /* Preview Content */,
 			);
@@ -167,7 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ED2C04329DDDC9D00B9459C /* AudioEngine.swift in Sources */,
-				4ED2C04A29DDEF2D00B9459C /* MyStyle.swift in Sources */,
+				4ED2C04A29DDEF2D00B9459C /* CustomStyle.swift in Sources */,
 				4ED2C03329DDDA6E00B9459C /* ContentView.swift in Sources */,
 				4ED2C03129DDDA6E00B9459C /* ExampleApp.swift in Sources */,
 			);
