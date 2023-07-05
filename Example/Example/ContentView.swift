@@ -67,6 +67,7 @@ struct ContentView: View {
         }
         .ignoresSafeArea()
         .onAppear() {
+            pianoKeyboardViewModel.delegate = audioEngine
             audioEngine.start()
         }
     }
