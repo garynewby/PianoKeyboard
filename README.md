@@ -14,8 +14,9 @@ Easily customisable styles, configurable
 
 ## Example app
 
-![alt tag](https://github.com/garynewby/PianoKeyboard/raw/master/screen.png)
-
+<img src="https://github.com/garynewby/PianoKeyboard/raw/master/screen.png" width="800">
+<img src="https://github.com/garynewby/PianoKeyboard/raw/master/screen2.png" width="800">
+<img src="https://github.com/garynewby/PianoKeyboard/raw/master/screen3.png" width="800">
 
 ## Installation
 
