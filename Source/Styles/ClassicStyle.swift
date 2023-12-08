@@ -83,10 +83,12 @@ public struct ClassicStyle: KeyboardStyle {
                     endPoint: CGPoint(x: rect.width / 2.0, y: rect.height)
                 ))
 
-                context.draw(
-                    Text(key.name).font(.caption).foregroundColor(labelColor),
-                    at: CGPoint(x: rect.origin.x + rect.width / 2.0, y: rect.origin.y + rect.height * 0.88)
-                )
+                if viewModel.showLabels {
+                    context.draw(
+                        Text(key.name).font(.caption).foregroundColor(labelColor),
+                        at: CGPoint(x: rect.origin.x + rect.width / 2.0, y: rect.origin.y + rect.height * 0.88)
+                    )
+                }
 
                 xpos += naturalXIncr
 

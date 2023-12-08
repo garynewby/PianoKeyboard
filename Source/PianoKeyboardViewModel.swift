@@ -15,7 +15,7 @@ public protocol PianoKeyboardDelegate: AnyObject {
 public class PianoKeyboardViewModel: ObservableObject, PianoKeyViewModelDelegateProtocol {
     @Published public var keys: [PianoKeyViewModel] = []
     @Published public var noteOffset = 60
-    @Published public var showLabels = true
+    @Published public var showLabels = false
     @Published public var latch = false {
         didSet { reset() }
     }

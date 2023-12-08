@@ -52,12 +52,14 @@ public struct CustomStyle: KeyboardStyle {
                 let backColor = key.isNatural ? naturalColor(key.touchDown) : sharpFlatColor(key.touchDown)
                 context.fill(path, with: .color(backColor))
 
-                context.draw(
-                    Text(key.name)
-                        .font(.subheadline.bold())
-                        .foregroundColor(.white),
-                    at: CGPoint(x: rect.origin.x + rect.width / 2.0, y: rect.midY)
-                )
+                if viewModel.showLabels {
+                    context.draw(
+                        Text(key.name)
+                            .font(.subheadline.bold())
+                            .foregroundColor(.white),
+                        at: CGPoint(x: rect.origin.x + rect.width / 2.0, y: rect.midY)
+                    )
+                }
 
                 xpos += naturalXIncr
                 viewModel.keyRects[index] = rect.offsetBy(dx: xg, dy: yg)

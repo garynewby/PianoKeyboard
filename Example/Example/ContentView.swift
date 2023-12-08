@@ -9,9 +9,22 @@ import SwiftUI
 import PianoKeyboard
 
 struct ContentView: View {
-    @ObservedObject private var pianoKeyboardViewModel = PianoKeyboardViewModel()
-    @State var styleIndex: Int = 0
-    private let audioEngine = AudioEngine()
+    @ObservedObject private var pianoKeyboardViewModel: PianoKeyboardViewModel
+    @State var styleIndex: Int
+
+    private let audioEngine: AudioEngine
+
+    init(
+        pianoKeyboardViewModel: PianoKeyboardViewModel = PianoKeyboardViewModel(), 
+        audioEngine: AudioEngine = AudioEngine(),
+        styleIndex: Int = 0
+    ) {
+        self.pianoKeyboardViewModel = pianoKeyboardViewModel
+        self.styleIndex = styleIndex
+        self.audioEngine = audioEngine
+
+        pianoKeyboardViewModel.showLabels = true
+    }
 
     var body: some View {
         VStack(alignment: .trailing, spacing: 0) {
@@ -67,6 +80,7 @@ struct ContentView: View {
         }
         .ignoresSafeArea()
         .onAppear() {
+            pianoKeyboardViewModel.delegate = audioEngine
             audioEngine.start()
         }
     }
