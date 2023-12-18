@@ -84,8 +84,9 @@ public struct ClassicStyle: KeyboardStyle {
                 ))
 
                 if viewModel.showLabels {
+                    let color = key.name.prefix(1) == "C" ? labelColor : .clear
                     context.draw(
-                        Text(key.name).font(.caption).foregroundColor(labelColor),
+                        Text(key.name).font(.headline).bold().foregroundColor(color),
                         at: CGPoint(x: rect.origin.x + rect.width / 2.0, y: rect.origin.y + rect.height * 0.88)
                     )
                 }
