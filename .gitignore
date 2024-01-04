@@ -14,4 +14,4 @@ xcuserdata
 DerivedData
 *.xcuserstate
 Example/Pods
-
+.DS_Store
