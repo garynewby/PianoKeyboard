@@ -12,6 +12,7 @@ public struct ClassicStyle: KeyboardStyle {
     let sfKeyHeightMultiplier: CGFloat
     let sfKeyInsetMultiplier: CGFloat
     let cornerRadiusMultiplier: CGFloat
+    let labelFont: Font
     let labelColor: Color
 
     public let naturalKeySpace: CGFloat
@@ -22,13 +23,15 @@ public struct ClassicStyle: KeyboardStyle {
         sfKeyInsetMultiplier: CGFloat = 0.15,
         cornerRadiusMultiplier: CGFloat = 0.008,
         naturalKeySpace: CGFloat = 3,
-        labelColor: Color = .black
+        labelFont: Font = .title3.bold(),
+        labelColor: Color = .gray
     ) {
         self.sfKeyWidthMultiplier = sfKeyWidthMultiplier
         self.sfKeyHeightMultiplier = sfKeyHeightMultiplier
         self.sfKeyInsetMultiplier = sfKeyInsetMultiplier
         self.cornerRadiusMultiplier = cornerRadiusMultiplier
         self.naturalKeySpace = naturalKeySpace
+        self.labelFont = labelFont
         self.labelColor = labelColor
     }
 
@@ -86,7 +89,7 @@ public struct ClassicStyle: KeyboardStyle {
                 if viewModel.showLabels {
                     let color = key.name.prefix(1) == "C" ? labelColor : .clear
                     context.draw(
-                        Text(key.name).font(.headline).bold().foregroundColor(color),
+                        Text(key.name).font(labelFont).foregroundColor(color),
                         at: CGPoint(x: rect.origin.x + rect.width / 2.0, y: rect.origin.y + rect.height * 0.88)
                     )
                 }
