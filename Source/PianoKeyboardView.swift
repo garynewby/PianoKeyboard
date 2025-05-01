@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UIKit
 
 public struct PianoKeyboardView<T: KeyboardStyle>: View {
     @ObservedObject private var viewModel: PianoKeyboardViewModel
@@ -31,18 +30,13 @@ public struct PianoKeyboardView<T: KeyboardStyle>: View {
     }
 }
 
-struct Previews_PianoKeyboardView_Previews: PreviewProvider {
-    static let pianoKeyboardViewModel = PianoKeyboardViewModel()
-    static let classicStyle = ClassicStyle()
-    static let modernStyle = ModernStyle()
-
-    static var previews: some View {
-        VStack {
-            PianoKeyboardView(viewModel: pianoKeyboardViewModel, style: ClassicStyle())
-            PianoKeyboardView(viewModel: pianoKeyboardViewModel, style: ModernStyle())
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(.black)
+#Preview {
+    let pianoKeyboardViewModel = PianoKeyboardViewModel()
+    VStack {
+        PianoKeyboardView(viewModel: pianoKeyboardViewModel, style: ClassicStyle())
+        PianoKeyboardView(viewModel: pianoKeyboardViewModel, style: ModernStyle())
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+    .background(.black)
 }
 

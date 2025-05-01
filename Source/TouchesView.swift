@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UIKit
 
 struct TouchesView: UIViewRepresentable {
     var viewModel: PianoKeyboardViewModel
