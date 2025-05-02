@@ -31,10 +31,9 @@ public struct PianoKeyboardView<T: KeyboardStyle>: View {
 }
 
 #Preview {
-    let pianoKeyboardViewModel = PianoKeyboardViewModel()
     VStack {
-        PianoKeyboardView(viewModel: pianoKeyboardViewModel, style: ClassicStyle())
-        PianoKeyboardView(viewModel: pianoKeyboardViewModel, style: ModernStyle())
+        PianoKeyboardView(style: ClassicStyle())
+        PianoKeyboardView(style: ModernStyle())
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     .background(.black)
