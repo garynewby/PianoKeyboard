@@ -12,48 +12,20 @@ import XCTest
 class PianoKeyViewModelTests: XCTestCase {
 
     func test_isNatural() {
-        var sut = PianoKeyViewModel(
-            keyIndex: 33,
-            delegate: MockPianoKeyViewModelDelegate(noteOffset: 10)
-        )
+        var sut = PianoKeyViewModel(keyIndex: 33, noteOffset: 10)
         XCTAssertTrue(sut.isNatural)
 
-        sut = PianoKeyViewModel(
-            keyIndex: 89,
-            delegate: MockPianoKeyViewModelDelegate(noteOffset: 5)
-        )
+        sut = PianoKeyViewModel(keyIndex: 89, noteOffset: 5)
         XCTAssertFalse(sut.isNatural)
     }
 
     func test_noteNumber() {
-        let sut = PianoKeyViewModel(
-            keyIndex: 33,
-            delegate: MockPianoKeyViewModelDelegate(noteOffset: 10)
-        )
+        let sut = PianoKeyViewModel(keyIndex: 33, noteOffset: 10)
         XCTAssertEqual(sut.noteNumber, 43)
     }
 
     func test_name() {
-        let sut = PianoKeyViewModel(
-            keyIndex: 60,
-            delegate: MockPianoKeyViewModelDelegate(noteOffset: 12)
-        )
+        let sut = PianoKeyViewModel(keyIndex: 60, noteOffset: 12)
         XCTAssertEqual(sut.name, "C5")
-    }
-
-    func test_id() {
-        let sut = PianoKeyViewModel(
-            keyIndex: 33,
-            delegate: MockPianoKeyViewModelDelegate(noteOffset: 10)
-        )
-        XCTAssertEqual(sut.id, 43)
-    }
-}
-
-class MockPianoKeyViewModelDelegate: PianoKeyViewModelDelegateProtocol {
-    var noteOffset: Int
-    
-    init(noteOffset: Int) {
-        self.noteOffset = noteOffset
     }
 }

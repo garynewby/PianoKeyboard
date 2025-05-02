@@ -8,9 +8,12 @@
 import SwiftUI
 
 public struct ModernStyle: KeyboardStyle {
+    public let showLabels: Bool
     public let naturalKeySpace: CGFloat = 2
 
-    public init() {}
+    public init(showLabels: Bool = false) {
+        self.showLabels = showLabels
+    }
 
     public func naturalColor(_ down: Bool) -> Color {
         down ? Color(red: 0.6, green: 0.6, blue: 0.6) : Color(red: 0.9, green: 0.9, blue: 0.9)
@@ -53,7 +56,7 @@ public struct ModernStyle: KeyboardStyle {
                 let backColor = key.isNatural ? naturalColor(key.touchDown) : sharpFlatColor(key.touchDown)
                 context.fill(path, with: .color(backColor))
 
-                if viewModel.showLabels {
+                if showLabels {
                     context.draw(
                         Text(key.name)
                             .font(.caption)

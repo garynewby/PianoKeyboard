@@ -11,6 +11,7 @@ public protocol KeyboardStyle {
     associatedtype Layout: View
 
     var naturalKeySpace: CGFloat { get }
+    var showLabels: Bool { get }
     func naturalColor(_ down: Bool) -> Color
     func sharpFlatColor(_ down: Bool) -> Color
     func labelColor(_ noteNumber: Int) -> Color

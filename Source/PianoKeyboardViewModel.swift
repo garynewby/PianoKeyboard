@@ -12,10 +12,10 @@ public protocol PianoKeyboardDelegate: AnyObject {
     func pianoKeyDown(_ keyNumber: Int)
 }
 
-public class PianoKeyboardViewModel: ObservableObject, PianoKeyViewModelDelegateProtocol {
+public class PianoKeyboardViewModel: ObservableObject {
+    private let noteOffset: Int
+    
     @Published public var keys: [PianoKeyViewModel] = []
-    @Published public var noteOffset = 60
-    @Published public var showLabels = false
     @Published public var latch = false {
         didSet { reset() }
     }
@@ -33,7 +33,8 @@ public class PianoKeyboardViewModel: ObservableObject, PianoKeyViewModelDelegate
         didSet { updateKeys() }
     }
 
-    public init() {
+    public init(noteOffset: Int = 60) {
+        self.noteOffset = noteOffset
         configureKeys()
     }
 
@@ -42,11 +43,11 @@ public class PianoKeyboardViewModel: ObservableObject, PianoKeyViewModelDelegate
     }
 
     private func configureKeys() {
-        keys = Array(repeating: PianoKeyViewModel(keyIndex: 0, delegate: self), count: numberOfKeys)
+        keys = Array(repeating: PianoKeyViewModel(keyIndex: 0, noteOffset: noteOffset), count: numberOfKeys)
         keyRects = Array(repeating: .zero, count: numberOfKeys)
 
         for i in 0..<numberOfKeys {
-            keys[i] = PianoKeyViewModel(keyIndex: i, delegate: self)
+            keys[i] = PianoKeyViewModel(keyIndex: i, noteOffset: noteOffset)
         }
     }
 

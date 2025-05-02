@@ -7,22 +7,14 @@
 
 import Foundation
 
-public protocol PianoKeyViewModelDelegateProtocol {
-    var noteOffset: Int { get }
-}
-
 public struct PianoKeyViewModel {
     let keyIndex: Int
-    let delegate: PianoKeyViewModelDelegateProtocol
+    let noteOffset: Int
     public var touchDown = false
     public var latched = false
 
-    public var id: Int {
-        noteNumber
-    }
-
     public var noteNumber: Int {
-        keyIndex + delegate.noteOffset
+        keyIndex + noteOffset
     }
 
     public var name: String {
