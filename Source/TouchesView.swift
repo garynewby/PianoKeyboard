@@ -7,23 +7,45 @@
 
 import SwiftUI
 
-struct TouchesView: UIViewRepresentable {
+#if !os(macOS)
+public typealias PlatformView = UIView
+public typealias PlatformViewRepresentable = UIViewRepresentable
+#else
+public typealias PlatformView = NSView
+public typealias PlatformViewRepresentable = NSViewRepresentable
+#endif
+
+struct TouchesView: PlatformViewRepresentable {
     var viewModel: PianoKeyboardViewModel
 
-    func makeUIView(context: Context) -> TouchesUIView {
-        let touchesUIView = TouchesUIView()
+    #if !os(macOS)
+
+    func makeUIView(context: Context) -> PlatformView {
+        let touchesUIView = TouchesPlatformView()
         touchesUIView.isMultipleTouchEnabled = true
         touchesUIView.delegate = context.coordinator
         return touchesUIView
     }
 
-    func updateUIView(_ uiView: TouchesUIView, context: Context) {}
+    func updateUIView(_ uiView: PlatformView, context: Context) {}
+
+    #else
+
+    func makeNSView(context: Context) -> PlatformView {
+        let touchesNSView = TouchesPlatformView()
+        touchesNSView.delegate = context.coordinator
+        return touchesNSView
+    }
+
+    func updateNSView(_ uiView: PlatformView, context: Context) {}
+
+    #endif
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 
-    class Coordinator: NSObject, TouchesUIViewDelegate {
+    class Coordinator: NSObject, TouchesPlatformViewDelegate {
         var parent: TouchesView
         var touches: [CGPoint] = [] {
             didSet {
@@ -37,15 +59,18 @@ struct TouchesView: UIViewRepresentable {
     }
 }
 
-protocol TouchesUIViewDelegate: AnyObject {
+protocol TouchesPlatformViewDelegate: AnyObject {
     var touches: [CGPoint] { get set }
 }
 
-class TouchesUIView: UIView {
+class TouchesPlatformView: PlatformView {
     static var minNumberOfKeys: Int = 12
     static var maxNumberOfKeys: Int = 61
 
-    weak var delegate: TouchesUIViewDelegate?
+    weak var delegate: TouchesPlatformViewDelegate?
+
+    #if !os(macOS)
+
     var currentTouches = NSMutableSet(capacity: Int(maxNumberOfKeys))
 
     func updateKeys() {
@@ -82,4 +107,19 @@ class TouchesUIView: UIView {
         }
         updateKeys()
     }
+
+    #else
+
+    public override func mouseDown(with event: NSEvent) {
+        let windowMaxY = event.window?.frame.height ?? 0
+        let click      = event.locationInWindow
+
+        delegate?.touches = [CGPoint(x: click.x, y: windowMaxY-click.y)]
+    }
+
+    public override func mouseUp(with event: NSEvent) {
+        delegate?.touches = []
+    }
+
+    #endif
 }
