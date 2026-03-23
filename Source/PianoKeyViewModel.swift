@@ -10,6 +10,7 @@ import Foundation
 public struct PianoKeyViewModel {
     let keyIndex: Int
     let noteOffset: Int
+    
     public var touchDown = false
     public var latched = false
 

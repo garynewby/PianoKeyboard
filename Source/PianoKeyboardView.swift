@@ -8,7 +8,7 @@
 import SwiftUI
 
 public struct PianoKeyboardView<T: KeyboardStyle>: View {
-    @ObservedObject private var viewModel: PianoKeyboardViewModel
+    private var viewModel: PianoKeyboardViewModel
     var style: T
 
     public init(

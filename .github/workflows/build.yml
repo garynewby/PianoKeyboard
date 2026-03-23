@@ -8,9 +8,15 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  build-ios:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@master
     - name: Start xcodebuild build
       run: xcodebuild -configuration Debug clean build test -project Example/Example.xcodeproj -scheme Example -destination "platform=iOS Simulator,name=iPhone 16"
+  build-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Start xcodebuild macOS build
+      run: xcodebuild -configuration Debug clean build -project Example/Example.xcodeproj -scheme Example -destination "platform=macOS"

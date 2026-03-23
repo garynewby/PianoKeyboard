@@ -3,7 +3,7 @@ PianoKeyboard
 
 [![Build and test](https://github.com/garynewby/PianoKeyboard/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/garynewby/PianoKeyboard/actions/workflows/build.yml)
 
-A SwiftUI piano keyboard view for iPhone and iPad. 
+A SwiftUI piano keyboard view for iPhone, iPad, and macOS.
 
 Easily customisable styles, configurable
 - Number of keys
@@ -43,6 +43,13 @@ func pianoKeyUp(_ keyNumber: Int) {
 ### Requirements
 
 - Swift 5, SwiftUI
+- iOS 15.0+
+- macOS 12.0+
+
+### Platform notes
+
+- iOS and iPadOS use native multi-touch input.
+- macOS uses native AppKit pointer/trackpad input.
 
 ## Author
 

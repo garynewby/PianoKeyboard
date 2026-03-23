@@ -33,19 +33,15 @@ class AudioEngine {
         delay.feedback = 75.0
         delay.lowPassCutoff = 16000.0
 
+#if os(iOS)
         let audioSession = AVAudioSession.sharedInstance()
-
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback)
-        } catch {
-            print("Error: AudioSession couldn't set category")
-        }
-
-        do {
+            try audioSession.setCategory(.playback)
             try audioSession.setActive(true)
         } catch {
-            print("Error: AudioSession couldn't set category active")
+            print("Error: AudioSession configuration failed")
         }
+#endif
 
         if engine.isRunning {
             print("Audio engine already running")
