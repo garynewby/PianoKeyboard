@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Start xcodebuild build
-      run: xcodebuild -configuration Debug clean build test -project Example/Example.xcodeproj -scheme Example -destination "platform=iOS Simulator,name=iPhone 16"
+      run: xcodebuild -configuration Debug clean build test -project Example/Example.xcodeproj -scheme Example -destination "platform=iOS Simulator,name=iPhone 17"
   build-macos:
     runs-on: macos-latest
     steps:
