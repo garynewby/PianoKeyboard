@@ -3,14 +3,13 @@ PianoKeyboard
 
 [![Build and test](https://github.com/garynewby/PianoKeyboard/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/garynewby/PianoKeyboard/actions/workflows/build.yml)
 
-A SwiftUI piano keyboard view for iPhone, iPad, and macOS.
+SwiftUI piano keyboard view for iPhone, iPad, and macOS.
 
 Easily customisable styles, configurable
 - Number of keys
 - Note names
 - Key metrics
-- Latch, toggle key on/off
-- See 'uikit' branch for older UIKit version 
+- Latch, toggle key on/off 
 
 ## Example app
 
