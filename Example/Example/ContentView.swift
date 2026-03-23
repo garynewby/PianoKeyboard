@@ -12,17 +12,16 @@ struct ContentView: View {
 
     @Bindable private var viewModel: PianoKeyboardViewModel
     @State private var styleIndex: Int
-
     private let audioEngine: AudioEngine
 
     init(
-        pianoKeyboardViewModel: PianoKeyboardViewModel = PianoKeyboardViewModel(), 
-        audioEngine: AudioEngine = AudioEngine(),
-        styleIndex: Int = 0
+        viewModel: PianoKeyboardViewModel,
+        audioEngine: AudioEngine,
+        styleIndex: Int
     ) {
-        self.viewModel = pianoKeyboardViewModel
-        self.styleIndex = styleIndex
+        self.viewModel = viewModel
         self.audioEngine = audioEngine
+        self.styleIndex = styleIndex
     }
 
     var body: some View {
@@ -39,36 +38,41 @@ struct ContentView: View {
                         )
                         .shadow(radius: 8)
 
-                    VStack(alignment: .trailing) {
+                    VStack {
                         HStack(spacing: 30) {
                             Stepper("Keys") {
                                 viewModel.numberOfKeys += 1
                             } onDecrement: {
                                 viewModel.numberOfKeys -= 1
                             }
+                            .frame(width: 150)
 
                             Stepper("Style", value: $styleIndex, in: 0...2)
+                                .frame(width: 150)
 
                             Toggle("Latch", isOn: $viewModel.latch)
                                 .toggleStyle(.switch)
                                 .tint(.blue)
-
-                            HStack {
-                                Text("Notes:")
-                                Text("\(viewModel.keysPressed.joined(separator: ", "))")
-                            }
-
+                                .frame(width: 120)
                             Spacer()
                         }
                         .foregroundStyle(.white)
                         .padding(20)
 
-                        Spacer()
-
-                        Text("PianoKeyboard")
-                            .font(.title.bold())
-                            .foregroundColor(.white)
+                        HStack {
+                            HStack {
+                                Text("Notes:")
+                                Text("\(viewModel.keysPressed.joined(separator: ", "))")
+                            }
                             .padding(20)
+
+                            Spacer()
+
+                            Text("PianoKeyboard")
+                                .font(.title.bold())
+                                .foregroundColor(.white)
+                                .padding(20)
+                        }
                     }
                 }
                 .frame(height: geometry.size.height * 0.45)
@@ -94,5 +98,8 @@ struct ContentView: View {
 }
 
 #Preview(traits: .landscapeRight) {
-    ContentView()
+    @Previewable @State var viewModel = PianoKeyboardViewModel()
+    @Previewable @State var audioEngine = AudioEngine()
+
+    ContentView(viewModel: viewModel, audioEngine: audioEngine, styleIndex: 0)
 }

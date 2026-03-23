@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import PianoKeyboard
 
 @main
 struct ExampleApp: App {
+    let viewModel: PianoKeyboardViewModel = .init()
+    let audioEngine: AudioEngine = .init()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: viewModel, audioEngine: audioEngine, styleIndex: 0)
         }
     }
 }

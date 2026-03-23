@@ -55,26 +55,19 @@ public struct ClassicStyle: KeyboardStyle {
     }
 
     public func layout(viewModel: PianoKeyboardViewModel, geometry: GeometryProxy) -> some View {
-        Canvas { context, size in
+        let width = geometry.size.width
+        let height = geometry.size.height
+        applyKeyRects(viewModel: viewModel, width: width, height: height)
+
+        return Canvas { context, size in
             let width = size.width
             let height = size.height
-            let xg = geometry.frame(in: .global).origin.x
-            let yg = geometry.frame(in: .global).origin.y
-
-            // Natural keys
             let cornerRadius = width * cornerRadiusMultiplier
-            let naturalWidth = naturalKeyWidth(width, naturalKeyCount: viewModel.naturalKeyCount, space: naturalKeySpace)
-            let naturalXIncr = naturalWidth + naturalKeySpace
-            var xpos: CGFloat = 0.0
 
             for (index, key) in viewModel.keys.enumerated() {
                 guard key.isNatural else { continue }
 
-                let rect = CGRect(
-                    origin: CGPoint(x: xpos, y: 0),
-                    size: CGSize(width: naturalWidth, height: height)
-                )
-
+                let rect = viewModel.keyRects[index]
                 let path = RoundedCornersShape(corners: [.bottomLeft, .bottomRight], radius: cornerRadius)
                     .path(in: rect)
 
@@ -85,8 +78,8 @@ public struct ClassicStyle: KeyboardStyle {
 
                 context.fill(path, with: .linearGradient(
                     gradient,
-                    startPoint: CGPoint(x: rect.width / 2.0, y: 0),
-                    endPoint: CGPoint(x: rect.width / 2.0, y: rect.height)
+                    startPoint: CGPoint(x: rect.midX, y: rect.minY),
+                    endPoint: CGPoint(x: rect.midX, y: rect.maxY)
                 ))
 
                 if showLabels {
@@ -96,28 +89,15 @@ public struct ClassicStyle: KeyboardStyle {
                         at: CGPoint(x: rect.origin.x + rect.width / 2.0, y: rect.origin.y + rect.height * 0.88)
                     )
                 }
-
-                xpos += naturalXIncr
-
-                viewModel.keyRects[index] = rect.offsetBy(dx: xg, dy: yg)
             }
 
-            // Sharps/Flat keys
+            let naturalWidth = naturalKeyWidth(width, naturalKeyCount: viewModel.naturalKeyCount, space: naturalKeySpace)
             let sfKeyWidth = naturalWidth * sfKeyWidthMultiplier
-            let sfKeyHeight = height * sfKeyHeightMultiplier
-            xpos = 0.0
 
             for (index, key) in viewModel.keys.enumerated() {
-                if key.isNatural {
-                    xpos += naturalXIncr
-                    continue
-                }
+                guard !key.isNatural else { continue }
 
-                let rect = CGRect(
-                    origin: CGPoint(x: xpos - (sfKeyWidth / 2.0), y: 0),
-                    size: CGSize(width: sfKeyWidth, height: sfKeyHeight)
-                )
-
+                let rect = viewModel.keyRects[index]
                 let path = RoundedCornersShape(corners: [.bottomLeft, .bottomRight], radius: cornerRadius)
                     .path(in: rect)
 
@@ -135,15 +115,51 @@ public struct ClassicStyle: KeyboardStyle {
                     Color(red: 0.3, green: 0.3, blue: 0.3),
                     sharpFlatColor(key.touchDown),
                 ])
-                
+
                 context.fill(pathInset, with: .linearGradient(
                     gradientInset,
-                    startPoint: CGPoint(x: rect.width / 2.0, y: 0),
-                    endPoint: CGPoint(x: rect.width / 2.0, y: rect.height)
+                    startPoint: CGPoint(x: insetRect.midX, y: insetRect.minY),
+                    endPoint: CGPoint(x: insetRect.midX, y: insetRect.maxY)
                 ))
-
-                viewModel.keyRects[index] = rect.offsetBy(dx: xg, dy: yg)
             }
         }
+    }
+
+    private func applyKeyRects(viewModel: PianoKeyboardViewModel, width: CGFloat, height: CGFloat) {
+        let count = viewModel.keys.count
+        guard width > 0, height > 0, count > 0, viewModel.keyRects.count == count else { return }
+
+        var rects = viewModel.keyRects
+        let naturalWidth = naturalKeyWidth(width, naturalKeyCount: viewModel.naturalKeyCount, space: naturalKeySpace)
+        let naturalXIncr = naturalWidth + naturalKeySpace
+        var xpos: CGFloat = 0.0
+
+        for (index, key) in viewModel.keys.enumerated() {
+            guard key.isNatural else { continue }
+
+            rects[index] = CGRect(
+                origin: CGPoint(x: xpos, y: 0),
+                size: CGSize(width: naturalWidth, height: height)
+            )
+            xpos += naturalXIncr
+        }
+
+        let sfKeyWidth = naturalWidth * sfKeyWidthMultiplier
+        let sfKeyHeight = height * sfKeyHeightMultiplier
+        xpos = 0.0
+
+        for (index, key) in viewModel.keys.enumerated() {
+            if key.isNatural {
+                xpos += naturalXIncr
+                continue
+            }
+
+            rects[index] = CGRect(
+                origin: CGPoint(x: xpos - (sfKeyWidth / 2.0), y: 0),
+                size: CGSize(width: sfKeyWidth, height: sfKeyHeight)
+            )
+        }
+
+        viewModel.keyRects = rects
     }
 }

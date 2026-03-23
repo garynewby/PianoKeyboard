@@ -32,24 +32,17 @@ public struct ModernStyle: KeyboardStyle {
     }
 
     public func layout(viewModel: PianoKeyboardViewModel, geometry: GeometryProxy) -> some View {
-        Canvas { context, size in
+        let width = geometry.size.width
+        let height = geometry.size.height
+        applyKeyRects(viewModel: viewModel, width: width, height: height)
+
+        return Canvas { context, size in
             let width = size.width
             let height = size.height
-            let xg = geometry.frame(in: .global).origin.x
-            let yg = geometry.frame(in: .global).origin.y
-
-            // Natural + sharp/flat keys
             let cornerRadius = width * 0.007
-            let naturalWidth = naturalKeyWidth(width, naturalKeyCount: viewModel.naturalKeyCount, space: naturalKeySpace)
-            let naturalXIncr = naturalWidth + naturalKeySpace
-            var xpos: CGFloat = 0.0
 
             for (index, key) in viewModel.keys.enumerated() {
-                let rect = CGRect(
-                    origin: CGPoint(x: xpos, y: 0),
-                    size: CGSize(width: naturalWidth, height: height)
-                )
-
+                let rect = viewModel.keyRects[index]
                 let path = RoundedCornersShape(corners: [.bottomLeft, .bottomRight], radius: cornerRadius)
                     .path(in: rect)
 
@@ -64,10 +57,27 @@ public struct ModernStyle: KeyboardStyle {
                         at: CGPoint(x: rect.origin.x + rect.width / 2.0, y: rect.origin.y + rect.height - 25)
                     )
                 }
-
-                xpos += naturalXIncr
-                viewModel.keyRects[index] = rect.offsetBy(dx: xg, dy: yg)
             }
         }
+    }
+
+    private func applyKeyRects(viewModel: PianoKeyboardViewModel, width: CGFloat, height: CGFloat) {
+        let count = viewModel.keys.count
+        guard width > 0, height > 0, count > 0, viewModel.keyRects.count == count else { return }
+
+        var rects = viewModel.keyRects
+        let naturalWidth = naturalKeyWidth(width, naturalKeyCount: viewModel.naturalKeyCount, space: naturalKeySpace)
+        let naturalXIncr = naturalWidth + naturalKeySpace
+        var xpos: CGFloat = 0.0
+
+        for (index, _) in viewModel.keys.enumerated() {
+            rects[index] = CGRect(
+                origin: CGPoint(x: xpos, y: 0),
+                size: CGSize(width: naturalWidth, height: height)
+            )
+            xpos += naturalXIncr
+        }
+
+        viewModel.keyRects = rects
     }
 }

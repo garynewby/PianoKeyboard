@@ -16,12 +16,20 @@ struct TouchesView: UIViewRepresentable {
     func makeUIView(context: Context) -> TouchesUIView {
         let view = TouchesUIView()
         view.isMultipleTouchEnabled = true
+        view.isUserInteractionEnabled = true
+        view.backgroundColor = .clear
+        view.isOpaque = false
         view.delegate = context.coordinator
         return view
     }
 
     func updateUIView(_ uiView: TouchesUIView, context: Context) {
         context.coordinator.parent = self
+    }
+
+    static func sizeThatFits(_ proposal: ProposedViewSize, uiView: TouchesUIView, context: Context) -> CGSize? {
+        guard let width = proposal.width, let height = proposal.height else { return nil }
+        return CGSize(width: width, height: height)
     }
 
     func makeCoordinator() -> Coordinator {
@@ -46,8 +54,22 @@ final class TouchesUIView: UIView {
     weak var delegate: TouchesViewDelegate?
     private var currentTouches = Set<UITouch>()
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .clear
+        isOpaque = false
+        isUserInteractionEnabled = true
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        backgroundColor = .clear
+        isOpaque = false
+        isUserInteractionEnabled = true
+    }
+
     private func updateKeys() {
-        let points = currentTouches.map { $0.location(in: nil) }
+        let points = currentTouches.map { $0.location(in: self) }
         delegate?.touches = points
     }
 
@@ -79,7 +101,7 @@ struct TouchesView: View {
         Color.clear
             .contentShape(Rectangle())
             .gesture(
-                DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                DragGesture(minimumDistance: 0, coordinateSpace: .local)
                     .onChanged { value in
                         viewModel.touches = [value.location]
                     }
